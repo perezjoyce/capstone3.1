@@ -13,20 +13,77 @@
 	font-size: inherit;
 }
 
-#login-modal {
+#login-modal,
+#register-modal {
   left: 0;
   right: 0;
   background-color: #fafafa;
   padding: 20px;
-  max-height: 100%;
   will-change: top, opacity;
 }
 
+#login-modal {
+	max-height: 100%;
+}
+/*
+#register-modal {
+	 max-height: 100%;
+}*/
 
-/*============================ DESKTOP ==========================*/
+.input-field > label {
+	color: gray;
+}
+
+#register
+#navlinks {
+	min-width: fit-content;
+}
+
+.sidenav{
+    /*top: 65px;*/
+    width: 150px;
+}
+
+/*main, footer {
+  padding-left: 300px;
+}*/
+
+.no-margin-bottom {
+	margin-bottom:0!important;
+}
+
+.helper-text {
+	color:red!important;
+}
+
+.sidenav li {
+	line-height: inherit!important; 
+	/*padding-top: 1rem;*/
+	padding-bottom: 1.5rem;
+	margin:0!important;
+}
+
+.border {
+	border: 1px solid black;
+}
+
+.collapsible {
+	border:none!important;
+	box-shadow: none!important;
+}
+
+.collapsible-header {
+	border-bottom: none!important;
+}
+
+
+
+
+*//*============================ DESKTOP ==========================
 
 @media only screen and (min-width: 961px) {
-	#login-modal {
+	#login-modal,
+	#register-modal {
 		width: 35%;
 	}
 
@@ -37,8 +94,13 @@
 
 @media only screen and (min-width:426px) and (max-width:960px) { 
 
-	#login-modal {
+	#login-modal,
+	#register-modal {
 		width: 65%;
+	}
+
+	nav .brand-logo {
+		left: 0%;
 	}
 
 }
@@ -47,8 +109,15 @@
 
 @media only screen and (max-width:425px) { 
 
-	#login-modal {
+	#login-modal,
+	#register-modal {
 		width: 90%;
 	}
 
+	#navlinks {
+		min-width: fit-content;
+	}
+
 }
+
+

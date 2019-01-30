@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 
 class User extends Authenticatable
 {
@@ -16,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'username', 'email', 'role', 'admin', 'password',
+        'role', 'name', 'username', 'email', 'password',
     ];
 
     /**
@@ -25,18 +26,14 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'admin',
     ];
-}
 
-
-class User extends Model
-{
 
     //A user has many submitted questions?
     public function questions(){
         return $this->hasMany('\App\Question');
     }
-
-
 }
+
+
