@@ -17,7 +17,6 @@ class CreateChoicesTable extends Migration
             $table->increments('id');
             $table->string('choice');
             $table->boolean('is_correct')->default(0);
-            $table->text('explanation');
             $table->unsignedInteger('question_id');
             $table->timestamps();
 

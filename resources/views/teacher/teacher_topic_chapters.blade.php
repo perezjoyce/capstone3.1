@@ -36,10 +36,21 @@
             <div class="col s12">
 
                 <div class="col s12 hide-on-med-and-down">
-                    <h4 class='deep-purple-text text-darken-4 right custom-heading'>Chapter</h4>
+                    <h4 class='deep-purple-text text-darken-4 right custom-heading'>Lesson</h4>
                 </div>
 
                 <div class="row hide-on-large-only deep-purple darken-4">
+                    <div class="col s6">
+                        <h4 class='white-text custom-heading'>Lesson</h4>
+                    </div>
+                    <div class="col s6 right">
+                        <ul class="right hide-on-large-only">
+                            <a href="#" data-target="slide-out" class="sidenav-trigger orange-text"><i class="material-icons white-text"><h5>menu</h5></i></a>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="row">
                     <div class="col s12">
                         @if($errors->any())
                             <div class="alert alert-danger mb-5 rounded-0">
@@ -62,7 +73,7 @@
 
                                     <script>
 
-                                        var toastHTML = '<span>{!! Session::get('successmessage') !!}</span>';
+                                        var toastHTML = '<span>{{ Session::get('successmessage') }}</span>';
                                         M.toast({html: toastHTML, classes: 'rounded'});
 
                                     </script>
@@ -72,25 +83,12 @@
                             <div class="alert alert-danger mb-5 rounded-0">
                                 <ul class='list-unstyled'>
                                     <script>
-
-                                        var toastHTML = '<span>{!! Session::get('deletemessage') !!}</span>';
+                                        var toastHTML = '<span>{{ Session::get('deletemessage') }}</span>';
                                         M.toast({html: toastHTML, classes: 'rounded'});
                                     </script>
                                 </ul>
                             </div>
                         @endif
-                    </div>
-                </div>
-
-
-                <div class="row hide-on-large-only deep-purple darken-4">
-                    <div class="col s6">
-                        <h4 class='white-text custom-heading'>Chapter</h4>
-                    </div>
-                    <div class="col s6 right">
-                        <ul class="right hide-on-large-only">
-                            <a href="#" data-target="slide-out" class="sidenav-trigger orange-text"><i class="material-icons white-text"><h5>menu</h5></i></a>
-                        </ul>
                     </div>
                 </div>
 
@@ -168,7 +166,7 @@
                                     </div>
                                 </div>
                             </div>
-                            {{--edit--}}
+
                             <div class="col s12 card-action">
                                 <div class="row no-margin-bottom">
                                     <p class="grey-text col s6 m8">Last Update: {{$chapter->updated_at->format('m-d-Y') }}</p>
@@ -205,7 +203,7 @@
                                     </div>
                                 </div>
                             </div>
-                            {{--edit--}}
+
                             <div class="col s12 card-action">
                                 <div class="row no-margin-bottom">
                                     <p class="grey-text col s6 m8">Last Update: {{$chapter->updated_at->format('m-d-Y') }}</p>
@@ -224,7 +222,7 @@
                                     </div>
                                 </div>
                             </div>
-                            {{--edit--}}
+
                             <div class="col s12 card-action">
                                 <div class="row no-margin-bottom">
                                     <p class="grey-text col s6 m8">Last Update: {{$chapter->updated_at->format('m-d-Y') }}</p>
@@ -243,7 +241,7 @@
                                     </div>
                                 </div>
                             </div>
-                            {{--edit--}}
+
                             <div class="col s12 card-action">
                                 <div class="row no-margin-bottom">
                                     <p class="grey-text col s6 m8">Last Update: {{$chapter->updated_at->format('m-d-Y') }}</p>
@@ -262,7 +260,7 @@
                                     </div>
                                 </div>
                             </div>
-                            {{--edit--}}
+
                             <div class="col s12 card-action">
                                 <div class="row no-margin-bottom">
                                     <p class="grey-text col s6 m8">Last Update: {{$chapter->updated_at->format('m-d-Y') }}</p>
@@ -270,25 +268,101 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col s12 card" id="chapter-questions">
-                            <div class="row card-content fixed-height-20em">
-                                <div class="col s12">
-                                    <div class="row">
-                                        <h5 class="orange-text bold"><i class="material-icons small left">help</i>&nbsp;Questions</h5>
+                        <div class="col s12" id="chapter-questions">
+                            <div class="row">
+                                @if($questions)
+                                {{--@foreach()--}}
+                                <div class="col s12 card">
+
+                                    <div class="row card-content no-margin-bottom">
+                                        <div class="col s12">
+
+                                            <div class="row no-margin-bottom">
+                                                <div class="col m6 s12">
+                                                    <br>
+                                                    <div class="row">
+                                                        <button class="btn-small orange col l1 m2 s2">Q1</button>
+                                                        <p class="col l11 m10 s10">This is a sample question. What is your name? This is a sample question. What is your name? This is a sample question. What is your name? This is a sample question. What is your name? This is a sample question. What is your name?</p>
+                                                    </div>
+                                                    <br>
+                                                    <br class="hide-on-med-and-down">
+                                                    <div class="row no-margin-bottom">
+                                                        <h6 class="orange-text col s12 padding-0"><i class="material-icons smaller">memory</i>&nbsp;Choices</h6>
+                                                        <ul class="collection padding-0">
+                                                            <li class="collection-item orange lighten-4">
+                                                                <i class="material-icons small left bold orange-text">check</i>
+                                                                <p class="grey-text text-darken-1">This is the correct answer. This is the correct answer. This is the correct answer. This is the correct answer.This is</p>
+                                                            </li>
+                                                            <li class="collection-item">
+                                                                <i class="material-icons small left grey-text">clear</i>
+                                                                <p class="grey-text">This is incorrect</p>
+                                                            </li>
+                                                            <li class="collection-item">
+                                                                <i class="material-icons small left grey-text">clear</i>
+                                                                <p class="grey-text">This is incorrect</p>
+                                                            </li>
+                                                            <li class="collection-item">
+                                                                <i class="material-icons small left grey-text">clear</i>
+                                                                <p class="grey-text">This is incorrect</p>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+
+
+                                                </div>
+                                                <div class="col m4 s12 offset-m2 right padding-0;">
+                                                    <br>
+                                                    <div class="row">
+                                                        <h6 class="orange-text"><i class="material-icons smaller">live_help</i>&nbsp;Hint</h6>
+                                                        <p class="grey-text">This is a sample hint. This is a sample hint. This is a sample hint. This is a sample hint. This is a sample hint. This is a sample hint. </p>
+                                                    </div>
+                                                    <br>
+                                                    <br class="hide-on-med-and-down">
+                                                    <div class="row">
+                                                        <h6 class="orange-text"><i class="material-icons smaller">info</i>&nbsp;Explanation</h6>
+                                                        <p class="grey-text">This is a sample explanation. This is a sample explanation. This is a sample explanation. This is a sample explanation. This is a sample explanation. This is a sample explanation.</p>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="row">
-                                        <p>Test</p>
+
+                                    <div class="col s12 card-action">
+                                        <div class="row no-margin-bottom">
+                                            <p class="grey-text col s6 m8">Last Update: {{ $chapter->updated_at->format('m-d-Y') }}</p>
+                                            <a class="btn right orange edit-chapter-modal margin-top-18px-mobile" data-column="questions" data-id="{{ $chapter->id }}">Edit</a>
+                                        </div>
                                     </div>
+
                                 </div>
-                            </div>
-                            {{--edit--}}
-                            <div class="col s12 card-action">
-                                <div class="row no-margin-bottom">
-                                    <p class="grey-text col s6 m8">Last Update: {{ $chapter->updated_at->format('m-d-Y') }}</p>
-                                    <a class="btn right orange edit-chapter-modal margin-top-18px-mobile" data-column="questions" data-id="{{ $chapter->id }}">Edit</a>
+                                {{--@endforeach--}}
+                                @else
+                                <div class="col s12 card">
+
+                                    <div class="row card-content no-margin-bottom fixed-height-20em">
+                                        <div class="col s12">
+
+                                            <div class="row no-margin-bottom">
+                                                <div class="col s12 center">
+                                                    <br>
+                                                    <br>
+                                                    <br>
+                                                    <p>There are no questions for this lesson yet.</p>
+                                                    <br>
+                                                    <a class="btn orange edit-chapter-modal margin-top-18px-mobile" data-column="questions" data-id="{{ $chapter->id }}"><i class="material-icons left">add</i>Add A Question</a>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
                                 </div>
+                                @endif
+
                             </div>
                         </div>
+
                     </div>
                 </div>
 

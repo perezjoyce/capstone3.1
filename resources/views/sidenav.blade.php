@@ -5,7 +5,7 @@
 			<div class="icon-block row no-margin-bottom">
 				<div class="col s12">
 					<h3 id="logo-container" class="brand-logo center white-text">
-						Blendio
+						Blend.io
 					</h3>
 				</div>
 			</div>

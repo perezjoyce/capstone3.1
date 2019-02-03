@@ -6,7 +6,7 @@
 			<nav class="deep-purple darken-4" role="navigation">
 			    <div class="nav-wrapper container">
 			    	<a id="logo-container" href="{{ url('/') }}" class="brand-logo">
-			    		<h3>Blendio</h3>
+			    		<h3>Blend.io</h3>
 			    	</a>
 
 			    	@guest

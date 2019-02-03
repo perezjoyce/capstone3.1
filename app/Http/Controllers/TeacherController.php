@@ -11,6 +11,8 @@ use App\Module;
 use App\Topic;
 use App\Section;
 use App\User;
+use App\Question;
+use App\Choice;
 use Session;
 use Illuminate\Support\Facades\Input;
 
@@ -73,10 +75,12 @@ class TeacherController extends Controller
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
-            $topic->chapters()->save($chapter);
         }
+
+        $questions = Question::find($chapter->topic_id);
+
         $module = $topic->module;
-        return view('teacher.teacher_topic_chapters', compact('topic', 'module', 'chapter'));
+        return view('teacher.teacher_topic_chapters', compact('topic', 'module', 'chapter', 'questions'));
     }
 
 

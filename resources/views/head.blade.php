@@ -1,7 +1,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
-  <title>Blendio</title>
+  <title>Blend.io</title>
   {{--<!-- MATERIALIZE CSS  -->--}}
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Knewave|Lily+Script+One|Lobster+Two|Pacifico|Poiret+One|Quicksand|Sail" rel="stylesheet">

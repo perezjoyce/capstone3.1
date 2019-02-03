@@ -22,6 +22,11 @@ table table.inner tr:last-child {
 	font-size: inherit;
 }
 
+.padding-0{
+	padding:0!important;
+}
+
+
 #login-modal,
 #register-modal,
 #level-modal {
@@ -43,6 +48,10 @@ table table.inner tr:last-child {
 	/*font-family: 'Knewave', cursive;*/
 	/*font-family: 'Quicksand', sans-serif;*/
 	font-family: 'Pacifico', cursive;
+}
+
+.smaller {
+	font-size:1.1rem;
 }
 
 
