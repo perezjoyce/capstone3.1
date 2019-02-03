@@ -6,6 +6,7 @@
     // $('.modal').modal();
     // $('.dropdown-trigger').dropdown();
     // $('select').formSelect();
+    // $('.collapsible').collapsible();
     M.AutoInit();
 
   }); // end of document ready

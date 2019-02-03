@@ -17,7 +17,10 @@ class DatabaseSeeder extends Seeder
         // $this->call(SubjectsTableSeeder::class);
         // $this->call(PurposesTableSeeder::class);
         // $this->call(PresentationsTableSeeder::class);
-        $this->call(ModulesTableSeeder::class);
-        // $this->call(TopicsTableSeeder::class);
+        // $this->call(ModulesTableSeeder::class);
+        // $this->call(ChaptersTableSeeder::class); //NOT YET SEEDED
+        // $this->call(QuestionsTableSeeder::class); //NOT YET SEEDED
+        // $this->call(AnswersTableSeeder::class); //NOT YET SEEDED
+        $this->call(SectionsTableSeeder::class); 
     }
 }

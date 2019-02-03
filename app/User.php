@@ -29,11 +29,12 @@ class User extends Authenticatable
         'password', 'remember_token', 'admin',
     ];
 
-
     //A user has many submitted questions?
     public function questions(){
         return $this->hasMany('\App\Question');
     }
 }
+
+
 
 

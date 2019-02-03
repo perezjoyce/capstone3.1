@@ -6,6 +6,15 @@
  * Made By MaterializeCSS.com
  */
 
+.fixed-height-20em {
+	min-height:20em!important;
+	overflow: scroll!important;
+}
+
+table table.inner tr:last-child {
+	border-bottom: none;
+}
+
 .icon-block {
   padding: 0 15px;
 }
@@ -14,13 +23,28 @@
 }
 
 #login-modal,
-#register-modal {
+#register-modal,
+#level-modal {
   left: 0;
   right: 0;
   background-color: #fafafa;
   padding: 20px;
   will-change: top, opacity;
 }
+
+.bold {
+	font-weight:bold;
+}
+
+.brand-logo {
+	/*font-family: 'Lily Script One', cursive;*/
+	/*font-family: 'Lobster Two', cursive;*/
+	/*font-family: 'Poiret One', cursive;*/
+	/*font-family: 'Knewave', cursive;*/
+	/*font-family: 'Quicksand', sans-serif;*/
+	font-family: 'Pacifico', cursive;
+}
+
 
 #login-modal {
 	max-height: 100%;
@@ -41,16 +65,21 @@
 
 .sidenav{
     /*top: 65px;*/
-    width: 150px;
+    width: 200px;
 }
-
-/*main, footer {
-  padding-left: 300px;
-}*/
 
 .no-margin-bottom {
 	margin-bottom:0!important;
 }
+
+.no-margin-right {
+	margin-right:0!important;
+}
+
+.border-bottom-none {
+	border-bottom: none;
+}
+
 
 .helper-text {
 	color:red!important;
@@ -72,20 +101,69 @@
 	box-shadow: none!important;
 }
 
-.collapsible-header {
+/*.collapsible-header {
 	border-bottom: none!important;
+	padding-left:0!important;
+
+}*/
+
+[type="checkbox"].filled-in:checked + span:not(.lever):after {
+    top: 0;
+    width: 20px;
+    height: 20px;
+    border: 2px solid orange;
+    background-color: orange;
+    z-index: 0;
+    margin-top: 3px;
+ }
+
+[type="checkbox"].filled-in:not(:checked) + span:not(.lever):after {
+    height: 20px;
+    width: 20px;
+    background-color: transparent;
+    border: 2px solid orange;
+    top: 0px;
+    z-index: 0;
+    margin-top: 3px;
+}
+
+[type="checkbox"].filled-in:checked + span:not(.lever):before {
+	height:16px!important;
 }
 
 
+.brand-logo h3 {
+		font-size: 2.92rem;
+	    line-height: 110%;
+	    margin: 0.8rem 0 1.168rem 0;
+}
 
+.custom-heading {
+	font-family: 'Quicksand', sans-serif;
+	font-weight:700;
+}
 
-*//*============================ DESKTOP ==========================
+.list_alt_custom {
+	font-size: 1.8rem!important;
+}
+
+.sidenav li.active {
+    background-color: rgba(0, 0, 0, .2);
+}
+
+.vertical-align-initial {
+	vertical-align: initial!important;
+}
+
+/*============================ DESKTOP ==========================*/
 
 @media only screen and (min-width: 961px) {
 	#login-modal,
-	#register-modal {
+	#register-modal,
+	#level-modal {
 		width: 35%;
 	}
+
 
 }
 
@@ -95,12 +173,17 @@
 @media only screen and (min-width:426px) and (max-width:960px) { 
 
 	#login-modal,
-	#register-modal {
-		width: 65%;
+	#register-modal,
+	#level-modal {
+		width: 65%!important;
 	}
 
-	nav .brand-logo {
+	/*nav .brand-logo {
 		left: 0%;
+	}*/
+
+	.brand-logo h3 {
+
 	}
 
 }
@@ -110,12 +193,25 @@
 @media only screen and (max-width:425px) { 
 
 	#login-modal,
-	#register-modal {
+	#register-modal,
+	#level-modal {
 		width: 90%;
 	}
 
 	#navlinks {
-		min-width: fit-content;
+		min-width:fit-content;
+	}
+
+	.collapsible-body.custom-padding {
+	    display: none;
+	    border-bottom: 1px solid #ddd;
+	    -webkit-box-sizing: border-box;
+	    box-sizing: border-box;
+	    padding: .5rem;
+	}
+
+	.margin-top-18px-mobile {
+		margin-top: 18px!important;
 	}
 
 }

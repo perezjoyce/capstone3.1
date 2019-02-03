@@ -16,8 +16,7 @@ class CreateChaptersTable extends Migration
         Schema::create('chapters', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->mediumtext('objective');
-            $table->mediumtext('question');
+            $table->text('objective');
             $table->text('discussion');
             $table->text('example');
             $table->text('guided_practice');

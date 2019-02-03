@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Chapter extends Model
 {
+
+    protected $fillable = [
+        'name', 'objective', 'discussion', 'example', 'guided_practice', 'tip', 'key_point',
+    ];
+
     //A chapter belongs to a topic
     public function topic(){
     	return $this->belongsTo('\App\Topic');

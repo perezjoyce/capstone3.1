@@ -2,7 +2,6 @@
 @section('main')
 <main>
     @include('sidenav')
-    
         <div class="row no-margin-bottom">
             <div class="col s12">
                 

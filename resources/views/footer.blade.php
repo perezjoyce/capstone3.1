@@ -1,4 +1,4 @@
-  <footer class="page-footer orange">
+  <footer class="page-footer deep-purple darken-4">
     <div class="container">
       <div class="row">
         <div class="col l6 s12">
@@ -27,9 +27,11 @@
         </div>
       </div>
     </div>
-    <div class="footer-copyright">
+    <div class="footer-copyright deep-purple darken-3">
       <div class="container">
-      Made By A <a class="orange-text text-lighten-3" href="https://perezjoyce.github.io/portfolio/">Mom</a>
+      Made By <a class="orange-text text-lighten-3" href="https://perezjoyce.github.io/portfolio/">Joyce Perez</a>
       </div>
     </div>
   </footer>
+
+  
