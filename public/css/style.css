@@ -6,6 +6,30 @@
  * Made By MaterializeCSS.com
  */
 
+.tabs .tab a {
+	color: gray!important;
+}
+
+.tabs .tab a:hover {
+	color: white!important;
+	background:darkgray!important;
+}
+
+.tabs .indicator {
+	background-color: gray;
+}
+
+.tabs .tab a.active{
+	background-color: gray!important;
+	color: white!important;
+}
+
+
+.btn {
+	background-color: gainsboro;
+	color:white;
+}
+
 .fixed-height-20em {
 	min-height:20em!important;
 	overflow: scroll!important;
@@ -25,6 +49,8 @@ table table.inner tr:last-child {
 .padding-0{
 	padding:0!important;
 }
+
+
 
 
 #login-modal,
@@ -84,6 +110,7 @@ table table.inner tr:last-child {
 .no-margin-right {
 	margin-right:0!important;
 }
+
 
 .border-bottom-none {
 	border-bottom: none;
@@ -169,8 +196,17 @@ table table.inner tr:last-child {
 @media only screen and (min-width: 961px) {
 	#login-modal,
 	#register-modal,
-	#level-modal {
+	#level-modal,
+	#delete-modal {
 		width: 35%;
+	}
+
+	.margin-right-10px-large-medium {
+		margin-right:10px!important;
+	}
+
+	.margin-left-10px-large-medium {
+		margin-left:10px!important;
 	}
 
 
@@ -183,7 +219,8 @@ table table.inner tr:last-child {
 
 	#login-modal,
 	#register-modal,
-	#level-modal {
+	#level-modal
+	#delete-modal {
 		width: 65%!important;
 	}
 
@@ -195,6 +232,14 @@ table table.inner tr:last-child {
 
 	}
 
+	.margin-right-10px-large-medium {
+		margin-right:10px!important;
+	}
+
+	.margin-left-10px-large-medium {
+		margin-left:10px!important;
+	}
+
 }
 
 /*==============================MOBILE==============================*/
@@ -203,7 +248,8 @@ table table.inner tr:last-child {
 
 	#login-modal,
 	#register-modal,
-	#level-modal {
+	#level-modal,
+	#delete-modal {
 		width: 90%;
 	}
 

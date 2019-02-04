@@ -23,6 +23,48 @@
                     </div>
                 </div>
 
+                <div class="row">
+                    <div class="col s12">
+                        @if($errors->any())
+                            <div class="alert alert-danger mb-5 rounded-0">
+                                <ul class='list-unstyled'>
+                                    @foreach ($errors->all() as $error)
+                                        <script>
+
+                                            var toastHTML = '<span>{{ $error }}</span>';
+                                            M.toast({html: toastHTML, classes: 'rounded'});
+
+                                        </script>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+
+                        @if(Session::has("successmessage"))
+                            <div class="alert alert-danger mb-5 rounded-0">
+                                <ul class='list-unstyled'>
+
+                                    <script>
+
+                                        var toastHTML = '<span>{{ Session::get('successmessage') }}</span>';
+                                        M.toast({html: toastHTML, classes: 'rounded'});
+
+                                    </script>
+                                </ul>
+                            </div>
+                        @elseif(Session::has("deletemessage"))
+                            <div class="alert alert-danger mb-5 rounded-0">
+                                <ul class='list-unstyled'>
+                                    <script>
+                                        var toastHTML = '<span>{{ Session::get('deletemessage') }}</span>';
+                                        M.toast({html: toastHTML, classes: 'rounded'});
+                                    </script>
+                                </ul>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+
                  <div class="row">
                     <div class="col s12 m5">    
                         <div class="no-margin-bottom">

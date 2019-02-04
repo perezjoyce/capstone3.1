@@ -283,6 +283,34 @@ $(document).ready(function(){
     });
 
 
+    //DELETING CHAPTER CONTENT
+    $(document).on('click', '.delete-modal-btn', function(){
+        var column = $(this).data('column');
+        var id = $(this).data('id');
+        var text = "";
+
+        if(column == 'questions'){
+            var order = $(this).data('order');
+            text = 'Do you want to delete question # '+order+'?';
+            M.AutoInit();
+            $('#delete-modal').modal('open');
+            $('#delete-modal-question').text(text);
+            $('#delete-modal-form').attr('action', '/deleteQuestion/' + id);
+
+        } else {
+            var order = $(this).data('order');
+            text = 'Do you want to delete the contents of this lesson?';
+            M.AutoInit();
+            $('#delete-modal').modal('open');
+            $('#delete-modal-question').text(text);
+            $('#delete-modal-form').attr('action', '/deleteChapter/' + id);
+        }
+
+
+    })
+
+
+
 
 
 

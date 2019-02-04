@@ -55,7 +55,8 @@ Route::patch('/teacher_topic_chapters/edit-practice/{chapterId}', 'ChapterContro
 Route::patch('/teacher_topic_chapters/edit-tips/{chapterId}', 'ChapterController@editTips');
 Route::patch('/teacher_topic_chapters/edit-question/{questionId}', 'ChapterController@editQuestion');
 Route::post('/teacher_topic_chapters/add-question/{chapterId}', 'ChapterController@addQuestion');
-
+Route::delete('/deleteChapter/{chapterId}', 'ChapterController@deleteChapter');
+Route::delete('/deleteQuestion/{questionId}', 'ChapterController@deleteQuestion');
 
 
 //LINKS

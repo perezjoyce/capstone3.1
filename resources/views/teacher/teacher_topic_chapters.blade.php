@@ -1,35 +1,7 @@
 <!DOCTYPE html>
 @extends('layouts.app')
 @section('main')
-    <style>
 
-        .tabs .tab a {
-            color: gray!important;
-        }
-
-        .tabs .tab a:hover {
-            color: white!important;
-            background:darkgray!important;
-        }
-
-        .tabs .indicator {
-            background-color: gray;
-        }
-
-        .tabs .tab a.active{
-            background-color: gray!important;
-            color: white!important;
-        }
-
-
-        .btn {
-            background-color: gainsboro;
-            color:white;
-        }
-
-
-
-    </style>
     <main>
         @include('sidenav')
         <div class="row no-margin-bottom">
@@ -171,6 +143,10 @@
                                 <div class="row no-margin-bottom">
                                     <p class="grey-text col s6 m8">Last Update: {{$chapter->updated_at->format('m-d-Y') }}</p>
                                     <a class="btn right orange edit-chapter-modal margin-top-18px-mobile" data-column="objective" data-id="{{ $chapter->id }}">Edit</a>
+                                    <a href="#" class="btn grey delete-modal-btn margin-top-18px-mobile right margin-right-10px-large-medium" data-column="chapter" data-id="{{ $chapter->id }}">
+                                        <i class="material-icons left">delete</i>
+                                        Delete
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -327,12 +303,25 @@
 
                                     <div class="col s12 card-action">
                                         <div class="row no-margin-bottom">
-                                            <p class="grey-text col s6 m9">Last Update: {!! html_entity_decode($question->updated_at->format('m-d-Y'), ENT_QUOTES, 'UTF-8') !!}</p>
-                                            <div class="col s6 m3">
+                                            <p class="grey-text col s5 m4 l6">Last Update: {!! html_entity_decode($question->updated_at->format('m-d-Y'), ENT_QUOTES, 'UTF-8') !!}</p>
+                                            <div class="col s7 m8 l6">
                                                 @if($number_of_questions == $question->order)
-                                                    <a href="#" class="btn grey add-question-modal margin-top-18px-mobile" data-order="{{ $question->order }}" data-id="{{ $chapter->id }}"><i class="material-icons left">add</i> New Question</a>
+                                                    <a href="#" class="btn deep-purple darken-5 add-question-modal margin-top-18px-mobile right margin-left-10px-large-medium" data-order="{{ $question->order }}" data-id="{{ $chapter->id }}">
+                                                        <i class="material-icons left">add</i>
+                                                        New
+                                                    </a>
                                                 @endif
-                                                <a href="#" class="btn orange edit-question-modal margin-top-18px-mobile" data-column="questions" data-order="{{ $question->order }}" data-questionid="{{ $question->id }}" data-id="{{ $chapter->id }}">Edit</a>
+
+                                                <a href="#" class="btn orange edit-question-modal margin-top-18px-mobile right" data-column="questions" data-order="{{ $question->order }}" data-questionid="{{ $question->id }}" data-id="{{ $chapter->id }}">
+                                                    <i class="material-icons left">edit</i>
+                                                    Edit
+                                                </a>
+
+                                                <a href="#" class="btn grey delete-modal-btn margin-top-18px-mobile right margin-right-10px-large-medium" data-column="questions" data-order="{{ $question->order }}" data-id="{{ $question->id }}">
+                                                    <i class="material-icons left">delete</i>
+                                                    Delete
+                                                </a>
+
                                             </div>
                                         </div>
 
@@ -458,23 +447,35 @@
             </form>
         </div>
     </div>
+
+
+    {{--MODAL TEMPLATE FOR DELETING STUFF--}}
+    <div id="delete-modal" class="modal">
+        <div class='right row'>
+            <a href="#!" class="modal-close waves-effect waves-light-blue btn-flat">&#9587</a>
+        </div>
+        <div class="modal-content">
+            <form method="POST" id="delete-modal-form">
+                @csrf
+                @method('delete')
+
+                <div class="row">
+                    <div class="col s12">
+                        <h6 id='delete-modal-question'></h6>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="input-field col s12">
+                        <button type='submit' class="waves-effect waves-light btn grey" id="delete-modal-btn">
+                            <i class="material-icons left">delete</i>
+                            {{ __('Delete') }}
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 @endsection
 
-
-
-
-{{--// golf_course-- for objective}}
-
-{{--track_changes for objectives--}}
-
-{{--// ightbulb_outline-- for example}}
-
-{{--local_library-- for learn about it}}
-
-{{--note_add-- for add to assignmment}}
-
-{{--report -- for report errors--}}
-
-{{--toys --- for whatevs--}}
-
-{{--vpn_key -- for key points--}}

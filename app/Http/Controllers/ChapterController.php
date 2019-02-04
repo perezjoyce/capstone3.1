@@ -197,9 +197,26 @@ class ChapterController extends Controller
         $choice->question_id = $questionId;
         $choice->save();
 
-
         Session::flash("successmessage", "Your new question has been saved!");
         return Redirect::back();
+
+    }
+
+    public function deleteQuestion($questionId){
+        $question = Question::find($questionId);
+        $questionOrder = $question->order;
+        $question->delete();
+        Session::flash("successmessage", "Question # ".$questionOrder." has been successfully deleted.");
+        return Redirect::back();
+    }
+
+
+    public function deleteChapter($chapterId){
+        $chapter = Chapter::find($chapterId);
+        $topic = $chapter->topic->name;
+        $chapter->delete();
+        Session::flash("successmessage", "The lesson for ".$topic." has been successfully deleted.");
+        return redirect("/home");
 
     }
 
