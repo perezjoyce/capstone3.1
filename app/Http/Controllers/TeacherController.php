@@ -14,6 +14,7 @@ use App\User;
 use App\Question;
 use App\Choice;
 use Session;
+use Redirect;
 use Illuminate\Support\Facades\Input;
 
 class TeacherController extends Controller
@@ -75,12 +76,60 @@ class TeacherController extends Controller
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
+            $chapter->save();
         }
 
-        $questions = Question::find($chapter->topic_id);
+        $chapterId = $chapter->id;
+        $questions = Question::where('chapter_id', '=', $chapterId)->exists();
+        if($questions == false){
+            $questions = new Question ([
+                'question' => 'Default Question',
+                'hint' => 'Default Hint',
+                'explanation' => 'Default Explanation',
+                'order' => 1,
+                'chapter_id' => $chapterId,
+                'user_id' => 1,
+            ]);
+            $questions->save();
 
-        $module = $topic->module;
-        return view('teacher.teacher_topic_chapters', compact('topic', 'module', 'chapter', 'questions'));
+            $choices = new Choice ([
+                'choice' => 'This is the correct answer.',
+                'is_correct' => 1,
+                'order' => 1,
+                'question_id' => $questions->id,
+            ]);
+
+            $choices->save();
+
+            $choices = new Choice ([
+                'choice' => 'This is a wrong answer.',
+                'order' => 2,
+                'question_id' => $questions->id,
+            ]);
+            $choices->save();
+
+            $choices = new Choice ([
+                'choice' => 'This is another wrong answer.',
+                'order' => 3,
+                'question_id' => $questions->id,
+            ]);
+            $choices->save();
+
+            $choices = new Choice ([
+                'choice' => 'This is the last wrong answer.',
+                'order' => 4,
+                'question_id' => $questions->id,
+            ]);
+            $choices->save();
+
+        }
+            $questions = Question::where('chapter_id', '=', $chapterId)->get();
+            $number_of_questions = $questions->count();
+            $choices = $questions->load('choices');
+
+            $module = $topic->module;
+            return view('teacher.teacher_topic_chapters', compact('topic', 'module', 'chapter', 'questions', 'choices', 'number_of_questions'));
+
     }
 
 
@@ -92,7 +141,6 @@ class TeacherController extends Controller
         $teacher = User::where('role', '=', 'teacher')->get();
         // dd($levels);
         return view('teacher.teacher_sections', compact('sections', 'teacher'));
-
 
     }
 

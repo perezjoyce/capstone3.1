@@ -35,14 +35,12 @@ class ChapterController extends Controller
             case 'keypoints':
                 $template = 'teacher.chapters.keypoints';
                 break;
-            case 'questions':
-                $template = 'teacher.chapters.questions';
-                break;
         }
 
         $returnHTML = view($template, compact('chapter'))->render();
         return response()->json( array('success' => true, 'html'=> $returnHTML, 'column' => $column, 'chapterId' => $chapterId) );
     }
+
 
     public function editObjective($chapterId, Request $request) {
         $chapter = Chapter::find($chapterId);
@@ -84,6 +82,7 @@ class ChapterController extends Controller
         return Redirect::back();
     }
 
+
     public function editTips($chapterId, Request $request){
         $chapter = Chapter::find($chapterId);
         $chapter->tip = $request->edit_tips;
@@ -91,5 +90,54 @@ class ChapterController extends Controller
         Session::flash("successmessage", "Changes to tips has been successfully saved!");
         return Redirect::back();
     }
+
+    public function getEditQuestionForm($chapterId, $questionId, $order) {
+        $chapter = Chapter::find($chapterId);
+        $question = Question::find($questionId);
+        $choices = $question->load('choices');
+
+        $template = 'teacher.chapters.questions';
+
+        $returnHTML = view($template, compact('chapter', 'question','choices' ))->render();
+        return response()->json( array('success' => true, 'html'=> $returnHTML, 'chapterId' => $chapterId, 'questionId' => $questionId, 'order' => $order) );
+    }
+
+    public function editQuestion($questionId, Request $request){
+        $question = Question::find($questionId);
+        $choice1 = Choice::where('question_id', '=', $questionId)->where('order', '=', 1)->first();
+        $choice2 = Choice::where('question_id', '=', $questionId)->where('order', '=', 2)->first();
+        $choice3 = Choice::where('question_id', '=', $questionId)->where('order', '=', 3)->first();
+        $choice4 = Choice::where('question_id', '=', $questionId)->where('order', '=', 4)->first();
+
+        $rules = array(
+            "edit_question"=> "required",
+            "edit_hint" => "required",
+            "edit_explanation"=>"required",
+            "edit_answer_1"=>'required',
+            "edit_answer_1"=>'required',
+            "edit_answer_2"=>'required',
+            "edit_answer_3"=>'required',
+            "edit_answer_4"=>'required',
+        );
+
+        $this->validate($request, $rules);
+        $question->question = $request->edit_question;
+        $question->hint = $request->edit_hint;
+        $question->explanation = $request->edit_explanation;
+        $choice1->choice = $request->edit_answer_1;
+        $choice2->choice = $request->edit_answer_2;
+        $choice3->choice = $request->edit_answer_3;
+        $choice4->choice = $request->edit_answer_4;
+        $question->save();
+        $choice1->save();
+        $choice2->save();
+        $choice3->save();
+        $choice4->save();
+
+        return Redirect::back();
+
+    }
+
+
 }
 

@@ -271,7 +271,7 @@
                         <div class="col s12" id="chapter-questions">
                             <div class="row">
                                 @if($questions)
-                                {{--@foreach()--}}
+                                @foreach($questions as $question)
                                 <div class="col s12 card">
 
                                     <div class="row card-content no-margin-bottom">
@@ -281,30 +281,27 @@
                                                 <div class="col m6 s12">
                                                     <br>
                                                     <div class="row">
-                                                        <button class="btn-small orange col l1 m2 s2">Q1</button>
-                                                        <p class="col l11 m10 s10">This is a sample question. What is your name? This is a sample question. What is your name? This is a sample question. What is your name? This is a sample question. What is your name? This is a sample question. What is your name?</p>
+                                                        <button class="btn-small orange col l1 m2 s2">Q {!! html_entity_decode($question->order, ENT_QUOTES, 'UTF-8') !!} </button>
+                                                        <div class="col l11 m10 s10" style="padding-left:10px;"> {!! html_entity_decode($question->question, ENT_QUOTES, 'UTF-8') !!} </div>
                                                     </div>
                                                     <br>
                                                     <br class="hide-on-med-and-down">
                                                     <div class="row no-margin-bottom">
                                                         <h6 class="orange-text col s12 padding-0"><i class="material-icons smaller">memory</i>&nbsp;Choices</h6>
                                                         <ul class="collection padding-0">
+                                                            @foreach($question -> choices as $choice)
+                                                                @if($choice->is_correct === 1)
                                                             <li class="collection-item orange lighten-4">
                                                                 <i class="material-icons small left bold orange-text">check</i>
-                                                                <p class="grey-text text-darken-1">This is the correct answer. This is the correct answer. This is the correct answer. This is the correct answer.This is</p>
+                                                                <p class="grey-text text-darken-1">{!! html_entity_decode($choice->choice, ENT_QUOTES, 'UTF-8') !!}</p>
                                                             </li>
+                                                                @else
                                                             <li class="collection-item">
                                                                 <i class="material-icons small left grey-text">clear</i>
-                                                                <p class="grey-text">This is incorrect</p>
+                                                                <p class="grey-text">{!! html_entity_decode($choice->choice, ENT_QUOTES, 'UTF-8') !!}</p>
                                                             </li>
-                                                            <li class="collection-item">
-                                                                <i class="material-icons small left grey-text">clear</i>
-                                                                <p class="grey-text">This is incorrect</p>
-                                                            </li>
-                                                            <li class="collection-item">
-                                                                <i class="material-icons small left grey-text">clear</i>
-                                                                <p class="grey-text">This is incorrect</p>
-                                                            </li>
+                                                                @endif
+                                                            @endforeach
                                                         </ul>
                                                     </div>
 
@@ -314,13 +311,13 @@
                                                     <br>
                                                     <div class="row">
                                                         <h6 class="orange-text"><i class="material-icons smaller">live_help</i>&nbsp;Hint</h6>
-                                                        <p class="grey-text">This is a sample hint. This is a sample hint. This is a sample hint. This is a sample hint. This is a sample hint. This is a sample hint. </p>
+                                                        <p class="grey-text">{!! html_entity_decode($question->hint, ENT_QUOTES, 'UTF-8') !!}</p>
                                                     </div>
                                                     <br>
                                                     <br class="hide-on-med-and-down">
                                                     <div class="row">
                                                         <h6 class="orange-text"><i class="material-icons smaller">info</i>&nbsp;Explanation</h6>
-                                                        <p class="grey-text">This is a sample explanation. This is a sample explanation. This is a sample explanation. This is a sample explanation. This is a sample explanation. This is a sample explanation.</p>
+                                                        <p class="grey-text">{!! html_entity_decode($question->explanation, ENT_QUOTES, 'UTF-8') !!}</p>
                                                     </div>
 
                                                 </div>
@@ -330,36 +327,20 @@
 
                                     <div class="col s12 card-action">
                                         <div class="row no-margin-bottom">
-                                            <p class="grey-text col s6 m8">Last Update: {{ $chapter->updated_at->format('m-d-Y') }}</p>
-                                            <a class="btn right orange edit-chapter-modal margin-top-18px-mobile" data-column="questions" data-id="{{ $chapter->id }}">Edit</a>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                {{--@endforeach--}}
-                                @else
-                                <div class="col s12 card">
-
-                                    <div class="row card-content no-margin-bottom fixed-height-20em">
-                                        <div class="col s12">
-
-                                            <div class="row no-margin-bottom">
-                                                <div class="col s12 center">
-                                                    <br>
-                                                    <br>
-                                                    <br>
-                                                    <p>There are no questions for this lesson yet.</p>
-                                                    <br>
-                                                    <a class="btn orange edit-chapter-modal margin-top-18px-mobile" data-column="questions" data-id="{{ $chapter->id }}"><i class="material-icons left">add</i>Add A Question</a>
-                                                </div>
+                                            <p class="grey-text col s6 m9">Last Update: {!! html_entity_decode($question->updated_at->format('m-d-Y'), ENT_QUOTES, 'UTF-8') !!}</p>
+                                            <div class="col s6 m3">
+                                                @if($number_of_questions == $question->order)
+                                                    <a href="#" class="btn grey add-question-modal margin-top-18px-mobile" data-order="{{ $question->order+1 }}" data-id="{{ $chapter->id }}"><i class="material-icons left">add</i> New Question</a>
+                                                @endif
+                                                <a href="#" class="btn orange edit-question-modal margin-top-18px-mobile" data-column="questions" data-order="{{ $question->order }}" data-questionid="{{ $question->id }}" data-id="{{ $chapter->id }}">Edit</a>
                                             </div>
-
                                         </div>
+
                                     </div>
 
                                 </div>
+                                @endforeach
                                 @endif
-
                             </div>
                         </div>
 
@@ -374,7 +355,7 @@
         </div>
     </main>
 
-    {{--MODAL TEMPLATE--}}
+    {{--MODAL TEMPLATE FOR EDITING CHAPTER DETALIS--}}
     <div id="modal-edit-chapter" class="modal">
 
         <div class='right row'>
@@ -406,7 +387,75 @@
 
             </form>
         </div>
+    </div>
 
+
+    {{--MODAL TEMPLATE FOR EDITING QUESTION--}}
+    <div id="modal-edit-question" class="modal">
+
+        <div class='right row'>
+            <a href="#!" class="modal-close waves-effect waves-light-blue btn-flat">&#9587</a>
+        </div>
+
+
+        <div class="modal-content">
+            <h4>Modal Header</h4>
+            <form method="POST" action="">
+                @csrf
+
+                <div class="row">
+                    <div class="col s12">
+                        <h4>{{ __('Edit Discussion Modal') }}</h4>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="input-field col s12">
+                        <button type='submit' class="waves-effect waves-light btn light-blue">
+                            <i class="material-icons right"></i>
+                            {{ __('Save Changes') }}
+                        </button>
+
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    {{--MODAL TEMPLATE FOR ADDING QUESTION--}}
+    <div id="modal-add-question" class="modal">
+
+        <div class='right row'>
+            <a href="#!" class="modal-close waves-effect waves-light-blue btn-flat">&#9587</a>
+        </div>
+
+
+        <div class="modal-content">
+            <h4>Modal Header</h4>
+            <form method="POST" action="">
+                @csrf
+
+                <div class="row">
+                    <div class="col s12">
+                        <h4>{{ __('Edit Discussion Modal') }}</h4>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="input-field col s12">
+                        <button type='submit' class="waves-effect waves-light btn light-blue">
+                            <i class="material-icons right"></i>
+                            {{ __('Save Changes') }}
+                        </button>
+
+                    </div>
+                </div>
+
+            </form>
+        </div>
     </div>
 @endsection
 

@@ -18,6 +18,7 @@ class CreateQuestionsTable extends Migration
             $table->text('question');
             $table->string('hint');
             $table->string('explanation');
+            $table->integer('order');
             $table->unsignedInteger('chapter_id');
             $table->unsignedInteger('user_id')->nullable();
             $table->timestamps();

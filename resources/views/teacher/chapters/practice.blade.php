@@ -1,7 +1,7 @@
 <form id="edit-practice-form" method="POST">
-    {{--<input type="hidden" name="title">--}}
     @csrf
     @method('patch')
+
     <input type="hidden" data-id="{{$chapter->id}}">
     <header>
         <h5 class="orange-text bold"><i class="material-icons small left">supervisor_account</i>&nbsp;Practice</h5>

@@ -43,14 +43,16 @@ Route::get('teacher_students_list', 'TeacherController@showStudents');
 //ADMIN
 // Route::get('/modals', 'AdminController@showCurriculum');
 
-// Chapter
+// CHAPTER
 Route::get('chapter/edit/{chapterId}', 'ChapterController@getEditForm');
+Route::get('chapter/edit/{chapterId}/{questionId}/{order}', 'ChapterController@getEditQuestionForm');
 Route::patch('/teacher_topic_chapters/edit-objective/{chapterId}', 'ChapterController@editObjective');
 Route::patch('/teacher_topic_chapters/edit-discussion/{chapterId}', 'ChapterController@editDiscussion');
 Route::patch('/teacher_topic_chapters/edit-example/{chapterId}', 'ChapterController@editExample');
 Route::patch('/teacher_topic_chapters/edit-keypoints/{chapterId}', 'ChapterController@editKeypoints');
 Route::patch('/teacher_topic_chapters/edit-practice/{chapterId}', 'ChapterController@editPractice');
 Route::patch('/teacher_topic_chapters/edit-tips/{chapterId}', 'ChapterController@editTips');
+Route::put('/teacher_topic_chapters/edit-question/{questionId}', 'ChapterController@editQuestion');
 
 
 //LINKS

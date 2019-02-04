@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Question extends Model
 {
+
+    protected $fillable = [
+        'question', 'hint', 'discussion', 'explanation', 'order', 'chapter_id', 'user_id',
+    ];
+
     //a question belongs to a user
     public function user(){
     	return $this->belongsTo('\App\User')->where('role', 'teacher')->withDefault();

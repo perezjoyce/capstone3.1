@@ -114,6 +114,7 @@ $(document).ready(function(){
         });
     });
 
+    // EDIT CHAPTER
     $('.edit-chapter-modal').on('click', function(){
         const chapterId = $(this).data('id');
         const column = $(this).data('column');
@@ -152,7 +153,7 @@ $(document).ready(function(){
                     });
 
                     $('.edit-chapter-modal-btn').on('click', function(){
-                        var answer = confirm('Do you want to save changes you made?');
+                        var answer = confirm('Do you want to save changes you made to ' + response.column +  '?');
 
                         if(answer ==  true) {
                             $('#'+'edit-'+response.column+'-form').attr('action', '/teacher_topic_chapters/edit-'+response.column+'/'+response.chapterId);
@@ -161,13 +162,78 @@ $(document).ready(function(){
 
 
                 } else {
-                    $('#module-options').replaceWith(response.html);
+                    alert('Error in editing form. Please try again.');
                 }
             },
             error: function(xhr,textStatus,thrownError) {
                 alert(xhr + "\n" + textStatus + "\n" + thrownError);
             }
         });
-
     });
+
+
+    // EDIT CHAPTER QUESTIONS AND CHOICES
+    $('.edit-question-modal').on('click', function(){
+        const chapterId = $(this).data('id');
+        const questionId = $(this).data('questionid');
+        const order = $(this).data('order');
+
+        $.ajax({
+            headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') },
+            url: '/chapter/edit/'+chapterId+'/'+questionId+'/'+ order,
+            type: 'GET',
+            cache: false,
+            data: {
+                chapterId: chapterId,
+                questionId: questionId,
+                order: order
+            },
+            datatype: 'json',
+            beforeSend: function() {
+                //something before send
+            },
+            success: function(response) {
+
+                if(response.success == true) {
+                    $('#modal-edit-question .modal-content').html(response.html);
+                    M.AutoInit();
+                    $('#modal-edit-question').modal('open');
+                    tinymce.init({
+                        selector: '.wysiywg',
+                        menubar: true,
+                        plugins: [
+                            'advlist lists image charmap preview textcolor',
+                            'searchreplace visualblocks code fullscreen',
+                            'insertdatetime media contextmenu table paste code wordcount'
+                        ],
+                        toolbar: 'insert | undo redo |  formatselect | bold italic backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat',
+                        content_css: [
+                            '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+                            '//www.tinymce.com/css/codepen.min.css']
+                    });
+
+                    $('.edit-question-modal-btn').on('click', function(){
+                        var answer = confirm('Do you want to save changes you made to question # ' + response.order + '?');
+
+                        if(answer ==  true) {
+                            $('#edit-question-form').attr('action', '/teacher_topic_chapters/edit-question/'+ response.questionId);
+                        }
+                    })
+
+                } else {
+                    alert('Error in editing question. Please try again.');
+                }
+            },
+            error: function(xhr,textStatus,thrownError) {
+                alert(xhr + "\n" + textStatus + "\n" + thrownError);
+            }
+        });
+    });
+
+
+
+
+
+
+
 });

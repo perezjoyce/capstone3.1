@@ -8,7 +8,7 @@ class Chapter extends Model
 {
 
     protected $fillable = [
-        'name', 'objective', 'discussion', 'example', 'guided_practice', 'tip', 'key_point',
+        'name', 'objective', 'discussion', 'example', 'guided_practice', 'tip', 'key_point', 'topic_id',
     ];
 
     //A chapter belongs to a topic
