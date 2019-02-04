@@ -138,6 +138,70 @@ class ChapterController extends Controller
 
     }
 
+    public function getAddQuestionForm($chapterId, $order){
+        $chapter = Chapter::find($chapterId);
+        $template = 'teacher.chapters.add_questions';
+        $order = $order + 1;
+
+        $returnHTML = view($template, compact('chapter', 'order'))->render();
+        return response()->json( array('success' => true, 'html'=> $returnHTML, 'chapterId' => $chapterId) );
+    }
+
+    public function addQuestion($chapterId, Request $request) {
+        $rules = array(
+            "new_question"=> "required",
+            "new_hint" => "required",
+            "new_explanation"=>"required",
+            "new_order"=>"required",
+            "new_answer_1"=>'required',
+            "new_answer_1"=>'required',
+            "new_answer_2"=>'required',
+            "new_answer_3"=>'required',
+            "new_answer_4"=>'required',
+        );
+
+        $this->validate($request, $rules);
+        $question = new Question;
+        $question->question = $request->new_question;
+        $question->hint = $request->new_hint;
+        $question->explanation = $request->new_explanation;
+        $question->order = $request->new_order;
+        $question->chapter_id = $chapterId;
+        $question->user_id = 1;
+        $question->save();
+
+        $questionId = Question::where('chapter_id', '=', $chapterId)->orderBy('order', 'desc')->first()->id;
+
+        $choice = new Choice;
+        $choice->choice = $request->new_answer_1;
+        $choice->is_correct = 1;
+        $choice->order = 1;
+        $choice->question_id = $questionId;
+        $choice->save();
+
+        $choice = new Choice;
+        $choice->choice = $request->new_answer_2;
+        $choice->order = 2;
+        $choice->question_id = $questionId;
+        $choice->save();
+
+        $choice = new Choice;
+        $choice->choice = $request->new_answer_3;
+        $choice->order = 3;
+        $choice->question_id = $questionId;
+        $choice->save();
+
+        $choice = new Choice;
+        $choice->choice = $request->new_answer_4;
+        $choice->order = 4;
+        $choice->question_id = $questionId;
+        $choice->save();
+
+
+        Session::flash("successmessage", "Your new question has been saved!");
+        return Redirect::back();
+
+    }
 
 }
 

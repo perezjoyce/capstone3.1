@@ -233,6 +233,57 @@ $(document).ready(function(){
 
 
 
+    // ADD QUESTIONS AND CHOICES
+    $(document).on('click', '.add-question-modal', function(){
+        var chapterId = $(this).data('id');
+        var order = $(this).data('order');
+
+        $.ajax({
+            headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') },
+            url: '/chapter/add/'+chapterId+'/'+order,
+            type: 'GET',
+            cache: false,
+            data: {
+                chapterId: chapterId,
+                order: order
+            },
+            datatype: 'json',
+            success: function(response) {
+                if(response.success == true) {
+                    $('#modal-edit-question .modal-content').html(response.html);
+                    M.AutoInit();
+                    $('#modal-edit-question').modal('open');
+                    tinymce.init({
+                        selector: '.wysiywg',
+                        menubar: true,
+                        plugins: [
+                            'advlist lists image charmap preview textcolor',
+                            'searchreplace visualblocks code fullscreen',
+                            'insertdatetime media contextmenu table paste code wordcount'
+                        ],
+                        toolbar: 'insert | undo redo |  formatselect | bold italic backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat',
+                        content_css: [
+                            '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+                            '//www.tinymce.com/css/codepen.min.css']
+                    });
+
+                    $('.add-question-modal-btn').on('click', function(){
+                        var answer = confirm('Do you want to save changes you made to question #' + response.order + '?');
+
+                        if(answer ==  true) {
+                            $('#add-question-form').attr('action', '/teacher_topic_chapters/add-question/'+ response.chapterId);
+                        }
+                    })
+
+                } else {
+                    alert('Error in editing question. Please try again.');
+                }
+            }
+        });
+    });
+
+
+
 
 
 

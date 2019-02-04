@@ -1,6 +1,6 @@
 <form id="edit-question-form" method="POST">
     @csrf
-    @method('put')
+    @method('patch')
 
     <input type="hidden" name="chapterId" value="{{ $chapter->id }}">
     <header>
@@ -60,6 +60,11 @@
             </div>
         </div>
     </div>
-    <br>
-    <button class="btn orange edit-question-modal-btn" data-id="{{ $chapter->id }}" data-questionid="{{ $question->id }}">Save Changes</button>
+
+    <div class="row">
+        <div class="col s12">
+            <button class="btn orange edit-question-modal-btn right" data-id="{{ $chapter->id }}" data-questionid="{{ $question->id }}">Save Changes</button>
+        </div>
+    </div>
+
 </form>

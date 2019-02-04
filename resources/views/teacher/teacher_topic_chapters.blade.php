@@ -330,7 +330,7 @@
                                             <p class="grey-text col s6 m9">Last Update: {!! html_entity_decode($question->updated_at->format('m-d-Y'), ENT_QUOTES, 'UTF-8') !!}</p>
                                             <div class="col s6 m3">
                                                 @if($number_of_questions == $question->order)
-                                                    <a href="#" class="btn grey add-question-modal margin-top-18px-mobile" data-order="{{ $question->order+1 }}" data-id="{{ $chapter->id }}"><i class="material-icons left">add</i> New Question</a>
+                                                    <a href="#" class="btn grey add-question-modal margin-top-18px-mobile" data-order="{{ $question->order }}" data-id="{{ $chapter->id }}"><i class="material-icons left">add</i> New Question</a>
                                                 @endif
                                                 <a href="#" class="btn orange edit-question-modal margin-top-18px-mobile" data-column="questions" data-order="{{ $question->order }}" data-questionid="{{ $question->id }}" data-id="{{ $chapter->id }}">Edit</a>
                                             </div>
@@ -423,6 +423,7 @@
             </form>
         </div>
     </div>
+
 
     {{--MODAL TEMPLATE FOR ADDING QUESTION--}}
     <div id="modal-add-question" class="modal">
