@@ -11,11 +11,11 @@
 			</div>
 		</a>
 		
-		<a href="teacher_curriculum_content">
-			<li @if ($currentRoute == "teacher_curriculum_content") class="active" @endif>
+		<a href="{{ url('teacher_dashboard') }}">
+			<li @if ($currentRoute == "teacher_dashboard") class="active" @endif>
 				<div class="icon-block row no-margin-bottom">
 					<div class="col s12">
-							<i class="material-icons deep-purple-text text-lighten-5"><h5 class='no-margin-bottom'>home</h5></i>
+							<i class="material-icons deep-purple-text text-lighten-5"><h5 class="no-margin-bottom">home</h5></i>
 						</div>
 						<div class="col s12">
 							<small class='deep-purple-text text-lighten-5'>DASHBOARD</small>
@@ -25,7 +25,7 @@
 			</li>
 		</a>
 
-		<a href="teacher_curriculum">
+		<a href="{{ url('teacher_curriculum') }}">
 			<li @if ($currentRoute == "teacher_curriculum" || $currentRoute == "teacher_topic_chapters") class="active" @endif>
 				<div class="icon-block">
 					<div class="col s12">
@@ -38,8 +38,8 @@
 			</li>
 		</a>
 
-		<a href="home">
-			<li @if ($currentRoute == "home") class="active" @endif>
+		<a href="teacher_curriculum_content">
+			<li @if ($currentRoute == "teacher_curriculum_content") class="active" @endif>
 				<div class="icon-block row no-margin-bottom">
 					<div class="col s12">
 						<i class="material-icons deep-purple-text text-lighten-5"><h5 class='no-margin-bottom'>timeline</h5></i>
@@ -51,7 +51,7 @@
 			</li>
 		</a>
 
-		<a href="teacher_sections">
+		<a href="{{ url('teacher_sections') }}">
 			<li @if ($currentRoute == "teacher_sections" || $currentRoute =="teacher_archived_sections" ) class="active" @endif>
 				<div class="icon-block row no-margin-bottom">
 					<div class="col s12">
@@ -64,7 +64,7 @@
 			</li>
 		</a>
 
-		<a href="teacher_students_list">
+		<a href="{{ url('teacher_students_list') }}">
 			<li @if ($currentRoute == "teacher_students_list" || $currentRoute == "teacher_student_account") class="active" @endif>
 				<div class="icon-block row no-margin-bottom">
 					<div class="col s12">

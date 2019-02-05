@@ -3,7 +3,7 @@
 @section('main')
 
     <main>
-        @include('sidenav')
+        @include('sidenav_teacher')
         <div class="row no-margin-bottom">
             <div class="col s12">
 

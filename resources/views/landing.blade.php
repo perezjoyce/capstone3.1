@@ -11,12 +11,12 @@
 
 			    	@guest
 			    		@if (Route::has('register'))
-			    		
+
 			    		<ul class="right hide">
 							<li><a class='modal-trigger' href="#register-modal">Register</a></li>
 						</ul>
-				          
-						
+
+
 
 						<ul class="right hide">
 							<li><a class='modal-trigger' href="#login-modal">Login</a></li>
@@ -27,12 +27,12 @@
 					  		<li><a class='modal-trigger' href="#register-modal">Register</a></li>
 			                <li><a class='modal-trigger' href="#login-modal">Log In</a></li>
 						</ul>
-					  
+
 					  	@endif
 					  	@else
 					  	<a class="dropdown-trigger right" href="#!" data-target="logout">{{ Auth::user()->name }}<i class="material-icons right">arrow_drop_down</i></a>
 
-					  	
+
 
 					  	<ul id="logout" class="dropdown-content">
 						  	<li>
@@ -58,24 +58,43 @@
 			  		<div class="row">
 			  			<div class="col s12">
 
-
 							@if($errors->any())
-							    <div class="alert alert-danger mb-5 rounded-0">
-							        <ul class='list-unstyled'>
-							            @foreach ($errors->all() as $error)
-							            <script> 
-							            	
-						            		var toastHTML = '<span>{{ $error }}</span>';
-											M.toast({html: toastHTML, classes: 'rounded'});
-			        
-							           	</script>
-							             @endforeach
-							        </ul>
-							    </div>
+								<div class="alert alert-danger mb-5 rounded-0">
+									<ul class='list-unstyled'>
+										@foreach ($errors->all() as $error)
+											<script>
+
+                                                var toastHTML = '<span>{{ $error }}</span>';
+                                                M.toast({html: toastHTML, classes: 'rounded'});
+
+											</script>
+										@endforeach
+									</ul>
+								</div>
+							@elseif(Session::has("successmessage"))
+								<div class="alert alert-danger mb-5 rounded-0">
+									<ul class='list-unstyled'>
+
+										<script>
+
+                                            var toastHTML = '<span>{{ Session::get('successmessage') }}</span>';
+                                            M.toast({html: toastHTML, classes: 'rounded'});
+
+										</script>
+									</ul>
+								</div>
+							@elseif(Session::has("deletemessage"))
+								<div class="alert alert-danger mb-5 rounded-0">
+									<ul class='list-unstyled'>
+										<script>
+                                            var toastHTML = '<span>{{ Session::get('deletemessage') }}</span>';
+                                            M.toast({html: toastHTML, classes: 'rounded'});
+										</script>
+									</ul>
+								</div>
 							@endif
 
 
-			  				
 			  			</div>
 			  		</div>
 			  	</div>
@@ -133,7 +152,6 @@
 		</main>
 	    @include('footer')
 	    @include('modals')
-	    @include('scripts')
 	</body>
 </html>
-  
+

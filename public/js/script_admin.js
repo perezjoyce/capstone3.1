@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
 
-	//AJAX POST EXAMPLE
+	//AJAX POST EXAMPLE // delete
 	var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 	$(".postbutton").click(function(){
 	  $.ajax({
@@ -18,7 +18,7 @@ $(document).ready(function(){
 	  }); 
 	});
 
-    // SHOW QUESTIONS
+    // SHOW QUESTIONS // delete
     function showQuestionsByGradeLevels(gradeLevelId) {
         $_token = "{{ csrf_token() }}";
         $.ajax({

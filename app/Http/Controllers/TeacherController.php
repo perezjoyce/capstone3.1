@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Chapter;
 use Illuminate\Http\Request;
 use App\Category;
 use App\Level;
 use App\Subject;
 use App\Module;
 use App\Topic;
+use App\Chapter;
 use App\Section;
 use App\User;
 use App\Question;
@@ -18,7 +18,22 @@ use Redirect;
 use Illuminate\Support\Facades\Input;
 
 class TeacherController extends Controller
-{	
+{
+    // DASHBOARD
+    public function showTeacherDashboard(){
+        $categories = Category::all();
+        $categories->load('levels');
+        $levels = Level::all();
+        $tests = Level::with('category')->get();
+        $subjects = Subject::all();
+        $modules = Module::all();
+
+        $modules->load('topics');
+        $topics = Topic::all();
+
+        $subjects->load('modules');
+        return view('teacher.teacher_dashboard', compact('categories', 'levels', 'subjects', 'modules', 'tests', 'topics'));
+    }
 
 	//CURRICULUM PAGE
     public function showCurriculum(){
@@ -166,15 +181,16 @@ class TeacherController extends Controller
         return view('teacher.teacher_students_list', compact('students', 'teachers', 'sections'));
     }
 
-    //TEMPORARY PAGE 
+
+    //TEMPORARY PAGES
     public function curriculumContent(){
-    	$categories = Category::all();
+        $categories = Category::all();
         $categories->load('levels');
         $levels = Level::all();
         $tests = Level::with('category')->get();
         $subjects = Subject::all();
         $modules = Module::all();
-       
+
         $modules->load('topics');
         $topics = Topic::all();
 

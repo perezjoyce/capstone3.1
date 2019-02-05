@@ -15,8 +15,8 @@ class CreatePresentationsTable extends Migration
     {
         Schema::create('presentations', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('instruction');
+            $table->string('name')->default('Multiple Choice');
+            $table->string('instruction')->default('Choose the best answer.');
             $table->timestamps();
         });
     }

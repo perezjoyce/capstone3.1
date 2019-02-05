@@ -5,6 +5,22 @@
  *
  * Made By MaterializeCSS.com
  */
+.dropdown-content li > span {
+	color: gray!important;
+}
+
+input:not([type]):focus:not([readonly]),
+input[type=text]:not(.browser-default):focus:not([readonly]),
+.input-field .prefix ~ textarea {
+	-webkit-box-shadow: 0 1px 0 0 #ff9800 !important;
+	box-shadow: 0 1px 0 0 #ff9800 !important;
+	border-bottom: 1px solid #ff9800 !important;
+}
+
+input[type=text]:not(.browser-default):focus:not([readonly]) + label,
+textarea.materialize-textarea:focus:not([readonly]) + label{
+	color: #ff9800 !important;
+}
 
 .tabs .tab a {
 	color: gray!important;
@@ -228,8 +244,8 @@ table table.inner tr:last-child {
 		left: 0%;
 	}*/
 
-	.brand-logo h3 {
-
+	.sidenav > a {
+		 padding: 0;
 	}
 
 	.margin-right-10px-large-medium {
@@ -267,6 +283,10 @@ table table.inner tr:last-child {
 
 	.margin-top-18px-mobile {
 		margin-top: 18px!important;
+	}
+
+	.sidenav > a {
+		padding: 0;
 	}
 
 }

@@ -2,7 +2,7 @@
 @extends('layouts.app')
     @section('main')
     <main>
-        @include('sidenav')
+        @include('sidenav_teacher')
         <div class="row no-margin-bottom">
             <div class="col s12">
 
@@ -553,13 +553,6 @@
    
     </main>
     @endsection
-
-<!-- <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=yteahm9v51k11igyavl4mvnrdpgt89b78qma0whsx6gp6z12"></script>
-<script>
-    tinymce.init({ 
-        selector:'textarea' 
-    });
-</script> -->
 
 
 

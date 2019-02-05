@@ -1,23 +1,24 @@
 <aside class='z-depth-1'>
 	<ul id="slide-out" class="sidenav sidenav-fixed center z-depth-1 deep-purple darken-4">
+		<br>
 
 		<a href="#">
-			
-				<div class="icon-block row no-margin-bottom">
-					<div class="col s12">
-							<h3 id="logo-container" class="brand-logo center white-text">
-								Blendio
-							</h3>
-					</div>
+			<div class="icon-block row no-margin-bottom">
+				<div class="col s12">
+					<h3 id="logo-container" class="brand-logo center white-text">
+						Blend.io
+					</h3>
 				</div>
-			
+			</div>
 		</a>
+
+		<br>
 		
-		<a href="home">
-			<li @if ($currentRoute == "home") class="active" @endif>
+		<a href="{{ url('student_dashboard') }}">
+			<li @if ($currentRoute == "student_dashboard") class="active" @endif>
 				<div class="icon-block row no-margin-bottom">
 					<div class="col s12">
-							<i class="material-icons deep-purple-text text-lighten-5"><h5 class='no-margin-bottom'>home</h5></i>
+							<i class="material-icons deep-purple-text text-lighten-5"><h5 class="no-margin-bottom">home</h5></i>
 						</div>
 						<div class="col s12">
 							<small class='deep-purple-text text-lighten-5'>DASHBOARD</small>
@@ -27,53 +28,40 @@
 			</li>
 		</a>
 
-		<a href="teacher_curriculum">
-			<li @if ($currentRoute == "teacher_curriculum") class="active" @endif>
-				<div class="icon-block row no-margin-bottom">
+		<a href="{{ url('student_curriculum') }}">
+			<li @if ($currentRoute == "student_curriculum" || $currentRoute == "student_topic_chapters") class="active" @endif>
+				<div class="icon-block">
 					<div class="col s12">
 						<i class="material-icons deep-purple-text text-lighten-5"><h5 class='no-margin-bottom'>import_contacts</h5></i>
 					</div>
-					<div class="col s12">
-						<small class='deep-purple-text text-lighten-5'>CURRICULUM</small>
-					</div>
+					<span class="col s12">
+						<small class='deep-purple-text text-lighten-5'>TASKS</small>
+					</span>
 				</div>
 			</li>
 		</a>
 
-		<a href="#">
-			<li>
+		<a href="student_curriculum_content">
+			<li @if ($currentRoute == "student_curriculum_content") class="active" @endif>
 				<div class="icon-block row no-margin-bottom">
 					<div class="col s12">
-						<i class="material-icons deep-purple-text text-lighten-5"><h5 class='no-margin-bottom'>show_chart</h5></i>
+						<i class="material-icons deep-purple-text text-lighten-5"><h5 class='no-margin-bottom'>timeline</h5></i>
 					</div>
 					<div class="col s12">
-						<small class='deep-purple-text text-lighten-5'>STATISTICS</small>
+						<small class='deep-purple-text text-lighten-5'>PROGRESS</small>
 					</div>
 				</div>
 			</li>
 		</a>
 
-		<a href="#">
-			<li>
+		<a href="{{ url('student_sections') }}">
+			<li @if ($currentRoute == "student_sections" || $currentRoute =="student_archived_sections" ) class="active" @endif>
 				<div class="icon-block row no-margin-bottom">
 					<div class="col s12">
 						<i class="material-icons deep-purple-text text-lighten-5"><h5 class='no-margin-bottom'>list</h5></i>
 					</div>
 					<div class="col s12">
-						<small class='deep-purple-text text-lighten-5'>CLASS LIST</small>
-					</div>
-				</div>
-			</li>
-		</a>
-
-		<a href="#">
-			<li>
-				<div class="icon-block row no-margin-bottom">
-					<div class="col s12">
-						<i class="material-icons deep-purple-text text-lighten-5"><h5 class='no-margin-bottom'>people</h5></i>
-					</div>
-					<div class="col s12">
-						<small class='deep-purple-text text-lighten-5'>STUDENTS</small>
+						<small class='deep-purple-text text-lighten-5'>CLASSES</small>
 					</div>
 				</div>
 			</li>
@@ -109,8 +97,6 @@
 
 			</li>
 		</a>        
-
-
     </ul>
 </aside>
 

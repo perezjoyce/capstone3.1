@@ -5,7 +5,6 @@
 					<a href="#!" class="modal-close waves-effect waves-light-blue btn-flat">&#9587</a>
 				</div>
 
-					    
 				<form method="POST" action="{{ route('login') }}">
 					@csrf
 				
@@ -281,7 +280,7 @@
 
 
 
-			{{--EDIT DISCUSSION MODAL--}}
+			<!-- EDIT DISCUSSION MODAL-->
 			<div id="edit-discussion-modal" class="modal">
 
 				<div class='right row'>
@@ -314,7 +313,7 @@
 
 
 
-			{{--MODAL TEMPLATE--}}
+			<!-- MODAL TEMPLATE-->
 			<div id="modal-template" class="modal">
 
 				<div class='right row'>
