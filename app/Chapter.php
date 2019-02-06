@@ -20,4 +20,9 @@ class Chapter extends Model
     public function questions(){
     	return $this->hasMany('\App\Question');
     }
+
+    //A chapter has many reports
+    public function reports(){
+        return $this->hasMany('\App\Report');
+    }
 }

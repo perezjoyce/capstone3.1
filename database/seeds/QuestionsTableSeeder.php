@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Questions;
 
 class QuestionsTableSeeder extends Seeder
 {

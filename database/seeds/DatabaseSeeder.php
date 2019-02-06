@@ -11,16 +11,24 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
-        // $this->call(CategoriesTableSeeder::class);
-        // $this->call(LevelsTableSeeder::class);
-        // $this->call(SubjectsTableSeeder::class);
-        // $this->call(PurposesTableSeeder::class);
-        // $this->call(PresentationsTableSeeder::class);
-        // $this->call(ModulesTableSeeder::class);
-        // $this->call(ChaptersTableSeeder::class); //NOT YET SEEDED
-        // $this->call(QuestionsTableSeeder::class); //NOT YET SEEDED
-        // $this->call(AnswersTableSeeder::class); //NOT YET SEEDED
-        $this->call(SectionsTableSeeder::class); 
+//         $this->call(UsersTableSeeder::class);
+//         $this->call(CategoriesTableSeeder::class);
+//         $this->call(SubjectsTableSeeder::class);
+//         $this->call(PurposesTableSeeder::class);
+//         $this->call(PresentationsTableSeeder::class);
+
+
+//         $this->call(LevelsTableSeeder::class);// AFTER LEVELS
+//         $this->call(ModulesTableSeeder::class); // AFTER SUBJECT
+         $this->call(SectionsTableSeeder::class);
+
+
+//         $this->call(TopicsTableSeeder::class); // AFTER MODULES
+
+//         $this->call(ChaptersTableSeeder::class); //AFTER TOPICS
+
+        // $this->call(QuestionsTableSeeder::class); //no data yet
+        // $this->call(AnswersTableSeeder::class); // no data yet
+
     }
 }

@@ -207,6 +207,15 @@ table table.inner tr:last-child {
 	vertical-align: initial!important;
 }
 
+.datepicker-date-display {
+	background-color:#311b92!important;
+}
+
+.datepicker-modal {
+	width:90%!important;
+	font-size:9px!important;
+}
+
 /*============================ DESKTOP ==========================*/
 
 @media only screen and (min-width: 961px) {
@@ -288,6 +297,42 @@ table table.inner tr:last-child {
 	.sidenav > a {
 		padding: 0;
 	}
+
+	.margin-right-10px-mobile {
+		margin-right:10px!important;
+	}
+
+
+	.datepicker-footer {
+		width: 250px!important;
+		color: orange!important;
+	}
+
+	.datepicker-controls{
+		width: 250px!important;
+		margin: 0!important;
+	}
+
+	.datepicker-date-display {
+		width: 300px!important;
+		padding:15px;
+	}
+
+	.datepicker-calendar-container {
+		width: 250px !important;
+	}
+
+	.datepicker-modal {
+		width: 250px!important;
+		max-width: 250px;
+		min-width: 250px;
+		max-height: none;
+	}
+
+	.modal-content .datepicker-container {
+		width: 250px!important;
+	}
+
 
 }
 

@@ -15,7 +15,7 @@ class CreateChaptersTable extends Migration
     {
         Schema::create('chapters', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('name')->default('Learning Task Of The Day');
             $table->text('objective');
             $table->text('discussion');
             $table->text('example');

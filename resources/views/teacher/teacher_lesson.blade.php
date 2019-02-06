@@ -37,9 +37,7 @@
                                     @endforeach
                                 </ul>
                             </div>
-                        @endif
-
-                        @if(Session::has("successmessage"))
+                        @elseif(Session::has("successmessage"))
                             <div class="alert alert-danger mb-5 rounded-0">
                                 <ul class='list-unstyled'>
 
@@ -141,11 +139,25 @@
 
                             <div class="col s12 card-action">
                                 <div class="row no-margin-bottom">
-                                    <p class="grey-text col s6 m8">Last Update: {{$chapter->updated_at->format('m-d-Y') }}</p>
-                                    <a class="btn right orange edit-chapter-modal margin-top-18px-mobile" data-column="objective" data-id="{{ $chapter->id }}">Edit</a>
-                                    <a href="#" class="btn grey delete-modal-btn margin-top-18px-mobile right margin-right-10px-large-medium" data-column="chapter" data-id="{{ $chapter->id }}">
-                                        <i class="material-icons left">delete</i>
-                                        Delete
+                                    @if($chapter->updated_at)
+                                        <p class="grey-text col s12 m5">Last Update: {{$chapter->updated_at->format('m-d-Y') }}</p>
+                                    @else
+                                        <p class="grey-text col s12 m5">Last Update: {{ date_create('now')->format('m-d-Y') }}</p>
+                                    @endif
+                                    @if($chapter->questions->count())
+                                    <a class="btn right orange add-activity-modal margin-top-18px-mobile" data-id="{{ $topic->id }}">
+                                        <i class="material-icons left">add</i>
+                                        <span class="hide-on-small-only">Add As</span> Task
+                                    </a>
+                                    @else
+                                    <a class="btn right margin-top-18px-mobile diabled">
+                                        <i class="material-icons left">add</i>
+                                        <span class="hide-on-small-only">Add As</span> Task
+                                    </a>
+                                    @endif
+                                    <a href="#" class="btn grey lighten-1 report-modal-btn margin-top-18px-mobile right margin-right-10px-large-medium margin-right-10px-mobile" data-column="objectives" data-id="{{ $chapter->id }}">
+                                        <i class="material-icons left">report_problem</i>
+                                        <span class="hide-on-small-only">Report</span> Error
                                     </a>
                                 </div>
                             </div>
@@ -163,8 +175,16 @@
                             </div>
                             <div class="col s12 card-action">
                                 <div class="row no-margin-bottom">
-                                    <p class="grey-text col s6 m8">Last Update: {{$chapter->updated_at->format('m-d-Y') }}</p>
+                                    @if($chapter->updated_at)
+                                        <p class="grey-text col s12 m5">Last Update: {{$chapter->updated_at->format('m-d-Y') }}</p>
+                                    @else
+                                        <p class="grey-text col s12 m5">Last Update: {{ date_create('now')->format('m-d-Y') }}</p>
+                                    @endif
                                     <a class="btn right orange edit-chapter-modal margin-top-18px-mobile" data-column="discussion" data-id="{{ $chapter->id }}">Edit</a>
+                                    <a href="#" class="btn grey lighten-1 report-modal-btn margin-top-18px-mobile right margin-right-10px-large-medium margin-right-10px-mobile" data-column="discussion" data-id="{{ $chapter->id }}">
+                                        <i class="material-icons left">report_problem</i>
+                                        <span class="hide-on-small-only">Report</span> Error
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -182,8 +202,16 @@
 
                             <div class="col s12 card-action">
                                 <div class="row no-margin-bottom">
-                                    <p class="grey-text col s6 m8">Last Update: {{$chapter->updated_at->format('m-d-Y') }}</p>
+                                    @if($chapter->updated_at)
+                                        <p class="grey-text col s12 m5">Last Update: {{$chapter->updated_at->format('m-d-Y') }}</p>
+                                    @else
+                                        <p class="grey-text col s12 m5">Last Update: {{ date_create('now')->format('m-d-Y') }}</p>
+                                    @endif
                                     <a class="btn right orange edit-chapter-modal margin-top-18px-mobile" data-column="example" data-id="{{ $chapter->id }}">Edit</a>
+                                    <a href="#" class="btn grey lighten-1 report-modal-btn margin-top-18px-mobile right margin-right-10px-large-medium margin-right-10px-mobile" data-column="example" data-id="{{ $chapter->id }}">
+                                        <i class="material-icons left">report_problem</i>
+                                        <span class="hide-on-small-only">Report</span> Error
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -201,8 +229,16 @@
 
                             <div class="col s12 card-action">
                                 <div class="row no-margin-bottom">
-                                    <p class="grey-text col s6 m8">Last Update: {{$chapter->updated_at->format('m-d-Y') }}</p>
+                                    @if($chapter->updated_at)
+                                        <p class="grey-text col s12 m5">Last Update: {{$chapter->updated_at->format('m-d-Y') }}</p>
+                                    @else
+                                        <p class="grey-text col s12 m5">Last Update: {{ date_create('now')->format('m-d-Y') }}</p>
+                                    @endif
                                     <a class="btn right orange edit-chapter-modal margin-top-18px-mobile" data-column="practice" data-id="{{ $chapter->id }}">Edit</a>
+                                    <a href="#" class="btn grey lighten-1 report-modal-btn margin-top-18px-mobile right margin-right-10px-large-medium margin-right-10px-mobile" data-column="practice" data-id="{{ $chapter->id }}">
+                                        <i class="material-icons left">report_problem</i>
+                                        <span class="hide-on-small-only">Report</span> Error
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -220,8 +256,16 @@
 
                             <div class="col s12 card-action">
                                 <div class="row no-margin-bottom">
-                                    <p class="grey-text col s6 m8">Last Update: {{$chapter->updated_at->format('m-d-Y') }}</p>
+                                    @if($chapter->updated_at)
+                                        <p class="grey-text col s12 m5">Last Update: {{$chapter->updated_at->format('m-d-Y') }}</p>
+                                    @else
+                                        <p class="grey-text col s12 m5">Last Update: {{ date_create('now')->format('m-d-Y') }}</p>
+                                    @endif
                                     <a class="btn right orange edit-chapter-modal margin-top-18px-mobile" data-column="tips" data-id="{{ $chapter->id }}">Edit</a>
+                                    <a href="#" class="btn grey lighten-1 report-modal-btn margin-top-18px-mobile right margin-right-10px-large-medium margin-right-10px-mobile" data-column="tips" data-id="{{ $chapter->id }}">
+                                        <i class="material-icons left">report_problem</i>
+                                        <span class="hide-on-small-only">Report</span> Error
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -239,8 +283,16 @@
 
                             <div class="col s12 card-action">
                                 <div class="row no-margin-bottom">
-                                    <p class="grey-text col s6 m8">Last Update: {{$chapter->updated_at->format('m-d-Y') }}</p>
+                                    @if($chapter->updated_at)
+                                        <p class="grey-text col s12 m5">Last Update: {{$chapter->updated_at->format('m-d-Y') }}</p>
+                                    @else
+                                        <p class="grey-text col s12 m5">Last Update: {{ date_create('now')->format('m-d-Y') }}</p>
+                                    @endif
                                     <a class="btn right orange edit-chapter-modal margin-top-18px-mobile" data-column="keypoints" data-id="{{ $chapter->id }}">Edit</a>
+                                    <a href="#" class="btn grey lighten-1 report-modal-btn margin-top-18px-mobile right margin-right-10px-large-medium margin-right-10px-mobile" data-column="keypoints" data-id="{{ $chapter->id }}">
+                                        <i class="material-icons left">report_problem</i>
+                                        <span class="hide-on-small-only">Report</span> Error
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -303,7 +355,11 @@
 
                                     <div class="col s12 card-action">
                                         <div class="row no-margin-bottom">
-                                            <p class="grey-text col s5 m4 l6">Last Update: {!! html_entity_decode($question->updated_at->format('m-d-Y'), ENT_QUOTES, 'UTF-8') !!}</p>
+                                            @if($question->updated_at)
+                                                <p class="grey-text col s5 m4 l6">Last Update: {!! html_entity_decode($question->updated_at->format('m-d-Y'), ENT_QUOTES, 'UTF-8') !!}</p>
+                                            @else
+                                                <p class="grey-text col s5 m4 l6">Last Update: {{ date_create('now')->format('m-d-Y') }}</p>
+                                            @endif
                                             <div class="col s7 m8 l6">
                                                 @if($number_of_questions == $question->order)
                                                     <a href="#" class="btn deep-purple darken-5 add-question-modal margin-top-18px-mobile right margin-left-10px-large-medium" data-order="{{ $question->order }}" data-id="{{ $chapter->id }}">
@@ -312,15 +368,24 @@
                                                     </a>
                                                 @endif
 
-                                                <a href="#" class="btn orange edit-question-modal margin-top-18px-mobile right" data-column="questions" data-order="{{ $question->order }}" data-questionid="{{ $question->id }}" data-id="{{ $chapter->id }}">
-                                                    <i class="material-icons left">edit</i>
-                                                    Edit
-                                                </a>
 
-                                                <a href="#" class="btn grey delete-modal-btn margin-top-18px-mobile right margin-right-10px-large-medium" data-column="questions" data-order="{{ $question->order }}" data-id="{{ $question->id }}">
-                                                    <i class="material-icons left">delete</i>
-                                                    Delete
-                                                </a>
+                                                {{--IF THE USER IS THE ONE WHO CREATED THIS QUESTION, HE/SHE IS ALLOWED TO EDIT AND DELETE IT--}}
+                                                @if(Auth::user()->id == $question->user_id)
+                                                    <a href="#" class="btn orange edit-question-modal margin-top-18px-mobile right" data-column="questions" data-order="{{ $question->order }}" data-questionid="{{ $question->id }}" data-id="{{ $chapter->id }}">
+                                                        <i class="material-icons left">edit</i>
+                                                        Edit
+                                                    </a>
+
+                                                    <a href="#" class="btn grey delete-modal-btn margin-top-18px-mobile right margin-right-10px-large-medium" data-column="questions" data-order="{{ $question->order }}" data-id="{{ $question->id }}">
+                                                        <i class="material-icons left">delete</i>
+                                                        Delete
+                                                    </a>
+                                                @else
+                                                    <a href="#" class="btn grey lighten-1 report-modal-btn margin-top-18px-mobile right margin-right-10px-large-medium" data-column="questions" data-id="{{ $question->id }}">
+                                                        <i class="material-icons left">report_problem</i>
+                                                        <span class="hide-on-small-only">Report</span> Error
+                                                    </a>
+                                                @endif
 
                                             </div>
                                         </div>
@@ -329,6 +394,38 @@
 
                                 </div>
                                 @endforeach
+                                @else
+                                <div class="col s12 card">
+                                        <div class="row card-content no-margin-bottom fixed-height-20em">
+                                            <div class="col s12">
+
+                                                <div class="row no-margin-bottom">
+                                                    <div class="col s12">
+                                                        <p style="margin-top:7em;" class="center-align">This activity doesn't have questions yet. Click <span class="bold deep-purple-text text-darken-4">+ NEW</span> new to create your own.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col s12 card-action">
+                                            <div class="row no-margin-bottom">
+
+                                                <p class="grey-text col s5 m4 l6">Last Update: {{ date_create('now')->format('m-d-Y') }}</p>
+
+                                                <div class="col s7 m8 l6">
+
+                                                    <a href="#" class="btn deep-purple darken-4 add-question-modal margin-top-18px-mobile right margin-left-10px-large-medium" data-id="{{ $chapter->id }}">
+                                                        <i class="material-icons left">add</i>
+                                                        New
+                                                    </a>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
                                 @endif
                             </div>
                         </div>
@@ -344,31 +441,64 @@
         </div>
     </main>
 
-    {{--MODAL TEMPLATE FOR EDITING CHAPTER DETALIS--}}
-    <div id="modal-edit-chapter" class="modal">
+    {{--MODAL TEMPLATE FOR REPORTING ERRORS--}}
+    <div id="modal-report-error" class="modal">
 
         <div class='right row'>
             <a href="#!" class="modal-close waves-effect waves-light-blue btn-flat">&#9587</a>
         </div>
 
-
         <div class="modal-content">
-            <h4>Modal Header</h4>
-            <form method="POST" action="">
+            <form method="POST" action="/report-error/{{$chapter->id}}" id="report-error-form">
                 @csrf
-
+                @method('patch')
                 <div class="row">
                     <div class="col s12">
-                        <h4>{{ __('Edit Discussion Modal') }}</h4>
+                        <h5 class="red-text bold"><i class="material-icons left red-text">report_problem</i>Report Error</h5>
                     </div>
                 </div>
 
-
                 <div class="row">
+                    <div class="col m2 s12"><span class='bold'>Level:</span></div>
+                    <div class="col m10 s12">{{$topic->level->name}}</div>
+                </div>
+                <div class="row">
+                    <div class="col m2 s12"><span class='bold'>Subject:</span></div>
+                    <div class="col m10 s12">{{ $topic->module->subject->name }} </div>
+                </div>
+                <div class="row">
+                    <div class="col m2 s12"><span class='bold'>Module:</span></div>
+                    <div class="col m10 s12">{{ $topic->module->name }} </div>
+                </div>
+                <div class="row">
+                    <div class="col m2 s12"><span class='bold'>Topic:</span></div>
+                    <div class="col m10 s12">{{ $topic->name }}</div>
+                </div>
+
+                <div class="row no-margin-bottom">
+                    <div class="col s12">
+                        <p class="grey-text">Please briefly indicate the error below.</p>
+                    </div>
+                </div>
+
+                <div class="row no-margin-bottom">
+                    <input type="hidden" name="chapter" value="{{ $chapter->id }}">
+                    <input type="hidden" id="column_with_error" name="column">
                     <div class="input-field col s12">
-                        <button type='submit' class="waves-effect waves-light btn light-blue">
-                            <i class="material-icons right"></i>
-                            {{ __('Save Changes') }}
+                        <textarea  id="error_details" class="materialize-textarea" name="details" data-length="250"></textarea>
+                    </div>
+                </div>
+                <script>
+                    $(document).ready(function() {
+                        $('textarea#error_details').characterCounter();
+                    });
+                </script>
+
+                <div class="row no-margin-bottom">
+                    <div class="input-field col s12">
+                        <button type='submit' class="waves-effect waves-light btn grey">
+                            <i class="material-icons right">send</i>
+                            {{ __('SUBMIT') }}
                         </button>
 
                     </div>
@@ -477,5 +607,112 @@
             </form>
         </div>
     </div>
+
+
+
+<!--MODAL TEMPLATE FOR ADDING AN ACTIVITY-->
+<div id="modal-add-activity" class="modal">
+
+    <div class='right row'>
+        <a href="#!" class="modal-close waves-effect waves-light-blue btn-flat">&#9587</a>
+    </div>
+
+
+    <div class="modal-content">
+        <h4>Modal Header</h4>
+        <form method="POST" action="" id="add-activity-form">
+            @csrf
+
+            <div class="row">
+                <div class="col s12">
+                    <h6 id='add-activity-modal-question'></h6>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="input-field col s12">
+                    <button type='submit' class="waves-effect waves-light btn orange">
+                        <i class="material-icons right"></i>
+                        {{ __('Add Task') }}
+                    </button>
+
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+{{--MODAL TEMPLATE FOR EDITING QUESTION--}}
+<div id="modal-edit-question" class="modal">
+
+    <div class='right row'>
+        <a href="#!" class="modal-close waves-effect waves-light-blue btn-flat">&#9587</a>
+    </div>
+
+
+    <div class="modal-content">
+        <h4>Modal Header</h4>
+        <form method="POST" action="">
+            @csrf
+
+            <div class="row">
+                <div class="col s12">
+                    <h4>{{ __('Edit Discussion Modal') }}</h4>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="input-field col s12">
+                    <button type='submit' class="waves-effect waves-light btn light-blue">
+                        <i class="material-icons right"></i>
+                        {{ __('Save Changes') }}
+                    </button>
+
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+{{--MODAL TEMPLATE FOR ADDING QUESTION--}}
+<div id="modal-add-question" class="modal">
+
+    <div class='right row'>
+        <a href="#!" class="modal-close waves-effect waves-light-blue btn-flat">&#9587</a>
+    </div>
+
+
+    <div class="modal-content">
+        <h4>Modal Header</h4>
+        <form method="POST" action="">
+            @csrf
+
+            <div class="row">
+                <div class="col s12">
+                    <h4>{{ __('Edit Discussion Modal') }}</h4>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="input-field col s12">
+                    <button type='submit' class="waves-effect waves-light btn light-blue">
+                        <i class="material-icons right"></i>
+                        {{ __('Save Changes') }}
+                    </button>
+
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
 @endsection
 

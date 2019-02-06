@@ -55,7 +55,7 @@ $(document).ready(function(){
         $_token = "{{ csrf_token() }}";
         $.ajax({
             headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') },
-            url: '/teacher_curriculum/showTopics',
+            url: '/admin_curriculum/showTopics',
             type: 'POST',
             cache: false,
             data: $(this).serialize(),
@@ -81,14 +81,14 @@ $(document).ready(function(){
     })
 
 
-    // LOAD MODULES BASED ON SELECTED SUBJECT
+    // FILTER MODULES BASED ON SUBJECT
     $("#selected-subject").on('change', function(e){
         e.preventDefault();
         e.stopPropagation();
         $_token = "{{ csrf_token() }}";
         $.ajax({
             headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') },
-            url: '/teacher_curriculum/showModules',
+            url: '/admin_curriculum/showModules',
             type: 'GET',
             cache: false,
             data: {'subject': $(this).val()},
@@ -101,6 +101,7 @@ $(document).ready(function(){
                 //success
                 //var data = $.parseJSON(data);
                 if(response.success == true) {
+                    $('#topic_container').html("");
                     $('#module-options').replaceWith(response.html);
                     $('.dropdown-trigger').dropdown();
                     M.AutoInit();
@@ -114,7 +115,15 @@ $(document).ready(function(){
         });
     });
 
-    // EDIT CHAPTER
+    // ENABLE BUTTON WHEN MODULE IS CHOSEN
+    $(document).on('change', '#selected-module', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        $('#topic_container').html("");
+        $("#showTopics-btn").removeClass("disabled");
+    });
+
+    // EDIT LESSON
     $('.edit-chapter-modal').on('click', function(){
         const chapterId = $(this).data('id');
         const column = $(this).data('column');
@@ -156,7 +165,7 @@ $(document).ready(function(){
                         var answer = confirm('Do you want to save changes you made to ' + response.column +  '?');
 
                         if(answer ==  true) {
-                            $('#'+'edit-'+response.column+'-form').attr('action', '/teacher_topic_chapters/edit-'+response.column+'/'+response.chapterId);
+                            $('#'+'edit-'+response.column+'-form').attr('action', '/chapter/edit-'+response.column+'/'+response.chapterId);
                         }
                     })
 
@@ -216,7 +225,7 @@ $(document).ready(function(){
                         var answer = confirm('Do you want to save changes you made to question # ' + response.order + '?');
 
                         if(answer ==  true) {
-                            $('#edit-question-form').attr('action', '/teacher_topic_chapters/edit-question/'+ response.questionId);
+                            $('#edit-question-form').attr('action', '/chapter/edit-question/'+ response.questionId);
                         }
                     })
 
@@ -271,7 +280,7 @@ $(document).ready(function(){
                         var answer = confirm('Do you want to save changes you made to question #' + response.order + '?');
 
                         if(answer ==  true) {
-                            $('#add-question-form').attr('action', '/teacher_topic_chapters/add-question/'+ response.chapterId);
+                            $('#add-question-form').attr('action', '/chapter/add-question/'+ response.chapterId);
                         }
                     })
 

@@ -310,7 +310,7 @@ business:
     - table
     - tag
     - tags
-    - tasks
+    - activities
     - thumbtack
     - trademark
     - wallet
@@ -606,7 +606,7 @@ editors:
     - sync
     - sync-alt
     - table
-    - tasks
+    - activities
     - text-height
     - text-width
     - th

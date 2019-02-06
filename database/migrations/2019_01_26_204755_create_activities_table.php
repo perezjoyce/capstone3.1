@@ -20,7 +20,7 @@ class CreateActivitiesTable extends Migration
             $table->unsignedInteger('purpose_id');
             $table->unsignedInteger('presentation_id');
             $table->integer('number_of_items');
-            $table->dateTime('deadline');
+            $table->date('deadline');
             $table->timestamps();
 
             // FOREIGN KEYS

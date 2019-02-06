@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Section extends Model
 {
 
+    protected $fillable = [
+        'name', 'school_year', 'level_id', 'subject_id', 'access_code', 'status',
+    ];
+
 	//A section belongs to a level
 	 public function level(){
         return $this->belongsTo('\App\Level');

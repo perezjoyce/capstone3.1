@@ -26,7 +26,7 @@
 		</a>
 
 		<a href="{{ url('teacher_curriculum') }}">
-			<li @if ($currentRoute == "teacher_curriculum" || $currentRoute == "teacher_topic_chapters") class="active" @endif>
+			<li @if ($currentRoute == "teacher_curriculum" || $currentRoute == "teacher_lesson") class="active" @endif>
 				<div class="icon-block">
 					<div class="col s12">
 						<i class="material-icons deep-purple-text text-lighten-5"><h5 class='no-margin-bottom'>import_contacts</h5></i>

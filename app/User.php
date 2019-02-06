@@ -33,6 +33,11 @@ class User extends Authenticatable
     public function questions(){
         return $this->hasMany('\App\Question');
     }
+
+    //A user has many reports
+    public function reports(){
+        return $this->hasMany('\App\Report');
+    }
 }
 
 

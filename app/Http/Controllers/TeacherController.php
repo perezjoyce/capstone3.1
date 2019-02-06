@@ -15,6 +15,7 @@ use App\Question;
 use App\Choice;
 use Session;
 use Redirect;
+use App\Report;
 use Illuminate\Support\Facades\Input;
 
 class TeacherController extends Controller
@@ -69,12 +70,13 @@ class TeacherController extends Controller
             ['module_id', '=', $module]
         ])->get();
 
+
         $returnHTML = view('teacher.partials.filtered_topics', ['topics'=> $topics])->render();
         return response()->json( array('success' => true, 'html'=> $returnHTML) );
     }
 
     //CURRICULUM TOPIC CHAPTER PAGE
-    public function showChapters($topicId, Request $request){
+    public function showLesson($topicId, Request $request){
         $topic = Topic::find($topicId);
         $topic->load('chapters', 'module', 'level', 'module.subject');
         $chapter = $topic->chapters->first();
@@ -95,55 +97,56 @@ class TeacherController extends Controller
         }
 
         $chapterId = $chapter->id;
-        $questions = Question::where('chapter_id', '=', $chapterId)->exists();
-        if($questions == false){
-            $questions = new Question ([
-                'question' => 'Default Question',
-                'hint' => 'Default Hint',
-                'explanation' => 'Default Explanation',
-                'order' => 1,
-                'chapter_id' => $chapterId,
-                'user_id' => 1,
-            ]);
-            $questions->save();
+//        QUESTIONS ARE NOT AUTO-GENERATED
+//        $questions = Question::where('chapter_id', '=', $chapterId)->exists();
+//        if($questions == false){
+//            $questions = new Question ([
+//                'question' => 'Default Question',
+//                'hint' => 'Default Hint',
+//                'explanation' => 'Default Explanation',
+//                'order' => 1,
+//                'chapter_id' => $chapterId,
+//                'user_id' => 1,
+//            ]);
+//            $questions->save();
+//
+//            $choices = new Choice ([
+//                'choice' => 'This is the correct answer.',
+//                'is_correct' => 1,
+//                'order' => 1,
+//                'question_id' => $questions->id,
+//            ]);
 
-            $choices = new Choice ([
-                'choice' => 'This is the correct answer.',
-                'is_correct' => 1,
-                'order' => 1,
-                'question_id' => $questions->id,
-            ]);
-
-            $choices->save();
-
-            $choices = new Choice ([
-                'choice' => 'This is a wrong answer.',
-                'order' => 2,
-                'question_id' => $questions->id,
-            ]);
-            $choices->save();
-
-            $choices = new Choice ([
-                'choice' => 'This is another wrong answer.',
-                'order' => 3,
-                'question_id' => $questions->id,
-            ]);
-            $choices->save();
-
-            $choices = new Choice ([
-                'choice' => 'This is the last wrong answer.',
-                'order' => 4,
-                'question_id' => $questions->id,
-            ]);
-            $choices->save();
-
-        }
+//            $choices->save();
+//
+//            $choices = new Choice ([
+//                'choice' => 'This is a wrong answer.',
+//                'order' => 2,
+//                'question_id' => $questions->id,
+//            ]);
+//            $choices->save();
+//
+//            $choices = new Choice ([
+//                'choice' => 'This is another wrong answer.',
+//                'order' => 3,
+//                'question_id' => $questions->id,
+//            ]);
+//            $choices->save();
+//
+//            $choices = new Choice ([
+//                'choice' => 'This is the last wrong answer.',
+//                'order' => 4,
+//                'question_id' => $questions->id,
+//            ]);
+//            $choices->save();
+//
+//        }
             $questions = Question::where('chapter_id', '=', $chapterId)->get();
             $number_of_questions = $questions->count();
             $choices = $questions->load('choices');
 
             $module = $topic->module;
-            return view('teacher.teacher_topic_chapters', compact('topic', 'module', 'chapter', 'questions', 'choices', 'number_of_questions'));
+            return view('teacher.teacher_lesson', compact('topic', 'module', 'chapter', 'questions', 'choices', 'number_of_questions'));
 
     }
 
@@ -179,6 +182,27 @@ class TeacherController extends Controller
         Section::with('level', 'subject')->get();
 
         return view('teacher.teacher_students_list', compact('students', 'teachers', 'sections'));
+    }
+
+
+    public function reportError($chapterId, Request $request){
+        $column = Input::get('column');
+        $user = auth()->user()->id;
+
+        $rules = array(
+            "details"=> "required",
+        );
+
+        $this->validate($request, $rules);
+        $report = new Report;
+        $report->chapter_id = $chapterId;
+        $report->field = $column;
+        $report->message = $request->details;
+        $report->user_id = $user;
+        $report->save();
+
+        Session::flash("successmessage", "Your report has been successfully sent!");
+        return Redirect::back();
     }
 
 

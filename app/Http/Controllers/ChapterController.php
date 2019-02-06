@@ -18,22 +18,22 @@ class ChapterController extends Controller
         $template = '';
         switch ($column) {
             case 'objective':
-                $template = 'teacher.chapters.objective';
+                $template = 'chapters.objective';
                 break;
             case 'discussion':
-                $template = 'teacher.chapters.discussion';
+                $template = 'chapters.discussion';
                 break;
             case 'example':
-                $template ='teacher.chapters.example';
+                $template ='chapters.example';
                 break;
             case 'practice':
-                $template = 'teacher.chapters.practice';
+                $template = 'chapters.practice';
                 break;
             case 'tips':
-                $template = 'teacher.chapters.tips';
+                $template = 'chapters.tips';
                 break;
             case 'keypoints':
-                $template = 'teacher.chapters.keypoints';
+                $template = 'chapters.keypoints';
                 break;
         }
 
@@ -43,6 +43,11 @@ class ChapterController extends Controller
 
 
     public function editObjective($chapterId, Request $request) {
+        $rules = array(
+            "edit_objective"=> "required",
+        );
+
+        $this->validate($request, $rules);
         $chapter = Chapter::find($chapterId);
         $chapter->objective = $request->edit_objective;
         $chapter->save();
@@ -51,6 +56,11 @@ class ChapterController extends Controller
     }
 
     public function editExample($chapterId, Request $request){
+        $rules = array(
+            "edit_example"=> "required",
+        );
+
+        $this->validate($request, $rules);
         $chapter = Chapter::find($chapterId);
         $chapter->example = $request->edit_example;
         $chapter->save();
@@ -59,6 +69,11 @@ class ChapterController extends Controller
     }
 
     public function editDiscussion($chapterId, Request $request){
+        $rules = array(
+            "edit_discussion"=> "required",
+        );
+
+        $this->validate($request, $rules);
         $chapter = Chapter::find($chapterId);
         $chapter->discussion = $request->edit_discussion;
         $chapter->save();
@@ -67,6 +82,11 @@ class ChapterController extends Controller
     }
 
     public function editKeypoints($chapterId, Request $request){
+        $rules = array(
+            "edit_keypoints"=> "required",
+        );
+
+        $this->validate($request, $rules);
         $chapter = Chapter::find($chapterId);
         $chapter->key_point = $request->edit_keypoints;
         $chapter->save();
@@ -75,6 +95,11 @@ class ChapterController extends Controller
     }
 
     public function editPractice($chapterId, Request $request){
+        $rules = array(
+            "edit_practice"=> "required",
+        );
+
+        $this->validate($request, $rules);
         $chapter = Chapter::find($chapterId);
         $chapter->guided_practice = $request->edit_practice;
         $chapter->save();
@@ -84,6 +109,11 @@ class ChapterController extends Controller
 
 
     public function editTips($chapterId, Request $request){
+        $rules = array(
+            "edit_tips"=> "required",
+        );
+
+        $this->validate($request, $rules);
         $chapter = Chapter::find($chapterId);
         $chapter->tip = $request->edit_tips;
         $chapter->save();
@@ -96,7 +126,7 @@ class ChapterController extends Controller
         $question = Question::find($questionId);
         $choices = $question->load('choices');
 
-        $template = 'teacher.chapters.questions';
+        $template = 'chapters.questions';
 
         $returnHTML = view($template, compact('chapter', 'question','choices' ))->render();
         return response()->json( array('success' => true, 'html'=> $returnHTML, 'chapterId' => $chapterId, 'questionId' => $questionId, 'order' => $order) );
@@ -140,7 +170,7 @@ class ChapterController extends Controller
 
     public function getAddQuestionForm($chapterId, $order){
         $chapter = Chapter::find($chapterId);
-        $template = 'teacher.chapters.add_questions';
+        $template = 'chapters.add_questions';
         $order = $order + 1;
 
         $returnHTML = view($template, compact('chapter', 'order'))->render();
@@ -148,6 +178,7 @@ class ChapterController extends Controller
     }
 
     public function addQuestion($chapterId, Request $request) {
+        $user = auth()->user()->id;
         $rules = array(
             "new_question"=> "required",
             "new_hint" => "required",
@@ -167,7 +198,7 @@ class ChapterController extends Controller
         $question->explanation = $request->new_explanation;
         $question->order = $request->new_order;
         $question->chapter_id = $chapterId;
-        $question->user_id = 1;
+        $question->user_id = $user;
         $question->save();
 
         $questionId = Question::where('chapter_id', '=', $chapterId)->orderBy('order', 'desc')->first()->id;
@@ -216,7 +247,7 @@ class ChapterController extends Controller
         $topic = $chapter->topic->name;
         $chapter->delete();
         Session::flash("successmessage", "The lesson for ".$topic." has been successfully deleted.");
-        return redirect("/home");
+        return redirect("/admin_dashboard");
 
     }
 

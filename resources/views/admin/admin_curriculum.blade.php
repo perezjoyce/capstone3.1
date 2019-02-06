@@ -2,7 +2,7 @@
 @extends('layouts.app')
 @section('main')
     <main>
-        @include('sidenav_teacher')
+        @include('sidenav_admin')
         <div class="row no-margin-bottom">
             <div class="col s12">
 
@@ -93,7 +93,7 @@
 
 
                                 <div class="input-field col s12" id="module-options">
-                                    <select name="module">
+                                    <select name="module" id="selected-module">
                                         <option value="" disabled selected>Select Module</option>
                                         @foreach($modules as $module)
                                             <option value="{{ $module->id }}">{{ $module->name }}</option>
@@ -104,7 +104,7 @@
 
 
                             <div class="input-field col s12">
-                                <button class='btn right orange' type="submit">
+                                <button class='btn right orange disabled' type="submit" id="showTopics-btn">
                                     LOAD TOPICS
                                 </button>
                             </div>
