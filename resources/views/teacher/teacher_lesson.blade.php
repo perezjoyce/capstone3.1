@@ -114,10 +114,17 @@
                             </a>
                         </li>
                         <li class="tab">
-                            <a href="#chapter-questions" class="card btn">
-                                <h6 class="hide-on-small-only">Questions</h6>
-                                <h6 class="hide-on-med-and-up"><i class="material-icons small">help_outline</i></h6>
-                            </a>
+                            @if($questions->count() > 0)
+                                <a href="#chapter-questions" class="card btn">
+                                    <h6 class="hide-on-small-only">Questions</h6>
+                                    <h6 class="hide-on-med-and-up"><i class="material-icons small">help_outline</i></h6>
+                                </a>
+                                @else
+                                <a href="#chapter-questions" class="card btn active">
+                                    <h6 class="hide-on-small-only">Questions</h6>
+                                    <h6 class="hide-on-med-and-up"><i class="material-icons small">help_outline</i></h6>
+                                </a>
+                            @endif
                         </li>
 
                     </ul>
@@ -150,12 +157,12 @@
                                         <span class="hide-on-small-only">Add As</span> Task
                                     </a>
                                     @else
-                                    <a class="btn right margin-top-18px-mobile diabled">
+                                    <a class="btn right margin-top-18px-mobile disabled">
                                         <i class="material-icons left">add</i>
                                         <span class="hide-on-small-only">Add As</span> Task
                                     </a>
                                     @endif
-                                    <a href="#" class="btn grey lighten-1 report-modal-btn margin-top-18px-mobile right margin-right-10px-large-medium margin-right-10px-mobile" data-column="objectives" data-id="{{ $chapter->id }}">
+                                    <a href="#" class="btn red lighten-2 report-modal-btn margin-top-18px-mobile right margin-right-10px-large-medium margin-right-10px-mobile" data-column="objectives" data-id="{{ $chapter->id }}">
                                         <i class="material-icons left">report_problem</i>
                                         <span class="hide-on-small-only">Report</span> Error
                                     </a>
@@ -298,7 +305,7 @@
                         </div>
                         <div class="col s12" id="chapter-questions">
                             <div class="row">
-                                @if($questions)
+                                @if($questions->count() > 0)
                                 @foreach($questions as $question)
                                 <div class="col s12 card">
 
@@ -362,7 +369,7 @@
                                             @endif
                                             <div class="col s7 m8 l6">
                                                 @if($number_of_questions == $question->order)
-                                                    <a href="#" class="btn deep-purple darken-5 add-question-modal margin-top-18px-mobile right margin-left-10px-large-medium" data-order="{{ $question->order }}" data-id="{{ $chapter->id }}">
+                                                    <a href="#" class="btn deep-purple darken-4 add-question-modal margin-top-18px-mobile right margin-left-10px-large-medium" data-order="{{ $question->order }}" data-id="{{ $chapter->id }}">
                                                         <i class="material-icons left">add</i>
                                                         New
                                                     </a>
@@ -381,7 +388,7 @@
                                                         Delete
                                                     </a>
                                                 @else
-                                                    <a href="#" class="btn grey lighten-1 report-modal-btn margin-top-18px-mobile right margin-right-10px-large-medium" data-column="questions" data-id="{{ $question->id }}">
+                                                    <a href="#" class="btn red lighten-2 report-modal-btn margin-top-18px-mobile right margin-right-10px-large-medium" data-column="questions" data-id="{{ $question->id }}">
                                                         <i class="material-icons left">report_problem</i>
                                                         <span class="hide-on-small-only">Report</span> Error
                                                     </a>
@@ -399,9 +406,11 @@
                                         <div class="row card-content no-margin-bottom fixed-height-20em">
                                             <div class="col s12">
 
-                                                <div class="row no-margin-bottom">
+                                                <div class="row no-margin-bottom margin-top-7em-large-med">
                                                     <div class="col s12">
-                                                        <p style="margin-top:7em;" class="center-align">This activity doesn't have questions yet. Click <span class="bold deep-purple-text text-darken-4">+ NEW</span> new to create your own.</p>
+                                                        <p class="center-align">This activity can't be added as a task because it doesn't have questions yet.</p>
+                                                        <br class="show-on-small-only hide-on-med-and-up">
+                                                        <p class="center-align">Click <span class="bold deep-purple-text text-darken-5">+ NEW</span> new to create your own question.</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -485,7 +494,7 @@
                     <input type="hidden" name="chapter" value="{{ $chapter->id }}">
                     <input type="hidden" id="column_with_error" name="column">
                     <div class="input-field col s12">
-                        <textarea  id="error_details" class="materialize-textarea" name="details" data-length="250"></textarea>
+                        <textarea  id="error_details" class="materialize-textarea validate" name="details" data-length="250" required></textarea>
                     </div>
                 </div>
                 <script>

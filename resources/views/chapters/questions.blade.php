@@ -18,7 +18,7 @@
             <div class="row">
                 <div class="input-field col s12">
                     <i class="material-icons prefix orange-text">live_help</i>
-                    <textarea id="edit_hint" name="edit_hint" class="materialize-textarea">{{ $question->hint }}</textarea>
+                    <textarea id="edit_hint" name="edit_hint" class="materialize-textarea validate" required>{{ $question->hint }}</textarea>
                     <label for="edit_hint" class="active">Hint</label>
                 </div>
             </div>
@@ -30,7 +30,7 @@
             <div class="row">
                 <div class="input-field col s12">
                     <i class="material-icons prefix orange-text">info</i>
-                    <textarea id="edit_explanation" name="edit_explanation" class="materialize-textarea">{{ $question->explanation }}</textarea>
+                    <textarea id="edit_explanation" name="edit_explanation" class="materialize-textarea validate" required>{{ $question->explanation }}</textarea>
                     <label for="edit_explanation" class="active">Explanation</label>
                 </div>
             </div>
@@ -48,12 +48,12 @@
                     @if($choice->is_correct === 1)
                 <div class="input-field col s12">
                     <i class="material-icons prefix orange-text">check</i>
-                    <textarea name="edit_answer_{{ $choice->order }}" class="materialize-textarea">{{ $choice->choice }}</textarea>
+                    <textarea name="edit_answer_{{ $choice->order }}" class="materialize-textarea validate" required>{{ $choice->choice }}</textarea>
                 </div>
                     @else
                 <div class="input-field col s12">
                     <i class="material-icons prefix grey-text">clear</i>
-                    <textarea name="edit_answer_{{ $choice->order }}" class="materialize-textarea">{{ $choice->choice }}</textarea>
+                    <textarea name="edit_answer_{{ $choice->order }}" class="materialize-textarea validate" required>{{ $choice->choice }}</textarea>
                 </div>
                     @endif
                 @endforeach

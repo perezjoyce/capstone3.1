@@ -143,6 +143,8 @@ $(document).ready(function(){
                     $('#modal-add-activity').modal('open');
                     $('#add-activity-form').attr('action', '/activity/add_activity/'+ response.topicId);
 
+
+
                 } else {
                     alert("Error in loading modal.");
                 }
@@ -162,20 +164,55 @@ $(document).ready(function(){
         $('#modal-report-error').modal('open');
         $('#column_with_error').val(column);
 
-        $(document).on('submit', '#report-error-form', function(e) {
-            e.preventDefault();
-            // e.stopPropagation();
+        // $(document).on('submit', '#report-error-form', function(e) {
+        //     e.preventDefault();
+        //     // e.stopPropagation();
+        //
+        //     var answer = confirm('Do you want to send this report to the Admin?');
+        //
+        //     if (answer == true) {
+        //         $('#report-error-form').attr('action', '/report-error/' + chapterId);
+        //         // $('#modal-report-error').modal('close');
+        //     } else {
+        //         $('#modal-report-error').modal('close');
+        //     }
+        // });
 
-            var answer = confirm('Do you want to send this report to the Admin?');
+    });
 
-            if (answer == true) {
-                $('#report-error-form').attr('action', '/report-error/' + chapterId);
-                // $('#modal-report-error').modal('close');
-            } else {
-                $('#modal-report-error').modal('close');
+    // LOAD PURPOSES BASED ON SELECTED SECTION/CLASS
+    $(document).on('change', '#selected-section', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        var sectionId = $(this).val();
+
+        $_token = "{{ csrf_token() }}";
+        $.ajax({
+            headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') },
+            url: '/activity/show_purposes/'+sectionId,
+            type: 'GET',
+            cache: false,
+            data: {
+                'sectionId': sectionId
+            },
+            datatype: 'json',
+            beforeSend: function() {
+                //something before send
+            },
+            success: function(response) {
+                //success
+                if(response.success == true) {
+                    $('#purpose-options').replaceWith(response.html);
+                    $('select').formSelect();
+                    // M.AutoInit();
+                } else {
+                    alert('error');
+                }
+            },
+            error: function(xhr,textStatus,thrownError) {
+                alert(xhr + "\n" + textStatus + "\n" + thrownError);
             }
         });
-
     });
 
 

@@ -41,20 +41,23 @@ Route::middleware('auth')->group(function(){
 
     //========== CURRICULUM ==========//
     //ADMIN
-    Route::get('admin_curriculum', 'AdminController@showCurriculum');
-    Route::get('/admin_curriculum/showModules', 'AdminController@showModules');
-    Route::post('/admin_curriculum/showTopics', 'AdminController@showTopics');
-    Route::get('admin_lesson/{topicId}', 'AdminController@showLesson');
+    Route::get('admin_curriculum', 'AdminController@showCurriculum')->middleware('admin');
+    Route::get('/admin_curriculum/showModules', 'AdminController@showModules')->middleware('admin');
+    Route::post('/admin_curriculum/showTopics', 'AdminController@showTopics')->middleware('admin');
+    Route::get('admin_lesson/{topicId}', 'AdminController@showLesson')->middleware('admin');
 
     //TEACHER
-    Route::get('teacher_curriculum', 'TeacherController@showCurriculum');
-    Route::get('/teacher_curriculum/showModules', 'TeacherController@showModules');
-    Route::post('/teacher_curriculum/showTopics', 'TeacherController@showTopics');
-    Route::get('teacher_lesson/{topicId}', 'TeacherController@showLesson'); //LESSONS AKA CHAPTERS
+    Route::get('teacher_curriculum', 'TeacherController@showCurriculum')->middleware('teacher');
+    Route::get('/teacher_curriculum/showModules', 'TeacherController@showModules')->middleware('teacher');
+    Route::post('/teacher_curriculum/showTopics', 'TeacherController@showTopics')->middleware('teacher');
+    Route::get('teacher_lesson/{topicId}', 'TeacherController@showLesson')->middleware('teacher'); //LESSONS AKA CHAPTERS
 
     //STUDENT
+    Route::get('student_curriculum', 'StudentController@showCurriculum')->middleware('student');
+    Route::get('student_lesson/{topicId}', 'StudentController@showLesson')->middleware('student');
 
     //========== LESSON/CHAPTER ==========//
+    //ADMIN
     Route::get('chapter/edit/{chapterId}', 'ChapterController@getEditForm')->middleware('admin');
     Route::get('chapter/add/{chapterId}/{order}', 'ChapterController@getAddQuestionForm')->middleware('admin'); // ADD TEACHER MIDDLEWARE
     Route::get('chapter/edit/{chapterId}/{questionId}/{order}', 'ChapterController@getEditQuestionForm')->middleware('admin'); // ADD TEACHER MIDDLEWARE
@@ -72,24 +75,28 @@ Route::middleware('auth')->group(function(){
     Route::delete('deleteChapter/{chapterId}', 'ChapterController@deleteChapter')->middleware('admin');
     Route::delete('deleteQuestion/{questionId}', 'ChapterController@deleteQuestion')->middleware('admin'); // ADD TEACHER MIDDLEWARE
 
+    //TEACHER
+    //STUDENT
 
     //========== REPORT ==========//
-    Route::patch('report-error/{chapterId}', 'TeacherController@reportError'); //NOT WORKING
+    //TEACHER
+    Route::patch('report-error/{chapterId}', 'TeacherController@reportError')->middleware('teacher'); //CREATE FOR STUDENT
 
 
     //========== ACTIVITIES ==========//
     //TEACHER
     Route::get('activity/{topicId}', 'ActivityController@getForm')->middleware('teacher');
+    Route::get('activity/show_purposes/{sectionId}', 'ActivityController@showPurposes')->middleware('teacher');
     Route::post('/activity/add_activity/{topicId}', 'ActivityController@addActivity')->middleware('teacher');
 
     //========== CLASS LIST ==========//
     //TEACHER
-    Route::get('teacher_sections', 'TeacherController@showSections');
-    Route::get('teacher_archived_sections', 'TeacherController@showArchivedSections');
+    Route::get('teacher_sections', 'TeacherController@showSections')->middleware('teacher');
+    Route::get('teacher_archived_sections', 'TeacherController@showArchivedSections')->middleware('teacher');
 
     //========== STUDENT LIST ==========//
     //TEACHER
-    Route::get('teacher_students_list', 'TeacherController@showStudents');
+    Route::get('teacher_students_list', 'TeacherController@showStudents')->middleware('teacher');
 
 
 });

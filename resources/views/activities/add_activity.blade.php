@@ -22,30 +22,33 @@
                     <input type="hidden" name="presentation" value="1">
                     <br>
                     <div class="input-field col s12">
-                        <input type="text" name="name">
-                        <label class="active">Name of Task</label>
+                        <input type="text" name="name" class="validate" required>
+                        <label>Name of Task</label>
                     </div>
 
-                    <div class="input-field col s12">
-                        <select name="section">
+                    <div class="input-field col s12" id="section-options">
+                        <select name="section" id="selected-section" class="validate" required>
+                            {{--I DID NOT ADD CONDITION TO CLASSES/SECTIONS FOR THE GRADE LEVEL OF THIS CHAPTER TO ALLOW MORE FLEXIBILITY FOR THE TEACHER THROUGH REMEDIAL AND ENHANCEMENT --}}
                             <option value="" disabled selected>Select A Class</option>
                             @foreach($sections as $section)
-                                <option value="{{ $section->id }}">{{ $section->level->name }} - {{ $section->name }}</option>
+                                {{--IF ACTIVITY FOR THIS CHAPTER HAS BEEN GIVEN TO A SECTION, INDICATE SO --}}
+                                @if($section->activities->count() > 0)
+                                    <option value="{{ $section->id }}">{{ $section->level->name }} - {{ $section->name }} ****** Has {{$section->activities->count()}} task/s for this lesson ******</option>
+                                   @else
+                                    <option value="{{ $section->id }}">{{$section->activities->count()}} - {{ $section->level->name }} - {{ $section->name }}</option>
+                                @endif
                             @endforeach
                         </select>
                     </div>
 
-                    <div class="input-field col s12">
-                        <select name="purpose" id="selected-subject">
+                    <div class="input-field col s12" id="purpose-options">
+                        <select name="purpose" id="selected-purpose" class="validate">
                             <option value="" disabled selected>Select A Purpose</option>
-                            @foreach($purposes as $purpose)
-                                <option value="{{ $purpose->id }}">{{ $purpose->name }}</option>
-                            @endforeach
                         </select>
                     </div>
 
                     <div class="input-field col s12" id="module-options">
-                        <input type="text" class="datepicker" name="deadline">
+                        <input type="text" class="datepicker" name="deadline" required>
                     </div>
                 </div>
 

@@ -38,9 +38,7 @@
                                     @endforeach
                                 </ul>
                             </div>
-                        @endif
-
-                        @if(Session::has("successmessage"))
+                        @elseif(Session::has("successmessage"))
                             <div class="alert alert-danger mb-5 rounded-0">
                                 <ul class='list-unstyled'>
 

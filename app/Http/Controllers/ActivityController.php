@@ -22,22 +22,48 @@ class ActivityController extends Controller
     public function getForm($topicId){
         $topic = Topic::find($topicId);
         $purposes = Purpose::all();
+        $purposeId = "";
 
         $sections = Section::whereHas('users', function($q){
             $userId = auth()->user()->id;
             $q->where('user_id', '=', $userId);
-        })->get();
+        })->where('status', '=', 'active')->get();
+
+        $sections->load('activities', 'activities.purpose');
 
         $template = 'activities.add_activity';
         $returnHTML = view($template, compact('topic', 'questions', 'purposes', 'sections' ))->render();
         return response()->json( array('success' => true, 'html'=> $returnHTML, 'topicId' => $topicId) );
     }
 
+    //SHOW PURPOSE BASED ON SELECTED CLASS/SECTION
+
+    /**
+     * @param $sectionId
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function showPurposes($sectionId){
+        $activities = Activity::where('section_id', '=', $sectionId)->get();
+        $activities->load('purpose');
+
+        $existingPurposesIds = [];
+        foreach ($activities as $activity) {
+            $existingPurposesIds[] = $activity->purpose->id;
+        }
+
+        $purposes = Purpose::whereNotIn('id', $existingPurposesIds)->get();
+
+        $returnHTML = view('activities.partials.filtered_purposes',
+            ['activities'=> $activities,
+                'purposes' => $purposes])->render();
+        return response()->json( array('success' => true, 'html'=> $returnHTML) );
+    }
+
     //ADD ACTIVITY
     public function addActivity($topicId, Request $request){
 
-
-        $topic = Topic::find($topicId); //use to find chaper's questions and save them into activity question
+        $topic = Topic::find($topicId); //use to find chapter's questions and save them into activity question //NEEDED TO GET CHAPTER ID FOR NOW BUT THIS COULD HAVE BEEN PASSED AS WILDCARD INSTEAD
         $chapterId = $topic->chapters->first()->id;
         $questions = Question::where('chapter_id', '=', $chapterId)->get();
         $number_of_items = $questions->count();
@@ -60,10 +86,11 @@ class ActivityController extends Controller
             "purpose" => "required|numeric",
             "deadline" => "required"
         );
-
+        //ADD CHAPTER ID FIELD HERE FOR NOW. REMOVE THIS WHEN YOU DECIDE TO HAVE MULTIPLE CHAPTERS TO AN ACTIVITY IN THE FUTURE.
         $this->validate($request, $rules);
         $activity = new Activity(); // Model class of Activity
         $activity->name = $request->name;
+        $activity->chapter_id = $chapterId;
         $activity->section_id = $request->section;
         $activity->purpose_id = $request->purpose;
         $activity->presentation_id = $request->presentation;

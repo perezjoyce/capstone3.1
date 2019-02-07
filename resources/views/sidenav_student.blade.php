@@ -29,7 +29,7 @@
 		</a>
 
 		<a href="{{ url('student_curriculum') }}">
-			<li @if ($currentRoute == "student_curriculum" || $currentRoute == "student_topic_chapters") class="active" @endif>
+			<li @if ($currentRoute == "student_curriculum" || $currentRoute == "student_lessons") class="active" @endif>
 				<div class="icon-block">
 					<div class="col s12">
 						<i class="material-icons deep-purple-text text-lighten-5"><h5 class='no-margin-bottom'>import_contacts</h5></i>
@@ -41,8 +41,8 @@
 			</li>
 		</a>
 
-		<a href="student_curriculum_content">
-			<li @if ($currentRoute == "student_curriculum_content") class="active" @endif>
+		<a href="#">
+			<li>
 				<div class="icon-block row no-margin-bottom">
 					<div class="col s12">
 						<i class="material-icons deep-purple-text text-lighten-5"><h5 class='no-margin-bottom'>timeline</h5></i>

@@ -37,9 +37,7 @@
                                     @endforeach
                                 </ul>
                             </div>
-                        @endif
-
-                        @if(Session::has("successmessage"))
+                        @elseif(Session::has("successmessage"))
                             <div class="alert alert-danger mb-5 rounded-0">
                                 <ul class='list-unstyled'>
 
@@ -72,7 +70,7 @@
                             <div class="no-margin-bottom">
 
                                 <div class="input-field col s12">
-                                    <select name="level">
+                                    <select name="level" class="validate" required>
                                         <option value="" disabled selected>Select Grade Level</option>
                                         @foreach($levels as $level)
                                         <option value="{{ $level->id }}">{{ $level->name }}</option>
@@ -82,7 +80,7 @@
 
 
                                 <div class="input-field col s12">
-                                    <select name="subject" id="selected-subject">
+                                    <select name="subject" id="selected-subject" class="validate" required>
                                         <option value="" disabled selected>Select Subject</option>
                                         @foreach($subjects as $subject)
                                         <option value="{{ $subject->id }}">{{ $subject->name }}</option>
@@ -92,7 +90,7 @@
 
 
                                 <div class="input-field col s12" id="module-options">
-                                    <select name="module" id="selected-module">
+                                    <select name="module" id="selected-module" class="validate" required>
                                         <option value="" disabled selected>Select Module</option>
                                         @foreach($modules as $module)
                                         <option value="{{ $module->id }}">{{ $module->name }}</option>
@@ -132,7 +130,7 @@
 
 
         <div class="modal-content">
-            <h4>Modal Header</h4>
+            <h4></h4>
             <form method="POST" action="" id="add-activity-form">
                 @csrf
 

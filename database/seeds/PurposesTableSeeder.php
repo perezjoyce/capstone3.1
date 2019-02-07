@@ -13,10 +13,12 @@ class PurposesTableSeeder extends Seeder
     public function run()
     {
          Purpose::insert([
-        	['name' => 'Introduction', 'description' => 'This activity will introduce you to ', 'created_at' => NULL, 'updated_at' => NULL],
-        	['name' => 'Review', 'description' => 'This activity will serve as your review in ', 'created_at' => NULL, 'updated_at' => NULL],
-        	['name' => 'Assessment', 'description' => 'This activity will check what you have learned in ', 'created_at' => NULL, 'updated_at' => NULL],
-        	['name' => 'Evaluation', 'description' => 'This activity will measure your mastery of ', 'created_at' => NULL, 'updated_at' => NULL]
+            ['name' => 'Introduction', 'description' => 'This activity will introduce you to ', 'created_at' => NULL, 'updated_at' => NULL],
+            ['name' => 'Review', 'description' => 'This activity will serve as your review in ', 'created_at' => NULL, 'updated_at' => NULL],
+            ['name' => 'Assessment', 'description' => 'This activity will check what you have learned in ', 'created_at' => NULL, 'updated_at' => NULL],
+            ['name' => 'Evaluation', 'description' => 'This activity will measure your mastery of ', 'created_at' => NULL, 'updated_at' => NULL],
+            ['name' => 'Enhancement', 'description' => 'This activity is an advanced lesson in ', 'created_at' => NULL, 'updated_at' => NULL],
+            ['name' => 'Remedial', 'description' => 'This activity is a remedial lesson in ', 'created_at' => NULL, 'updated_at' => NULL]
         ]);
     }
 }

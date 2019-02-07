@@ -171,7 +171,11 @@ class ChapterController extends Controller
     public function getAddQuestionForm($chapterId, $order){
         $chapter = Chapter::find($chapterId);
         $template = 'chapters.add_questions';
-        $order = $order + 1;
+        if($order == "undefined"){
+            $order == 1;
+        } else {
+            $order = $order + 1;
+        }
 
         $returnHTML = view($template, compact('chapter', 'order'))->render();
         return response()->json( array('success' => true, 'html'=> $returnHTML, 'chapterId' => $chapterId) );

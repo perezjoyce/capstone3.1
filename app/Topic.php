@@ -18,6 +18,10 @@ class Topic extends Model
 
     //A topic has many chapters
     public function chapters(){
-    	return $this->hasMany('App\Chapter');
+    	return $this->hasMany('\App\Chapter', 'topic_id');
+    }
+
+    public function questions() {
+        return $this->hasManyThrough('\App\Question', '\App\Chapter', 'topic_id', 'chapter_id');
     }
 }

@@ -15,4 +15,8 @@ class Subject extends Model
     public function sections(){
         return $this->hasMany('\App\Section');
     }
+
+//    public function activities() {
+//        return $this->hasManyThrough('\App\Activity', '\App\Section', 'section_id', 'chapter_id');
+//    }
 }

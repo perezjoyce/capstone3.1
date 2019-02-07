@@ -16,6 +16,7 @@ class CreateActivitiesTable extends Migration
         Schema::create('activities', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->unsignedInteger('chapter_id');
             $table->unsignedInteger('section_id');
             $table->unsignedInteger('purpose_id');
             $table->unsignedInteger('presentation_id');
@@ -24,6 +25,12 @@ class CreateActivitiesTable extends Migration
             $table->timestamps();
 
             // FOREIGN KEYS
+            $table->foreign('chapter_id')
+                ->references('id')
+                ->on('chapters')
+                ->onDelete('restrict')
+                ->onUpdate('cascade');
+
             $table->foreign('section_id')
             ->references('id')
             ->on('sections')

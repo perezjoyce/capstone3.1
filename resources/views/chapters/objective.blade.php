@@ -8,7 +8,7 @@
         <h5 class="orange-text bold"><i class="material-icons small left">track_changes</i>&nbsp;Objective</h5>
     </header>
     <br>
-    <textarea name="edit_objective" class="wysiywg" id="" cols="30" rows="10">{{ $chapter->objective }}</textarea>
+    <textarea name="edit_objective" class="wysiywg validate" id="" cols="30" rows="10" required>{{ $chapter->objective }}</textarea>
 
     <div class="row">
         <div class="col s12 no-margin-bottom">

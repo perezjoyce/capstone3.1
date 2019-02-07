@@ -6,6 +6,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Model;
+use \Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 class User extends Authenticatable
 {
@@ -38,6 +39,17 @@ class User extends Authenticatable
     public function reports(){
         return $this->hasMany('\App\Report');
     }
+
+
+}
+
+    class UsersModel extends Model {
+        /**  https://github.com/staudenmeir/eloquent-has-many-deep#belongstomany */
+        public function activities()
+        {
+            return $this->hasManyDeep('App\Activity', ['section_user', 'App\Section']);
+        }
+
 }
 
 

@@ -129,9 +129,6 @@ $(document).ready(function(){
                 column: column
             },
             datatype: 'json',
-            beforeSend: function() {
-                //something before send
-            },
             success: function(response) {
 
                 if(response.success == true) {
@@ -189,9 +186,6 @@ $(document).ready(function(){
                 order: order
             },
             datatype: 'json',
-            beforeSend: function() {
-                //something before send
-            },
             success: function(response) {
 
                 if(response.success == true) {

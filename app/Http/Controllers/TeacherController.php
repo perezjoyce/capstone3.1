@@ -70,6 +70,11 @@ class TeacherController extends Controller
             ['module_id', '=', $module]
         ])->get();
 
+//        $chapters = Chapter::all();
+
+//       $tests= $topics->load('chapters', 'chapters.questions');
+//        dd($test);
+
 
         $returnHTML = view('teacher.partials.filtered_topics', ['topics'=> $topics])->render();
         return response()->json( array('success' => true, 'html'=> $returnHTML) );

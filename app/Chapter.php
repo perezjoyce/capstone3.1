@@ -18,7 +18,12 @@ class Chapter extends Model
 
     //A chapter has many questions
     public function questions(){
-    	return $this->hasMany('\App\Question');
+    	return $this->hasMany('\App\Question', 'chapter_id');
+    }
+
+    //A chapter has many activities
+    public function activities(){
+        return $this->hasMany('\App\Activity', 'chapter_id');
     }
 
     //A chapter has many reports

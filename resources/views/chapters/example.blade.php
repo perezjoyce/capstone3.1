@@ -7,7 +7,7 @@
         <h5 class="orange-text bold"><i class="material-icons small left">lightbulb_outline</i>&nbsp;Example</h5>
     </header>
     <br>
-    <textarea name="edit_example" class="wysiywg" id="" cols="30" rows="10">{{ $chapter->example }}</textarea>
+    <textarea name="edit_example" class="wysiywg validate" id="" cols="30" rows="10" required>{{ $chapter->example }}</textarea>
     <br>
     <button class="btn orange edit-chapter-modal-btn" data-id="{{$chapter->id}}">Save Changes</button>
 </form>

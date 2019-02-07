@@ -234,6 +234,18 @@ table table.inner tr:last-child {
 		margin-left:10px!important;
 	}
 
+	.fixed-height-20em-large-and-med {
+		min-height:20em!important;
+		overflow: scroll!important;
+	}
+
+	.margin-top-7em-large-med {
+		margin-top:7em;
+	}
+
+	.margin-top {
+		margin-top:10px!important;
+	}
 
 }
 
@@ -263,6 +275,19 @@ table table.inner tr:last-child {
 
 	.margin-left-10px-large-medium {
 		margin-left:10px!important;
+	}
+
+	.fixed-height-20em-large-and-med {
+		min-height:20em!important;
+		overflow: scroll!important;
+	}
+
+	.margin-top-7em-large-med {
+		margin-top:7em;
+	}
+
+	.margin-top {
+		margin-top:8px!important;
 	}
 
 }
@@ -333,7 +358,13 @@ table table.inner tr:last-child {
 		width: 250px!important;
 	}
 
+	.margin-top-7em-large-med {
+		margin-top:4em!important;
+	}
 
+	.margin-top {
+		margin-top:15px!important;
+	}
 }
 
 
