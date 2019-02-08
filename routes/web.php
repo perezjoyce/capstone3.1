@@ -54,7 +54,7 @@ Route::middleware('auth')->group(function(){
 
     //STUDENT
     Route::get('student_curriculum', 'StudentController@showCurriculum')->middleware('student');
-    Route::get('student_lesson/{topicId}', 'StudentController@showLesson')->middleware('student');
+    Route::get('student_lesson/{topicId}/', 'StudentController@showLesson')->middleware('student');
 
     //========== LESSON/CHAPTER ==========//
     //ADMIN
@@ -88,6 +88,9 @@ Route::middleware('auth')->group(function(){
     Route::get('activity/{topicId}', 'ActivityController@getForm')->middleware('teacher');
     Route::get('activity/show_purposes/{sectionId}', 'ActivityController@showPurposes')->middleware('teacher');
     Route::post('/activity/add_activity/{topicId}', 'ActivityController@addActivity')->middleware('teacher');
+
+    //STUDENT
+    Route::post('checkAnswers/{activityId}', 'ActivityController@checkAnswers')->middleware('student');
 
     //========== CLASS LIST ==========//
     //TEACHER

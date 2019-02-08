@@ -31,34 +31,26 @@ class StudentController extends Controller
         $sections->load('subject', 'level', 'activities', 'activities.purpose', 'activities.chapter.topic');
 
         //NOTE: ORDER BY DEADLINE HAS NOT BEEN ACHIEVED YET
-
         return view('student.student_curriculum', compact('sections'));
     }
 
     //CURRICULUM TOPIC CHAPTER PAGE
     public function showLesson($topicId, Request $request){
         $topic = Topic::find($topicId);
+        $activityId = $request->get('activity'); // get ID from URL
+        $activity = Activity::find($activityId);
+
+//        $activity->load('purpose');
+
+
         $topic->load('chapters', 'module', 'level', 'module.subject');
         $chapter = $topic->chapters->first();
         $chapterId = $chapter->id;
         $questions = Question::where('chapter_id', '=', $chapterId)->inRandomOrder()->get(); // this works!
         $questions->load('choices');
-        $number_of_questions = $questions->count();
-//        dd($number_of_questions);
-        //dd($questions);
-        // $questions->load('choices');
-
-//        // $questions = [];
-//        foreach ($questions as &$question) {
-//          $choices = $question->choices->shuffle();
-//          dd($choices);
-//        }
-//
-////        dd($questions);
-
-
+        $numberOfItems = $questions->count();
         $module = $topic->module;
-        return view('student.student_lesson', compact('topic', 'module', 'chapter', 'questions', 'number_of_questions'));
+        return view('student.student_lesson', compact('topic', 'module', 'chapter', 'questions', 'numberOfItems', 'activity'));
 
     }
 

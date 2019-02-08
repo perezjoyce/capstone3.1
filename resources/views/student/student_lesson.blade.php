@@ -79,6 +79,10 @@
                         <div class="col l1 m2 s3"><span class='bold'>Topic:</span></div>
                         <div class="col l11 m10 s9">{{ $topic->name }}</div>
                     </div>
+                    {{--<div class="row">--}}
+                        {{--<div class="col l1 m2 s3"><span class='bold'>Purpose:</span></div>--}}
+                        {{--<div class="col l11 m10 s9">{{ $activity->purpose->name }}</div>--}}
+                    {{--</div>--}}
                 </div>
 
                 <div class="col s12" style="margin-top:2em;">
@@ -130,6 +134,7 @@
                     </ul>
                 </div>
 
+
                 <div class="col s12">
                     <div class="row">
                         <div class="col s12 card" id="chapter-objective">
@@ -157,6 +162,7 @@
                                     </a>
                                 </div>
                             </div>
+
                         </div>
                         <div class="col s12 card" id="chapter-discussion">
                             <div class="row card-content fixed-height-20em">
@@ -287,105 +293,112 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col s12" id="chapter-questions">
-                            <div class="row">
-                                @if($questions->count() > 0)
-                                    @for($i=0; $i<$questions->count();$i++)
-                                        <div class="col s12 card">
 
-                                            <div class="row card-content no-margin-bottom">
-                                                <div class="col s12">
 
-                                                    <div class="row no-margin-bottom">
-                                                        <div class="col m6 s12">
-                                                            <br>
-                                                            <input type="hidden" value="{{ $questions[$i]->id }}">
-                                                            <div class="row">
 
-                                                                <button class="btn-small orange col l1 m2 s2">Q{{$i+1}}</button>
-                                                                <div class="col l11 m10 s10" style="padding-left:10px;"> {!! html_entity_decode($questions[$i]->question, ENT_QUOTES, 'UTF-8') !!} </div>
-                                                            </div>
-                                                            <br>
-                                                            <br class="hide-on-med-and-down">
-                                                            <div class="row no-margin-bottom">
-                                                                <h6 class="orange-text col s12 padding-0"><i class="material-icons smaller">memory</i>&nbsp;Choices</h6>
-                                                                <ul class="collection padding-0">
 
-                                                                    @foreach($questions[$i]->choices->shuffle() as $choice)
+                        {{--action="/check-answers/{{$activity->id}}"--}}
+                        <form method="POST" action="" id="answered-activity-form">
+                            @csrf
+                            <input type="hidden" name="numberOfItems" value="{{$numberOfItems}}">
+                            <div class="col s12" id="chapter-questions">
+                                <div class="row">
+                                    @if($questions->count() > 0)
+                                        @for($i=0; $i<$questions->count();$i++)
+                                            <div class="col s12 card">
 
-                                                                        <li class="collection-item">
-                                                                            <p class="grey-text">
-                                                                                <label>
-                                                                                    <input type="checkbox" class="filled-in" value="{{ $choice->id }}" />
-                                                                                    <span>
-                                                                                        {{ $choice->choice }}
-                                                                                    </span>
-                                                                                </label>
-                                                                            </p>
+                                                <div class="row card-content no-margin-bottom">
+                                                    <div class="col s12">
+                                                        <div class="row no-margin-bottom">
+                                                            <div class="col m6 s12">
+                                                                <br>
+                                                                {{--QUESTIONS--}}
+                                                                <input type="hidden" value="{{ $questions[$i]->id }}">
+                                                                <div class="row">
+                                                                    <button class="btn-small orange col l1 m2 s2">Q{{$i+1}}</button>
+                                                                    <div class="col l11 m10 s10" style="padding-left:10px;"> {!! html_entity_decode($questions[$i]->question, ENT_QUOTES, 'UTF-8') !!} </div>
+                                                                </div>
+                                                                <br class="hide-on-med-and-down">
+                                                                {{--HINTS--}}
+                                                                <div class="row">
+                                                                    <br>
+                                                                    <ul class="collapsible">
+                                                                        <li>
+                                                                            <div class="collapsible-header border-bottom-none" style="padding:0!important;"><h6 class="orange-text"><i class="material-icons smaller">live_help</i>&nbsp;Hint</h6></div>
+                                                                            <div class="collapsible-body border-bottom-none"><span>{!! html_entity_decode($questions[$i]->hint, ENT_QUOTES, 'UTF-8') !!}</span></div>
                                                                         </li>
-                                                                    @endforeach
-                                                                </ul>
+                                                                    </ul>
+                                                                </div>
                                                             </div>
 
-                                                        </div>
-                                                        <div class="col m4 s12 offset-m2 right padding-0;">
-                                                            <br>
-                                                            <div class="row">
-                                                                <h6 class="orange-text"><i class="material-icons smaller">live_help</i>&nbsp;Hint</h6>
-                                                                <p class="grey-text">{!! html_entity_decode($questions[$i]->hint, ENT_QUOTES, 'UTF-8') !!}</p>
-                                                            </div>
-                                                            <br>
-                                                            <br class="hide-on-med-and-down">
-                                                            <div class="row">
-                                                                <h6 class="orange-text"><i class="material-icons smaller">info</i>&nbsp;Explanation</h6>
-                                                                <p class="grey-text">{!! html_entity_decode($questions[$i]->explanation, ENT_QUOTES, 'UTF-8') !!}</p>
-                                                            </div>
+                                                            <div class="col m4 s12 offset-m2 right padding-0;">
 
+                                                                {{--CHOICES--}}
+                                                                <div class="row no-margin-bottom">
+
+                                                                    <ul class="collection padding-0">
+
+                                                                        @foreach($questions[$i]->choices->shuffle() as $choice)
+
+                                                                            <li class="collection-item">
+                                                                                <p class="grey-text">
+                                                                                    <label>
+                                                                                        <input type="radio"
+                                                                                               class="filled-in"
+                                                                                               value="{{ $choice->id }}"
+                                                                                               name="answer{{$i}}" />
+                                                                                        <span>
+                                                                                            {{ $choice->choice }}
+                                                                                        </span>
+                                                                                    </label>
+                                                                                </p>
+                                                                            </li>
+                                                                        @endforeach
+                                                                    </ul>
+                                                                </div>
+
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
 
-                                            <div class="col s12 card-action">
-                                                <div class="row no-margin-bottom">
-                                                    @if($questions[$i]->updated_at)
-                                                        <p class="grey-text col s5 m6">Last Update: {!! html_entity_decode($questions[$i]->updated_at->format('m-d-Y'), ENT_QUOTES, 'UTF-8') !!}</p>
-                                                    @else
-                                                        <p class="grey-text col s5 m6">Last Update: {{ date_create('now')->format('m-d-Y') }}</p>
-                                                    @endif
+                                                <div class="col s12 card-action">
+                                                    <div class="row no-margin-bottom">
+                                                        @if($questions[$i]->updated_at)
+                                                            <p class="grey-text col s5 m6">Last Update: {!! html_entity_decode($questions[$i]->updated_at->format('m-d-Y'), ENT_QUOTES, 'UTF-8') !!}</p>
+                                                        @else
+                                                            <p class="grey-text col s5 m6">Last Update: {{ date_create('now')->format('m-d-Y') }}</p>
+                                                        @endif
 
-                                                        <a href="#" class="btn-flat grey-text text-lighten-1 report-modal-btn right margin-top" data-column="questions" data-id="{{ $questions[$i]->id }}">
-                                                            <i class="material-icons left">report_problem</i>
-                                                            <span class="hide-on-small-only">Report</span> Error
-                                                        </a>
+                                                            <a href="#" class="btn-flat grey-text text-lighten-1 report-modal-btn right margin-top" data-column="questions" data-id="{{ $questions[$i]->id }}">
+                                                                <i class="material-icons left">report_problem</i>
+                                                                <span class="hide-on-small-only">Report</span> Error
+                                                            </a>
 
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    @endfor
-                                @endif
+                                        @endfor
+                                    @endif
+                                </div>
 
-                            </div>
-
-                            <div class="row">
-                                <div class="col s12">
-                                    <a href="#" class="btn-large orange add-question-modal margin-top-18px-mobile margin-left-10px-large-medium" data-order="" data-id="{{ $chapter->id }}">
-                                        <i class="material-icons right">send</i>
-                                        SUBMIT
-                                    </a>
+                                <div class="row">
+                                    <div class="col s12">
+                                        <input name="activityId" id="activityId" type="hidden" value="{{ $activity->id}}">
+                                        <button id="check-answers-btn" class="btn-large orange margin-top-18px-mobile margin-left-10px-large-medium" type="submit" >
+                                            <i class="material-icons right">send</i>
+                                            SUBMIT
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
+                        </form>
 
-                        </div>
 
                     </div>
                 </div>
 
-
-
-
             </div>
-
         </div>
     </main>
 
@@ -459,10 +472,8 @@
 
 
 
-
-
-    <!--MODAL TEMPLATE FOR ADDING AN ACTIVITY-->
-    <div id="modal-add-activity" class="modal">
+    <!--MODAL TEMPLATE SHOWING ACTIVITY RESULTS-->
+    <div id="modal-show-activity-result" class="modal modal-small">
 
         <div class='right row'>
             <a href="#!" class="modal-close waves-effect waves-light-blue btn-flat">&#9587</a>
@@ -470,27 +481,23 @@
 
 
         <div class="modal-content">
-            <h4>Modal Header</h4>
-            <form method="POST" action="" id="add-activity-form">
-                @csrf
-
-                <div class="row">
-                    <div class="col s12">
-                        <h6 id='add-activity-modal-question'></h6>
-                    </div>
+            <h4>Results</h4>
+            <div class="row">
+                <div class="col s12">
+                    <h6 id='add-activity-modal-question'></h6>
                 </div>
+            </div>
 
 
-                <div class="row">
-                    <div class="input-field col s12">
-                        <button type='submit' class="waves-effect waves-light btn orange">
-                            <i class="material-icons right"></i>
-                            {{ __('Add Task') }}
-                        </button>
+            <div class="row">
+                <div class="input-field col s12">
+                    <button type='submit' class="waves-effect waves-light btn orange">
+                        <i class="material-icons right"></i>
+                        {{ __('Retake') }}
+                    </button>
 
-                    </div>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
 

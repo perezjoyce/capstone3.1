@@ -18,6 +18,7 @@ $(document).ready(function(){
 	  }); 
 	});
 
+
     // SHOW QUESTIONS // delete
     function showQuestionsByGradeLevels(gradeLevelId) {
         $_token = "{{ csrf_token() }}";
@@ -48,6 +49,53 @@ $(document).ready(function(){
         });
     }
 
+
+    $('#answered-activity-form').on('submit', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        var activityId = $("#activityId").val();
+
+        var answer = confirm('Do you want to submit your answers?');
+        if(answer ==  true) {
+            //$('#modal-show-activity-result .modal-content').html();
+            //M.AutoInit();
+            //$('#modal-show-activity-result').modal('open');
+            // $_token = "{{ csrf_token() }}";
+            $.ajax({
+                headers: {'X-CSRF-Token': $('meta[name=csrf-token]').attr('content')},
+                url: '/checkAnswers/' + activityId,
+                type: 'POST',
+                cache: false,
+                data: $('#answered-activity-form').serialize(),
+                datatype: 'json',
+                beforeSend: function () {
+                    //something before send
+                },
+                success: function (response) {
+
+                    if (response.success == true) {
+                        $('#modal-show-activity-result').html(response.html);
+                        M.AutoInit();
+                        $('#modal-show-activity-result').modal('open');
+
+                    } else {
+                        alert('Please try again.');
+                    }
+                },
+                error: function (xhr, textStatus, thrownError) {
+                    alert(xhr + "\n" + textStatus + "\n" + thrownError);
+                }
+            });
+        }
+    });
+
+
+
+
+
+
+
+    //=========CODE BELOW DO NOT BELONG TO STUDENT ===========
 	// FILTER FORM TO VIEW TOPICS
     $("#topic-filter-form").on('submit', function(e){
     	e.preventDefault();

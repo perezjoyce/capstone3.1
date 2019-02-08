@@ -22,12 +22,15 @@ class ActivityController extends Controller
     public function getForm($topicId){
         $topic = Topic::find($topicId);
         $purposes = Purpose::all();
+        $levelId = $topic->level_id;
         $purposeId = "";
 
+        //ADDED SECOND WHERE SO ONLY ACTIVE CLASSES OF THE TEACHER THAT MATCH SELECTED LEVEL WILL BE SHOWN
         $sections = Section::whereHas('users', function($q){
             $userId = auth()->user()->id;
             $q->where('user_id', '=', $userId);
-        })->where('status', '=', 'active')->get();
+        })->where('status', '=', 'active')->where('level_id', '=', $levelId)->get();
+        //dd($sections);
 
         $sections->load('activities', 'activities.purpose');
 
@@ -103,6 +106,47 @@ class ActivityController extends Controller
         Session::flash("successmessage", $topic." has been successfully added as task to ".$section);
         //redirect to class next time
         return Redirect::back();
+    }
+
+
+    //CHECK ACTIVITY
+    public function checkAnswers($activityId, Request $request){
+
+        $activity = Activity::find($activityId);
+
+        $numberOfItems = $request->numberOfItems;
+        $score = 0;
+        for($i=0; $i<$numberOfItems; $i++) {
+            $answer = Choice::find($request->input('answer'.$i));
+            if($answer->is_correct) {
+                $score++;
+            }
+        }
+
+        $average = ($score / $numberOfItems)*100;
+        $template = "";
+
+        if($average <= 30){
+            $template = 'activities.partials.activity_result_poor';
+        } elseif ($average > 30 && $average <= 50){
+            $template = 'activities.partials.activity_result_fair';
+        } elseif ($average > 50 && $average <= 70){
+            $template = 'activities.partials.activity_result_good';
+        } elseif($average > 70 && $average < 100){
+            $template = 'activities.partials.activity_result_very_good';
+        } elseif($average == 100){
+            $template = 'activities.partials.activity_result_excellent';
+        }
+
+        //LIMIT RETAKE DEPENDING ON PURPOSE. 0 RETAKE FOR EVALUATION AND ASSESSMENT
+
+        $user = auth()->user()->id;
+        $activity->users($user)->attach($score, ['score' => $score]);
+
+        $returnHTML = view($template, compact('activity', 'numberOfItems', 'score', 'average'))->render();
+        return response()->json( array('success' => true, 'html'=> $returnHTML) );
+
+
     }
 
 

@@ -108,7 +108,7 @@
                                             <small class="grey-text">{{ $activity->deadline->format('M d, Y') }}</small>
                                         </td>
                                         <td class="center-align">
-                                            <a href="student_lesson/{{ $activity->chapter->topic->id }}" target='_blank' class='btn orange'><i class="material-icons right white-text">open_in_new</i>VIEW</a>
+                                            <a href="student_lesson/{{ $activity->chapter->topic->id }}?activity={{$activity->id}}" target='_blank' class='btn orange open-activity' data-activityid="{{ $activity->id }}"><i class="material-icons right white-text">open_in_new</i>VIEW</a>
                                         </td>
 
                                     </tr>

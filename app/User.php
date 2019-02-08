@@ -40,6 +40,10 @@ class User extends Authenticatable
         return $this->hasMany('\App\Report');
     }
 
+    public function activities(){
+        return $this->belongstoMany('\App\Activity');
+    }
+
 
 }
 
