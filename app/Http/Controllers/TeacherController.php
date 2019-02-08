@@ -146,7 +146,7 @@ class TeacherController extends Controller
 //            $choices->save();
 //
 //        }
-            $questions = Question::where('chapter_id', '=', $chapterId)->get();
+            $questions = Question::where('chapter_id', '=', $chapterId)->where('is_approved', '=', 1)->get();
             $number_of_questions = $questions->count();
             $choices = $questions->load('choices');
 

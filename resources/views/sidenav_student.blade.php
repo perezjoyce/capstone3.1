@@ -41,8 +41,8 @@
 			</li>
 		</a>
 
-		<a href="#">
-			<li>
+		<a href="{{ url('student_progress') }}">
+			<li @if ($currentRoute == "student_progress") class="active" @endif>
 				<div class="icon-block row no-margin-bottom">
 					<div class="col s12">
 						<i class="material-icons deep-purple-text text-lighten-5"><h5 class='no-margin-bottom'>timeline</h5></i>

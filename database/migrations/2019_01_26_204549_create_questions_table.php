@@ -19,6 +19,7 @@ class CreateQuestionsTable extends Migration
             $table->string('hint');
             $table->string('explanation');
             $table->integer('order');
+            $table->boolean('is_approved')->default(0);
             $table->unsignedInteger('chapter_id');
             $table->unsignedInteger('user_id')->nullable();
             $table->timestamps();

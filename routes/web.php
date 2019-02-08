@@ -102,6 +102,10 @@ Route::middleware('auth')->group(function(){
     Route::get('teacher_students_list', 'TeacherController@showStudents')->middleware('teacher');
 
 
+    //========== STUDENT PROGRESS ==========//
+    Route::get('student_progress', 'StudentController@showProgress')->middleware('student');
+
+
 });
 
 

@@ -379,9 +379,33 @@
                                                 </div>
                                             </div>
                                         @endfor
+                                        @else
+                                        <div class="col s12 card">
+                                            <div class="row card-content no-margin-bottom fixed-height-20em">
+                                                <div class="col s12">
+
+                                                    <div class="row no-margin-bottom margin-top-7em-large-med">
+                                                        <div class="col s12">
+                                                            <p class="center-align">Sorry. This doesn't have <span class="bold">approved</span> questions at the moment.</p>
+                                                            <br class="show-on-small-only hide-on-med-and-up">
+                                                            <p class="center-align">Please inform your teacher about this.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col s12 card-action">
+                                                <div class="row no-margin-bottom">
+                                                    <p class="grey-text col s12">Last Update: {{ date_create('now')->format('m-d-Y') }}</p>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
                                     @endif
                                 </div>
-
+                                @if($questions->count() > 0)
                                 <div class="row">
                                     <div class="col s12">
                                         <input name="activityId" id="activityId" type="hidden" value="{{ $activity->id}}">
@@ -391,6 +415,7 @@
                                         </button>
                                     </div>
                                 </div>
+                                @endif
                             </div>
                         </form>
 

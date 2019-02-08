@@ -62,6 +62,9 @@
                         @endif
                     </div>
                 </div>
+                <div>
+                    <p>this will the the teacher's view for tasks but limited to the subject that she is offering</p>
+                </div>
                 <div class="row">
                     <div class="col s12">
                         <table class='striped responsive-table grey-text text-darken-3'>
@@ -80,34 +83,38 @@
                                 @foreach($section->activities as $activity)
 
                                     <tr>
-                                        <td class="right-align">
-                                            @if(strpos($activity->deadline->diffForHumans(), 'week') === TRUE && strpos($activity->deadline->diffForHumans(), 'ago') == FALSE)
-                                                <i class="material-icons grey-text">access_alarm</i>
-                                            @elseif(stripos($activity->deadline->diffForHumans(), 'days') == TRUE && strpos($activity->deadline->diffForHumans(), 'ago') == FALSE)
-                                                <i class="material-icons grey-text">access_alarm</i>
-                                            @elseif(stripos($activity->deadline->diffForHumans(), 'hours') == TRUE && strpos($activity->deadline->diffForHumans(), 'ago') == FALSE)
-                                                <i class="material-icons grey-text">access_alarm</i>
-                                            @elseif(stripos($activity->deadline->diffForHumans(), 'minutes') == TRUE && strpos($activity->deadline->diffForHumans(), 'ago') == FALSE)
-                                                <i class="material-icons grey-text">access_alarm</i>
-                                            @elseif(stripos($activity->deadline->diffForHumans(), 'seconds') == TRUE && strpos($activity->deadline->diffForHumans(), 'ago') == FALSE)
-                                                <i class="material-icons grey-text">access_alarm</i>
-                                            @elseif(stripos($activity->deadline->diffForHumans(), 'ago') == TRUE)
-                                                <i class="material-icons grey-text">assignment_late</i>
+                                        <td class="right-align padding-50-large">
+                                            @if($activity->users()->where('user_id', $userId)->where('activity_id',$activity->id)->exists())
+                                                <i class="material-icons grey-text">done</i>
                                             @else
-                                                <i class="material-icons white-text text-lighten-5">access_alarm</i>
+                                                @if(strpos($activity->deadline->diffForHumans(), 'week') === TRUE && strpos($activity->deadline->diffForHumans(), 'ago') == FALSE)
+                                                    <i class="material-icons grey-text">access_alarm</i>
+                                                @elseif(stripos($activity->deadline->diffForHumans(), 'days') == TRUE && strpos($activity->deadline->diffForHumans(), 'ago') == FALSE)
+                                                    <i class="material-icons grey-text">access_alarm</i>
+                                                @elseif(stripos($activity->deadline->diffForHumans(), 'hours') == TRUE && strpos($activity->deadline->diffForHumans(), 'ago') == FALSE)
+                                                    <i class="material-icons grey-text">access_alarm</i>
+                                                @elseif(stripos($activity->deadline->diffForHumans(), 'minutes') == TRUE && strpos($activity->deadline->diffForHumans(), 'ago') == FALSE)
+                                                    <i class="material-icons grey-text">access_alarm</i>
+                                                @elseif(stripos($activity->deadline->diffForHumans(), 'seconds') == TRUE && strpos($activity->deadline->diffForHumans(), 'ago') == FALSE)
+                                                    <i class="material-icons grey-text">access_alarm</i>
+                                                @elseif(stripos($activity->deadline->diffForHumans(), 'ago') == TRUE)
+                                                    <i class="material-icons red-text text-lighten-2">assignment_late</i>
+                                                @else
+                                                    <i class="material-icons white-text text-lighten-5">access_alarm</i>
+                                                @endif
                                             @endif
                                         </td>
-                                        <td class="center-align">
-                                            <p>{{ $section->subject->name }}</p>
+                                        <td class="center-align padding-50-large">
+                                           {{ $section->subject->name }}
                                         </td>
-                                        <td class="center-align">{{ $activity->chapter->topic->name }}</td>
-                                        <td class="center-align">{{ $activity->purpose->name }}</td>
+                                        <td class="center-align padding-50-large">{{ $activity->chapter->topic->name }}</td>
+                                        <td class="center-align padding-50-large">{{ $activity->purpose->name }}</td>
 
-                                        <td class="center-align">
+                                        <td class="center-align padding-50-large">
                                             <div class="check-if-due-asap">{{ $activity->deadline->diffForHumans() }}</div>
                                             <small class="grey-text">{{ $activity->deadline->format('M d, Y') }}</small>
                                         </td>
-                                        <td class="center-align">
+                                        <td class="center-align padding-50-large">
                                             <a href="student_lesson/{{ $activity->chapter->topic->id }}?activity={{$activity->id}}" target='_blank' class='btn orange open-activity' data-activityid="{{ $activity->id }}"><i class="material-icons right white-text">open_in_new</i>VIEW</a>
                                         </td>
 

@@ -20,7 +20,7 @@
             <div class="input-field col s12">
 
                 <button type='submit' class="waves-effect waves-light btn-large red lighten-1">
-                    {{ __('VIEW ANSWERS') }}
+                    {{ __('VIEW PROGRESS') }}
                 </button>
 
             </div>

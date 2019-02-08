@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Chapter;
 use App\Question;
+use App\Activity;
 use App\Choice;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
@@ -231,6 +232,14 @@ class ChapterController extends Controller
         $choice->order = 4;
         $choice->question_id = $questionId;
         $choice->save();
+
+//        $activity = Activity::where('chapter_id', '=', $chapterId)->pluck('number_of_items');
+//        dd($activity);
+//        $number_of_items = $activity->number_of_items;
+//
+//        $number_of_items = $number_of_items + 1;
+//        $activity->number_of_items = $number_of_items;
+//        $activity->save();
 
         Session::flash("successmessage", "Your new question has been saved!");
         return Redirect::back();

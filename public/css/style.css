@@ -11,6 +11,20 @@
 	/*background-position:center!important;*/
 /*}*/
 
+.activity-result-text {
+	color: black!important;
+	/*font-size: 18px!important;*/
+	text-shadow: 1px 1px white!important;
+}
+
+[type="radio"]:checked + span:after, [type="radio"].with-gap:checked + span:after {
+    background-color: orange!important;
+}
+
+[type="radio"]:checked + span:after, [type="radio"].with-gap:checked + span:before, [type="radio"].with-gap:checked + span:after {
+    border: 2px solid orange!important;
+}
+
 .dropdown-content li > span {
 	color: gray!important;
 }
@@ -262,6 +276,10 @@ table table.inner tr:last-child {
 		margin-top:10px!important;
 	}
 
+    .padding-50-large {
+        padding: 50px 0!important;
+    }
+
 }
 
 
@@ -310,7 +328,11 @@ table table.inner tr:last-child {
 
 /*==============================MOBILE==============================*/
 
-@media only screen and (max-width:425px) { 
+@media only screen and (max-width:425px) {
+
+	.padding-0-sm{
+        padding:0!important;
+    }
 
 	#login-modal,
 	#register-modal,

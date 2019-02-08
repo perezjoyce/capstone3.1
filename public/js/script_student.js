@@ -49,7 +49,7 @@ $(document).ready(function(){
         });
     }
 
-
+    //ACTIVITY
     $('#answered-activity-form').on('submit', function(e){
         e.preventDefault();
         e.stopPropagation();
@@ -76,7 +76,9 @@ $(document).ready(function(){
                     if (response.success == true) {
                         $('#modal-show-activity-result').html(response.html);
                         M.AutoInit();
+                        // $('#modal-show-activity-result').openModal({dismissible:false});
                         $('#modal-show-activity-result').modal('open');
+
 
                     } else {
                         alert('Please try again.');
@@ -88,6 +90,10 @@ $(document).ready(function(){
             });
         }
     });
+
+    $(document).on('click', '.reload-btn', function(){
+        window.location.reload();
+    })
 
 
 
@@ -322,6 +328,16 @@ $(document).ready(function(){
                 }
             }
         });
+    });
+
+    // REPORTING ERRORS
+    $(document).on('click', '.report-modal-btn', function(){
+        var column = $(this).data('column');
+        var chapterId = $(this).data('id');
+
+        $('#modal-report-error').modal('open');
+        $('#column_with_error').val(column);
+
     });
 
 

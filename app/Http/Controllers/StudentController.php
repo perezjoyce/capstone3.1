@@ -30,8 +30,11 @@ class StudentController extends Controller
 
         $sections->load('subject', 'level', 'activities', 'activities.purpose', 'activities.chapter.topic');
 
-        //NOTE: ORDER BY DEADLINE HAS NOT BEEN ACHIEVED YET
-        return view('student.student_curriculum', compact('sections'));
+        // TO CHECK IF USER ALREADY ANSWERED THE ACTIVITY
+        $userId = auth()->user()->id;
+
+        // !!!!!!! NOTE: ORDER BY DEADLINE HAS NOT BEEN ACHIEVED YET
+        return view('student.student_curriculum', compact('sections', 'userId'));
     }
 
     //CURRICULUM TOPIC CHAPTER PAGE
@@ -41,17 +44,40 @@ class StudentController extends Controller
         $activity = Activity::find($activityId);
 
 //        $activity->load('purpose');
-
+        $number_of_items = $activity->number_of_items; //test
 
         $topic->load('chapters', 'module', 'level', 'module.subject');
         $chapter = $topic->chapters->first();
         $chapterId = $chapter->id;
-        $questions = Question::where('chapter_id', '=', $chapterId)->inRandomOrder()->get(); // this works!
-        $questions->load('choices');
+//        $questions = Question::where('chapter_id', '=', $chapterId)->inRandomOrder()->get(); // this works!
+//        DID THE FOLLOWING SO THAT THE NUMBER OF QUESTIONS WHEN THE TEACHER ADDED THE ACTIVITY WILL BE THE NUMBER OF QUESTIONS WHEN THE STUDENTS ANSWER THEM
+        $questions = Question::where('chapter_id', '=', $chapterId)->where('is_approved', '=', 1)->limit($number_of_items)->inRandomOrder()->get(); //test
+//        dd($questions->count());
         $numberOfItems = $questions->count();
+        $questions->load('choices');
         $module = $topic->module;
         return view('student.student_lesson', compact('topic', 'module', 'chapter', 'questions', 'numberOfItems', 'activity'));
 
+    }
+
+
+    //CURRICULUM PAGE
+    public function showProgress(){
+
+        $sections = Section::whereHas('users', function($q){
+            $userId = auth()->user()->id;
+            $q->where('user_id', '=', $userId);
+        })->where('status', '=', 'active')->get();
+
+        $sections->load('subject', 'level', 'activities', 'activities.purpose', 'activities.chapter.topic');
+
+
+        // TO CHECK IF USER ALREADY ANSWERED THE ACTIVITY
+        $userId = auth()->user()->id;
+
+
+        // !!!!!!! NOTE: ORDER BY DEADLINE HAS NOT BEEN ACHIEVED YET
+        return view('student.student_progress', compact('sections', 'userId', 'topic'));
     }
 
     //TEMPORARY

@@ -3,8 +3,9 @@
         <li>
             <div class="collapsible-header border-bottom-none">
                 <span class='col s2 m1 bold'>ID</span>
-                <span class="card-title activator grey-text text-darken-4 bold col s9">Title</span>
-                <span class='col s2 m bold'>Last Update</span>
+                <span class="grey-text text-darken-4 bold col s9">Title</span>
+                {{--<span class="card-title activator grey-text text-darken-4 bold col s9">Title</span>--}}
+                <span class='col s2 m2 bold'>Last Update</span>
                 <i class="material-icons right white-text">more_vert</i>
             </div>
         </li>

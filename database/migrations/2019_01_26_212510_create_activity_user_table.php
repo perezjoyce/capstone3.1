@@ -17,7 +17,7 @@ class CreateActivityUserTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('activity_id'); 
-            $table->integer('score');
+            $table->integer('score')->default(0);
             $table->timestamps();
 
             // FOREIGN KEYS

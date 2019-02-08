@@ -11,6 +11,7 @@ use App\Choice;
 use App\Topic;
 use App\Purpose;
 use App\Section;
+use App\User;
 use App\Presentation;
 use Session;
 use Redirect;
@@ -114,7 +115,7 @@ class ActivityController extends Controller
 
         $activity = Activity::find($activityId);
 
-        $numberOfItems = $request->numberOfItems;
+        $numberOfItems = $request->numberOfItems; //NUMBER OF ITEMS/QUESTIONS WHEN TEACHER SAVED ACTIVITY
         $score = 0;
         for($i=0; $i<$numberOfItems; $i++) {
             $answer = Choice::find($request->input('answer'.$i));
@@ -138,10 +139,10 @@ class ActivityController extends Controller
             $template = 'activities.partials.activity_result_excellent';
         }
 
-        //LIMIT RETAKE DEPENDING ON PURPOSE. 0 RETAKE FOR EVALUATION AND ASSESSMENT
-
+        //!!!!! LIMIT RETAKE DEPENDING ON PURPOSE. 0 RETAKE FOR EVALUATION AND ASSESSMENT
         $user = auth()->user()->id;
-        $activity->users($user)->attach($score, ['score' => $score]);
+//        $user = User::find($user);
+        $activity->users()->attach($user, ['score' => $score]);
 
         $returnHTML = view($template, compact('activity', 'numberOfItems', 'score', 'average'))->render();
         return response()->json( array('success' => true, 'html'=> $returnHTML) );

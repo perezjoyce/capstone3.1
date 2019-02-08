@@ -376,7 +376,7 @@
                                                 @endif
 
 
-                                                {{--IF THE USER IS THE ONE WHO CREATED THIS QUESTION, HE/SHE IS ALLOWED TO EDIT AND DELETE IT--}}
+                                                {{--IF THE USER IS THE ONE WHO CREATED THIS QUESTION, HE/SHE IS ALLOWED TO EDIT AND DELETE IT. OTHERWISE, HE/SHE CAN REPORT IT IF THERE ARE ERRORS --}}
                                                 @if(Auth::user()->id == $question->user_id)
                                                     <a href="#" class="btn orange edit-question-modal margin-top-18px-mobile right" data-column="questions" data-order="{{ $question->order }}" data-questionid="{{ $question->id }}" data-id="{{ $chapter->id }}">
                                                         <i class="material-icons left">edit</i>

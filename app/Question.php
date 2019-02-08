@@ -8,7 +8,7 @@ class Question extends Model
 {
 
     protected $fillable = [
-        'question', 'hint', 'discussion', 'explanation', 'order', 'chapter_id', 'user_id',
+        'question', 'hint', 'discussion', 'explanation', 'order', 'chapter_id', 'user_id', 'is_approved',
     ];
 
     //a question belongs to a user
