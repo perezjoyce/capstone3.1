@@ -30,10 +30,11 @@ class StudentController extends Controller
 
         $sections->load('subject', 'level', 'activities', 'activities.purpose', 'activities.chapter.topic');
 
+
         // TO CHECK IF USER ALREADY ANSWERED THE ACTIVITY
         $userId = auth()->user()->id;
 
-        // !!!!!!! NOTE: ORDER BY DEADLINE HAS NOT BEEN ACHIEVED YET
+        // ORDERED BY DEADLINE IN MODEL
         return view('student.student_curriculum', compact('sections', 'userId'));
     }
 
@@ -79,6 +80,7 @@ class StudentController extends Controller
         // !!!!!!! NOTE: ORDER BY DEADLINE HAS NOT BEEN ACHIEVED YET
         return view('student.student_progress', compact('sections', 'userId', 'topic'));
     }
+
 
     //TEMPORARY
     public function showStudentDashboard(){

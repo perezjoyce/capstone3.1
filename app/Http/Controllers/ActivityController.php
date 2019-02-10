@@ -41,7 +41,6 @@ class ActivityController extends Controller
     }
 
     //SHOW PURPOSE BASED ON SELECTED CLASS/SECTION
-
     /**
      * @param $sectionId
      * @return \Illuminate\Http\JsonResponse
@@ -122,9 +121,11 @@ class ActivityController extends Controller
             if($answer->is_correct) {
                 $score++;
             }
+
         }
 
         $average = ($score / $numberOfItems)*100;
+        $average = round($average);
         $template = "";
 
         if($average <= 30){
@@ -139,7 +140,6 @@ class ActivityController extends Controller
             $template = 'activities.partials.activity_result_excellent';
         }
 
-        //!!!!! LIMIT RETAKE DEPENDING ON PURPOSE. 0 RETAKE FOR EVALUATION AND ASSESSMENT
         $user = auth()->user()->id;
 //        $user = User::find($user);
         $activity->users()->attach($user, ['score' => $score]);

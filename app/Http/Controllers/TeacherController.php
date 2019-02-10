@@ -211,6 +211,42 @@ class TeacherController extends Controller
     }
 
 
+    //CLASS PROGRESS
+    public function showProgress(){
+
+        $sections = Section::whereHas('users', function($q){
+            $userId = auth()->user()->id;
+            $q->where('user_id', '=', $userId)->where('role', '=', 'teacher');
+        })->get();
+
+        $sections->load('subject', 'level', 'activities', 'activities.purpose', 'activities.chapter.topic', 'users');
+
+        // TO CHECK IF USER ALREADY ANSWERED THE ACTIVITY
+        $userId = auth()->user()->id;
+
+        // !!!!!!! NOTE: ORDER BY DEADLINE HAS NOT BEEN ACHIEVED YET
+        return view('teacher.teacher_section_progress', compact('sections', 'userId', 'topic'));
+    }
+
+    //STUDENTS' PROGRESS
+    public function showStudentProgress($userId, Request $request){
+        $subjectId = $request->get('subjectId');
+//        dd($subjecId);
+
+        $sections = Section::whereHas('users', function($q) use ($userId){
+            $q->where('user_id', '=', $userId);
+        })->where('status', '=', 'active')->get();
+
+        $sections->load('subject', 'level', 'activities', 'activities.purpose', 'activities.chapter.topic');
+
+        $user = User::find($userId);
+
+        $template = 'teacher.partials.student_progress';
+        $returnHTML = view($template, compact('sections', 'userId', 'topic', 'user', 'subjectId'))->render();
+        return response()->json( array('success' => true, 'html'=> $returnHTML) );
+    }
+
+
     //TEMPORARY PAGES
     public function curriculumContent(){
         $categories = Category::all();

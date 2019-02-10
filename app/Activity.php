@@ -31,7 +31,7 @@ class Activity extends Model
 
     //An activity belongs to one section
     public function section(){
-    	return $this->belongsTo('\App\Section');
+    	return $this->belongsTo('\App\Section')->orderBy('deadline');
     }
 
     //PIVOT TABLES

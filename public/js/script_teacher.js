@@ -411,6 +411,39 @@ $(document).ready(function(){
     // })
 
 
+    //DISPLAY STUDENTS' PROGRESS
+    $(document).on('click', '.btn-view-progress', function(){
+        var userId = $(this).data('id');
+        var subjectId = $(this).data('subjectid');
+
+        $.ajax({
+            headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') },
+            url: 'student_progress/'+ userId,
+            type: 'GET',
+            cache: false,
+            data: {
+                userId: userId,
+                subjectId:subjectId
+            },
+            datatype: 'json',
+            success: function(response) {
+                if(response.success == true) {
+                    $('#progress-modal .modal-content').html(response.html);
+                    M.AutoInit();
+                    $('#progress-modal').modal('open');
+
+
+                    var instance = M.Collapsible.getInstance($('.collapsible'));
+                    instance.open(1);
+
+                } else {
+                    alert('Error in editing question. Please try again.');
+                }
+            }
+        });
+
+    });
+
 
 
 

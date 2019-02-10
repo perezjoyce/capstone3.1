@@ -103,6 +103,11 @@ Route::middleware('auth')->group(function(){
 
 
     //========== STUDENT PROGRESS ==========//
+    //TEACHER
+    Route::get('teacher_section_progress', 'TeacherController@showProgress')->middleware('teacher');
+    Route::get('student_progress/{studentId}', 'TeacherController@showStudentProgress')->middleware('teacher');
+
+    //STUDENT
     Route::get('student_progress', 'StudentController@showProgress')->middleware('student');
 
 

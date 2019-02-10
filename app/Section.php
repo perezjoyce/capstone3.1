@@ -23,7 +23,7 @@ class Section extends Model
 
     //A section has many activities
     public function activities(){
-        return $this->hasMany('\App\Activity');
+        return $this->hasMany('\App\Activity')->orderBy('deadline');
     }
 
     //PIVOT TABLE

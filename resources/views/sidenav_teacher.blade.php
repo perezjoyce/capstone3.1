@@ -38,8 +38,8 @@
 			</li>
 		</a>
 
-		<a href="teacher_curriculum_content">
-			<li @if ($currentRoute == "teacher_curriculum_content") class="active" @endif>
+		<a href="{{ url('teacher_section_progress') }}">
+			<li @if ($currentRoute == "teacher_section_progress") class="active" @endif>
 				<div class="icon-block row no-margin-bottom">
 					<div class="col s12">
 						<i class="material-icons deep-purple-text text-lighten-5"><h5 class='no-margin-bottom'>timeline</h5></i>

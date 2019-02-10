@@ -1,4 +1,5 @@
-<div style="background-image:url('{{ asset("images/pat-in-the-back.gif") }}');background-size:cover;position:relative;background-position:center;" class="center-align">
+<div style="background-image:url('{{ asset("images/pat-in-the-back.gif") }}');background-size:cover;position:relative;background-position-x:116px!important;" class="center-align">
+
     <div class='right row'>
         <a href="#!" class="modal-close waves-effect waves-light-blue btn-flat">&#9587</a>
     </div>

@@ -3,57 +3,51 @@
 	@include('head')
   	<body>
   		<header>
-			<nav class="deep-purple darken-4" role="navigation">
-			    <div class="nav-wrapper container">
-			    	<a id="logo-container" href="{{ url('/') }}" class="brand-logo">
-			    		<h3>Blend.io</h3>
-			    	</a>
+			<div class="navbar-fixed">
+				<nav class="deep-purple darken-4" role="navigation">
+					<div class="nav-wrapper container">
+						<a id="logo-container" href="{{ url('/') }}" class="brand-logo">
+							<h3>Blend.io</h3>
+						</a>
 
-			    	@guest
-			    		@if (Route::has('register'))
+						@guest
+							@if (Route::has('register'))
 
-			    		<ul class="right hide">
-							<li><a class='modal-trigger' href="#register-modal">Register</a></li>
-						</ul>
+								<ul class="right hide-on-small-only show-on-medium-and-up">
+									<li><a class='modal-trigger' href="#login-modal">Login</a></li>
+									<li><a class='modal-trigger btn orange' href="#register-modal">Sign Up</a></li>
+								</ul>
 
+								<a class='dropdown-trigger right show-on-small hide-on-med-and-up' href='#' data-target='navlinks'><i class="material-icons">menu</i></a>
+								<ul id='navlinks' class='dropdown-content'>
+									<li><a class='modal-trigger' href="#register-modal">Register</a></li>
+									<li><a class='modal-trigger' href="#login-modal">Log In</a></li>
+								</ul>
 
-
-						<ul class="right hide">
-							<li><a class='modal-trigger' href="#login-modal">Login</a></li>
-						</ul>
-
-						<a class='dropdown-trigger right' href='#' data-target='navlinks'><i class="material-icons">menu</i></a>
-						<ul id='navlinks' class='dropdown-content'>
-					  		<li><a class='modal-trigger' href="#register-modal">Register</a></li>
-			                <li><a class='modal-trigger' href="#login-modal">Log In</a></li>
-						</ul>
-
-					  	@endif
-					  	@else
-					  	<a class="dropdown-trigger right" href="#!" data-target="logout">{{ Auth::user()->name }}<i class="material-icons right">arrow_drop_down</i></a>
-
-
-
-					  	<ul id="logout" class="dropdown-content">
-						  	<li>
-						  		<a href="{{ route('logout') }}"  onclick="event.preventDefault();
+							@endif
+						@else
+							<a class="dropdown-trigger right" href="#!" data-target="logout">{{ Auth::user()->name }}<i class="material-icons right">arrow_drop_down</i></a>
+							<ul id="logout" class="dropdown-content">
+								<li>
+									<a href="{{ route('logout') }}"  onclick="event.preventDefault();
 			                    document.getElementById('logout-form').submit();">{{ __('Logout') }}
-			               		</a>
-			               	</li>
-			                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-			                            @csrf
-			                        </form>
-						  <li><a href="#!">two</a></li>
-						  <li class="divider"></li>
-						  <li><a href="#!">three</a></li>
-						</ul>
-				  	@endguest
-			    </div>
-			</nav>
+									</a>
+								</li>
+								<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+									@csrf
+								</form>
+								<li><a href="#!">two</a></li>
+								<li class="divider"></li>
+								<li><a href="#!">three</a></li>
+							</ul>
+						@endguest
+					</div>
+				</nav>
+			</div>
+
 		</header>
   		<main>
-			<div class="section no-pad-bot" id="index-banner">
-
+			<div class="section" id="index-container">
 			  	<div class="container">
 			  		<div class="row">
 			  			<div class="col s12">
@@ -98,56 +92,84 @@
 			  			</div>
 			  		</div>
 			  	</div>
-			    <div class="container">
-			      <br><br>
-			      <h2 class="header center orange-text custom-heading">Blended Learning Made Easy</h2>
-			      <div class="row center">
-			        <h5 class="header col s12 light">Over 1000 K-12 lessons available for FREE.</h5>
-			      </div>
-			      <div class="row center">
-			        <a href="#register-modal" id="download-button" class="btn-large waves-effect waves-light orange pulse modal-trigger">Get Started</a>
-			      </div>
-			      <br><br>
-
+			    <div class="row no-pad-bot">
+					<div class="col s12 m12 l6 no-pad-bot" id="index-banner"></div>
+					<div class="col s12 m12 l6 center">
+						<div class="row center margin-top-7em-large">
+							<h3 class="header center custom-heading bold no-margin-bottom grey-text text-darken-3" style="font-family:Nunito,sans-serif">Blended Learning Made Easy</h3>
+							<h5 class="header col s12 grey-text">Over 1,000 lessons available for FREE</h5>
+						</div>
+						<div class="row center">
+							<a href="#register-modal" id="download-button" class="btn-large waves-effect waves-light orange modal-trigger">Get Started</a>
+						</div>
+						<br><br>
+					</div>
 			    </div>
 			</div>
 
-
-			<div class="container">
+			<div class="container center">
 				<div class="section">
-
 				  <!--   Icon Section   -->
 				  <div class="row">
 				    <div class="col s12 m4">
 				      <div class="icon-block">
-				        <h2 class="center deep-purple-text text-darken-4"><i class="material-icons">flash_on</i></h2>
-				        <h5 class="center">Speeds up development</h5>
+				        <h2 class="center yellow-text text-darken-1"><i class="material-icons">flash_on</i></h2>
+				        <h5 class="center grey-text text-darken-2">Speeds up development</h5>
 
-				        <p class="light">We did most of the heavy lifting for you to provide a default stylings that incorporate our custom components. Additionally, we refined animations and transitions to provide a smoother experience for developers.</p>
+				        <p class="grey-text text-darken-1 light">
+                            We did most of the heavy lifting in lesson plan development so you can focus on what matters more.
+                        </p>
 				      </div>
 				    </div>
+
+                  <div class="col s12 m4">
+                      <div class="icon-block">
+                          <h2 class="center pink-text text-lighten-1"><i class="material-icons">settings</i></h2>
+                          <h5 class="center grey-text text-darken-2">Easy to work with</h5>
+
+                          <p class="grey-text text-darken-1 light">
+                              Navigate through hundreds of DepEd-aligned lessons and activities with ease.
+                          </p>
+                      </div>
+                  </div>
 
 				    <div class="col s12 m4">
 				      <div class="icon-block">
-				        <h2 class="center deep-purple-text text-darken-4"><i class="material-icons">group</i></h2>
-				        <h5 class="center">User Experience Focused</h5>
+				        <h2 class="center teal-text text-accent-3"><i class="material-icons">group</i></h2>
+				        <h5 class="center grey-text text-darken-2">Supports collaboration</h5>
 
-				        <p class="light">By utilizing elements and principles of Material Design, we were able to create a framework that incorporates components and animations that provide more feedback to users. Additionally, a single underlying responsive system across all platforms allow for a more unified user experience.</p>
+				        <p class="grey-text text-darken-1 light">
+                            Create and share questions with fellow users. This platform was developed by teachers, for teachers.
+                        </p>
 				      </div>
 				    </div>
 
-				    <div class="col s12 m4">
-				      <div class="icon-block">
-				        <h2 class="center deep-purple-text text-darken-4"><i class="material-icons">settings</i></h2>
-				        <h5 class="center">Easy to work with</h5>
-
-				        <p class="light">We have provided detailed documentation as well as specific code examples to help new users get started. We are also always open to feedback and can answer any questions a user may have about Materialize.</p>
-				      </div>
-				    </div>
 				  </div>
 
 				</div>
 				<br><br>
+			</div>
+			<div class="section orange lighten-5 black-text">
+				<div class="container left-align">
+					<br class="hide-on-small-only show-on-medium-and-up">
+                    <br class="hide-on-small-only show-on-medium-and-up">
+					<div class="row">
+                        <div class="col s12 m12 l6 right" id="landing-page-image-2">
+                        </div>
+						<div class="col s12 m12 l6">
+							<h4 class="grey-text text-darken-3">Enrich your lessons with free digital resources.</h4>
+							<h6 class="grey-text text-darken-2 light" style="line-height: 1.7;margin-top:2em;">
+								Blended learning is an educational approach that involves the intentional integration of technology with instruction to improve learning outcomes.
+								It's main goal is to make lessons relevant by transforming instructional design towards meaningful, personalized learning.
+							</h6>
+							<br>
+                            <br class="hide-on-small-only show-on-medium-and-up">
+							<a href="#register-modal" id="download-button" class="btn-large waves-effect waves-light orange pulse modal-trigger">REGISTER NOW</a>
+						</div>
+					</div>
+					<br>
+					<br>
+				</div>
 			</div>
 		</main>
 	    @include('footer')

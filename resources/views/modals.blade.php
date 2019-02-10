@@ -94,7 +94,7 @@
 								<option value="teacher">Teacher</option>
 								
 							</select>
-							<label for='role'>{{ __('Role') }}</label>
+							<label for='role'>I'm a</label>
 						</div>
 				
 				        <div class="input-field col s7">

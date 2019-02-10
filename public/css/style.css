@@ -11,6 +11,37 @@
 	/*background-position:center!important;*/
 /*}*/
 
+/*+++++++++++ IMAGES ******************/
+
+#index-banner {
+    background-image: url("/images/background-vector-3.png");
+    background-size:cover;
+    background-repeat:no-repeat;
+    height: 50vh;
+    position: relative;
+    background-position-y: top;
+    background-position-x: center;
+}
+
+#index-container,
+.background-container-color {
+    background-color: rgb(245, 250, 252);
+    opacity: 1;
+}
+
+#landing-page-image-2 {
+    background-image: url("/images/background-vector-4.png");
+    background-size:cover;
+    background-repeat:no-repeat;
+    height: 30em;
+    position: relative;
+    background-position-y: center;
+    background-position-x: center;
+}
+
+
+/*+++++++++++******************/
+
 .activity-result-text {
 	color: black!important;
 	/*font-size: 18px!important;*/
@@ -268,7 +299,8 @@ table table.inner tr:last-child {
 		overflow: scroll!important;
 	}
 
-	.margin-top-7em-large-med {
+	.margin-top-7em-large-med,
+    .margin-top-7em-large {
 		margin-top:7em;
 	}
 

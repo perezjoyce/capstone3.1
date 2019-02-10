@@ -19,9 +19,9 @@
         <div class="row">
             <div class="input-field col s12">
 
-                <button type='submit' class="waves-effect waves-light btn-large red lighten-1">
+                <a href="{{ url('student_progress') }}" class="waves-effect waves-light btn-large red lighten-1">
                     {{ __('VIEW PROGRESS') }}
-                </button>
+                </a>
 
             </div>
         </div>
