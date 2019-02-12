@@ -12,6 +12,8 @@
         </div>
     </div>
 
+    </div>
+
     <div class="col s12 padding-0-sm">
         <ul class="collapsible" data-collapsible="accordion">
             <li class="active">
@@ -34,7 +36,7 @@
         @foreach($sections as $section)
             @if($section->subject->id == $subjectId)
             <ul class="collapsible" data-collapsible="accordion">
-                <li>
+                <li class="active">
                     <div class="collapsible-header padding-0-sm">
                         <div class="col s3">
                             {{ $section->subject->name }}

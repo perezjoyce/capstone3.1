@@ -22,6 +22,7 @@ class CreateSectionsTable extends Migration
             $table->string('access_code');
             $table->enum('status', ['active', 'archived']);
             $table->timestamps();
+            $table->softDeletes();
 
             // FOREIGN KEYS
             $table->foreign('level_id')

@@ -15,7 +15,7 @@ class CategoriesTableSeeder extends Seeder
         Category::insert([
         	['name' => 'Elementary', 'created_at' => NULL, 'updated_at' => NULL],
         	['name' => 'Junior High', 'created_at' => NULL, 'updated_at' => NULL],
-        	['name' => 'My Courses', 'created_at' => NULL, 'updated_at' => NULL]
+        	['name' => 'Senior High', 'created_at' => NULL, 'updated_at' => NULL]
         ]);
     }
 }

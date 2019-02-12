@@ -54,7 +54,7 @@
                             <div class="alert alert-danger mb-5 rounded-0">
                                 <ul class='list-unstyled'>
                                     <script>
-                                        var toastHTML = '<span>{{ Session::get('deletemessage') }}</span>';
+                                        var toastHTML = '<span class=\'red\'>{{ Session::get('deletemessage') }}</span>';
                                         M.toast({html: toastHTML, classes: 'rounded'});
                                     </script>
                                 </ul>

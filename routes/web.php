@@ -60,6 +60,7 @@ Route::middleware('auth')->group(function(){
     //ADMIN
     Route::get('chapter/edit/{chapterId}', 'ChapterController@getEditForm')->middleware('admin');
     Route::get('chapter/add/{chapterId}/{order}', 'ChapterController@getAddQuestionForm')->middleware('admin'); // ADD TEACHER MIDDLEWARE
+    Route::get('chapter/add/{chapterId}/{order}', 'ChapterController@getAddQuestionForm')->middleware('teacher'); // test
     Route::get('chapter/edit/{chapterId}/{questionId}/{order}', 'ChapterController@getEditQuestionForm')->middleware('admin'); // ADD TEACHER MIDDLEWARE
 
     Route::patch('chapter/edit-objective/{chapterId}', 'ChapterController@editObjective')->middleware('admin');
@@ -95,6 +96,7 @@ Route::middleware('auth')->group(function(){
     //========== CLASS LIST ==========//
     //TEACHER
     Route::get('teacher_sections', 'TeacherController@showSections')->middleware('teacher');
+    Route::get('teacher_student_list/{sectionId}', 'TeacherController@showStudentList')->middleware('teacher'); //REMOVED
     Route::get('teacher_archived_sections', 'TeacherController@showArchivedSections')->middleware('teacher');
 
     //========== STUDENT LIST ==========//
@@ -106,9 +108,29 @@ Route::middleware('auth')->group(function(){
     //TEACHER
     Route::get('teacher_section_progress', 'TeacherController@showProgress')->middleware('teacher');
     Route::get('student_progress/{studentId}', 'TeacherController@showStudentProgress')->middleware('teacher');
+    Route::get('student_answer_history/{studentId}', 'TeacherController@showAnswerHistory')->middleware('teacher');
+    Route::get('student_subject_progress/{userId}', 'TeacherController@showStudentSubjectProgress')->middleware('teacher');
+    Route::get('subject_progress/{userId}', 'TeacherController@showStudentSubjectProgress2')->middleware('teacher');
 
     //STUDENT
     Route::get('student_progress', 'StudentController@showProgress')->middleware('student');
+
+
+    //========== CLASSES ==========//
+    //TEACHER
+    Route::post('createClass', 'SectionController@createClass')->middleware('teacher');
+    Route::get('showEditClassForm/{sectionId}', 'SectionController@getForm')->middleware('teacher');
+    Route::post('editClass/{sectionId}', 'SectionController@editClass')->middleware('teacher');
+    Route::delete('deleteClass/{sectionId}', 'SectionController@deleteClass')->middleware('teacher');
+    Route::get('searchClass/', 'SectionController@searchClass');
+//    Route::get('showStudentList/{sectionId}', 'TeacherController@showStudentList')->middleware('teacher'); //NOT WORKING
+    Route::delete('removeStudent/{userId}', 'SectionController@removeStudent')->middleware('teacher');
+    Route::put('editStudentSettings/{userId}', 'SectionController@editStudentSettings');
+
+
+    //STUDENT
+    Route::post('joinClass', 'SectionController@joinClass')->middleware('student');
+
 
 
 });

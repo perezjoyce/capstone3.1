@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateActivityQuestionTable extends Migration
+class CreateARecordsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,21 @@ class CreateActivityQuestionTable extends Migration
      */
     public function up()
     {
-        Schema::create('activity_question', function (Blueprint $table) {
+        Schema::create('records', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('user_id');
             $table->unsignedInteger('activity_id');
             $table->unsignedInteger('question_id'); 
-            $table->integer('item_number');
+            $table->boolean('item_correct');
             $table->timestamps();
 
             // FOREIGN KEYS
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('restrict')
+                ->onUpdate('cascade');
+
             $table->foreign('activity_id')
             ->references('id')
             ->on('activities')
@@ -42,6 +49,6 @@ class CreateActivityQuestionTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('activity_question');
+        Schema::dropIfExists('records');
     }
 }

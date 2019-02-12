@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Section extends Model
 {
@@ -22,8 +23,11 @@ class Section extends Model
     }
 
     //A section has many activities
+//    public function activities(){
+//        return $this->hasMany('\App\Activity')->orderBy('deadline');
+//    }
     public function activities(){
-        return $this->hasMany('\App\Activity')->orderBy('deadline');
+        return $this->hasMany('\App\Activity');
     }
 
     //PIVOT TABLE
@@ -33,7 +37,8 @@ class Section extends Model
         return $this->belongsToMany('\App\User', 'section_user')->withTimestamps();
     }
 
-
+    use SoftDeletes;
+    protected $dates = ['deleted_at'];
 
 
 

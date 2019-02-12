@@ -40,9 +40,21 @@ class User extends Authenticatable
         return $this->hasMany('\App\Report');
     }
 
+    //A user has many records
+    public function records(){
+        return $this->hasMany('\App\Record');
+    }
+
+    //PIVOT TABLES
     public function activities(){
         return $this->belongstoMany('\App\Activity');
     }
+
+    public function sections(){
+        return $this->belongsToMany('\App\Section', 'section_user')->withTimestamps();
+    }
+
+
 
 
 }

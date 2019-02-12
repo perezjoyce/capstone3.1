@@ -10,6 +10,7 @@
 				</div>
 			</div>
 		</a>
+		<br>
 		
 		<a href="{{ url('teacher_dashboard') }}">
 			<li @if ($currentRoute == "teacher_dashboard") class="active" @endif>
@@ -39,7 +40,7 @@
 		</a>
 
 		<a href="{{ url('teacher_section_progress') }}">
-			<li @if ($currentRoute == "teacher_section_progress") class="active" @endif>
+			<li @if ($currentRoute == "teacher_section_progress" || $currentRoute == "student_subject_progress") class="active" @endif>
 				<div class="icon-block row no-margin-bottom">
 					<div class="col s12">
 						<i class="material-icons deep-purple-text text-lighten-5"><h5 class='no-margin-bottom'>timeline</h5></i>
@@ -52,32 +53,32 @@
 		</a>
 
 		<a href="{{ url('teacher_sections') }}">
-			<li @if ($currentRoute == "teacher_sections" || $currentRoute =="teacher_archived_sections" ) class="active" @endif>
+			<li @if ($currentRoute == "teacher_sections" || $currentRoute =="teacher_archived_sections" || $currentRoute == "subject_progress") class="active" @endif>
 				<div class="icon-block row no-margin-bottom">
 					<div class="col s12">
 						<i class="material-icons deep-purple-text text-lighten-5"><h5 class='no-margin-bottom'>list</h5></i>
 					</div>
 					<div class="col s12">
-						<small class='deep-purple-text text-lighten-5'>CLASS LIST</small>
+						<small class='deep-purple-text text-lighten-5'>CLASSES</small>
 					</div>
 				</div>
 			</li>
 		</a>
 
-		<a href="{{ url('teacher_students_list') }}">
-			<li @if ($currentRoute == "teacher_students_list" || $currentRoute == "teacher_student_account") class="active" @endif>
-				<div class="icon-block row no-margin-bottom">
-					<div class="col s12">
-						<i class="material-icons deep-purple-text text-lighten-5"><h5 class='no-margin-bottom'>people</h5></i>
-					</div>
-					<div class="col s12">
-						<small class='deep-purple-text text-lighten-5'>STUDENTS</small>
-					</div>
-				</div>
-			</li>
-		</a>
+		{{--<a href="{{ url('teacher_students_list') }}">--}}
+			{{--<li @if ($currentRoute == "teacher_students_list" || $currentRoute == "teacher_student_account") class="active" @endif>--}}
+				{{--<div class="icon-block row no-margin-bottom">--}}
+					{{--<div class="col s12">--}}
+						{{--<i class="material-icons deep-purple-text text-lighten-5"><h5 class='no-margin-bottom'>people</h5></i>--}}
+					{{--</div>--}}
+					{{--<div class="col s12">--}}
+						{{--<small class='deep-purple-text text-lighten-5'>STUDENTS</small>--}}
+					{{--</div>--}}
+				{{--</div>--}}
+			{{--</li>--}}
+		{{--</a>--}}
 
-		<a href="#">
+		<a href="#" class="tooltipped "disabled data-position="bottom" data-tooltip="Messaging is not yet available.">
 			<li>
 				<div class="icon-block row no-margin-bottom">
 					<div class="col s12">

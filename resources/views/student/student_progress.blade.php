@@ -66,7 +66,7 @@
             <div class="col s12 padding-0-sm">
                 <ul class="collapsible" data-collapsible="accordion">
                     <li>
-                        <div class="collapsible-header border-bottom-none bold padding-0-sm grey lighten-3">
+                        <div class="collapsible-header border-bottom-none bold padding-0-sm">
                             <div class="col s3">Subject</div>
                             <div class='col s3'>Progress</div>
                             <div class='col s1 hide-on-small-only'></div>

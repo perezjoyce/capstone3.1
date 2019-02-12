@@ -81,7 +81,6 @@ class StudentController extends Controller
         return view('student.student_progress', compact('sections', 'userId', 'topic'));
     }
 
-
     //TEMPORARY
     public function showStudentDashboard(){
         $categories = Category::all();

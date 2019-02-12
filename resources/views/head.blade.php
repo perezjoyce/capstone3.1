@@ -15,7 +15,7 @@
   <link  href="/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 
   {{--<!-- PROVIDE THE CSRF TOKEN -->--}}
-  <meta name="csrf-token" content="{{ csrf_token() }}" />
+  <meta name="_token" content="{{ csrf_token() }}" />
 
   {{--<!--  TINYMCE -->--}}
   <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=yteahm9v51k11igyavl4mvnrdpgt89b78qma0whsx6gp6z12"></script>

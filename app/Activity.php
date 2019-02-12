@@ -34,15 +34,26 @@ class Activity extends Model
     	return $this->belongsTo('\App\Section')->orderBy('deadline');
     }
 
-    //PIVOT TABLES
-    //CAN'T BE DONE FOR NOW. THIS NEEDS TO BE EDITED TO ACTIVITY_CHAPTER AND SHOULD BE IN A CART FORMAT SO THAT
-    //TEACHERS CAN ADD MULTIPLE CHAPTERS TO ONE ACTIVITY. HOWEVER, REFLECTING RESULTS AND PROGRESS WILL BE MUCH MORE COMPLICATED THIS WAY.
-    //AT THE MOMENT, I ADDED A ONE TO ONE RELATIONSHIP BETWEEN ACTIVITY AND CHAPTER.
-    public function questions(){
-        return $this->belongsToMany('\App\Question', 'activity_question')->withPivot('item_number')->withTimestamps();
+    //An activity has many records
+    public function records(){
+        return $this->hasMany('\App\Record');
     }
 
+    //PIVOT TABLE FORE ACTIVITY MODEL
     public function users(){
         return $this->belongsToMany('\App\User', 'activity_user')->withPivot('score')->withTimestamps();
     }
+
+    //CAN'T BE DONE FOR NOW. THIS NEEDS TO BE EDITED TO ACTIVITY_CHAPTER AND SHOULD BE IN A CART FORMAT SO THAT
+    //TEACHERS CAN ADD MULTIPLE CHAPTERS TO ONE ACTIVITY. HOWEVER, REFLECTING RESULTS AND PROGRESS WILL BE MUCH MORE COMPLICATED THIS WAY.
+    //AT THE MOMENT, I ADDED A ONE TO ONE RELATIONSHIP BETWEEN ACTIVITY AND CHAPTER.
+//    public function questions(){
+//        return $this->belongsToMany('\App\Question', 'activity_question')->withPivot('item_number')->withTimestamps();
+//    }
+
+//    public function users(){
+//        return $this->belongsToMany('\App\User', 'activity_user', 'activity_id', 'user_id')
+//            ->withPivot('score', 'question_id')->withTimestamps()->join('question');
+//    }
+
 }

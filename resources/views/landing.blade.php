@@ -14,7 +14,7 @@
 							@if (Route::has('register'))
 
 								<ul class="right hide-on-small-only show-on-medium-and-up">
-									<li><a class='modal-trigger' href="#login-modal">Login</a></li>
+									<li><a class='modal-trigger' href="#login-modal">Log In</a></li>
 									<li><a class='modal-trigger btn orange' href="#register-modal">Sign Up</a></li>
 								</ul>
 
@@ -47,7 +47,7 @@
 
 		</header>
   		<main>
-			<div class="section" id="index-container">
+			<div class="section no-padding" id="index-container">
 			  	<div class="container">
 			  		<div class="row">
 			  			<div class="col s12">
@@ -93,17 +93,22 @@
 			  		</div>
 			  	</div>
 			    <div class="row no-pad-bot">
-					<div class="col s12 m12 l6 no-pad-bot" id="index-banner"></div>
-					<div class="col s12 m12 l6 center">
+					<div class="col l1"></div>
+					<div class="col s12 m12 l5 left no-pad-bot" id="index-banner"></div>
+					<div class="col s12 m12 l5 center">
 						<div class="row center margin-top-7em-large">
-							<h3 class="header center custom-heading bold no-margin-bottom grey-text text-darken-3" style="font-family:Nunito,sans-serif">Blended Learning Made Easy</h3>
-							<h5 class="header col s12 grey-text">Over 1,000 lessons available for FREE</h5>
+							<h3 class="header center custom-heading bold no-margin-bottom grey-text text-darken-3 show-on-large hide-on-med-and-down" style="font-family:Nunito,sans-serif">Blended Learning Made Super Easy</h3>
+							<h5 class="header col s12 grey-text show-on-large hide-on-med-and-down">Over 1,000 lessons available for FREE</h5>
+							<h4 class="header center custom-heading bold no-margin-bottom grey-text text-darken-3 show-on-medium-and-down hide-on-large-only" style="font-family:Nunito,sans-serif">Blended Learning Made Easy</h4>
+							<h6 class="header col s12 grey-text show-on-medium-and-down hide-on-large-only">Over 1,000 lessons available for FREE</h6>
 						</div>
 						<div class="row center">
 							<a href="#register-modal" id="download-button" class="btn-large waves-effect waves-light orange modal-trigger">Get Started</a>
 						</div>
-						<br><br>
+						<br class="hide-on-small-only show-on-medium-and-up">
+						<br>
 					</div>
+					<div class="col l1"></div>
 			    </div>
 			</div>
 

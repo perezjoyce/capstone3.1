@@ -353,6 +353,13 @@
                                                                                     </label>
                                                                                 </p>
                                                                             </li>
+                                                                            <input type="radio"
+                                                                                   class="filled-in"
+                                                                                   value="DONT_KNOW_{{$questions[$i]->id}}"
+                                                                                   name="answer{{$i}}"
+                                                                                   style="display: none;"
+                                                                                   checked
+                                                                            />
                                                                         @endforeach
                                                                     </ul>
                                                                 </div>

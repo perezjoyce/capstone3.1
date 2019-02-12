@@ -13,6 +13,8 @@ use App\Section;
 use App\User;
 use App\Question;
 use App\Choice;
+use App\Record;
+use App\Activity;
 use Session;
 use Redirect;
 use App\Report;
@@ -158,36 +160,80 @@ class TeacherController extends Controller
 
     //CLASS LIST
     public function showSections(){
-        $sections = Section::all();
+        $sections = Section::whereHas('users', function($q){
+            $userId = auth()->user()->id;
+            $q->where('user_id', '=', $userId)->where('role', '=', 'teacher');
+        })->where('status', '=', 'active')->get();
+        // dd($sections);
         Section::with('level', 'subject')->get();
 
-        $teacher = User::where('role', '=', 'teacher')->get();
-        // dd($levels);
-        return view('teacher.teacher_sections', compact('sections', 'teacher'));
+        $levels = Level::all();
+        $subjects = Subject::all();
+        $yearNow = date('Y');
+        $x = $yearNow + 1;
+        $schoolYear = $yearNow .' - '. $x;
 
+        $teacher = User::where('role', '=', 'teacher')->get();
+        return view('teacher.teacher_sections', compact('sections', 'teacher', 'levels', 'subjects', 'schoolYear'));
     }
 
+
+    //SHOW STUDENT LIST WHEN CLASS IS SELECTED
+    public function showStudentList($sectionId, Request $request){
+        $section = Section::find($sectionId);
+        $section->load('level', 'subject');
+
+        $users = User::whereHas('sections', function($q) use ($sectionId) {
+            $q->where('section_id', '=', $sectionId);
+        })->where('role', '=', 'student')->get();
+
+        $numberOfActivities = Activity::where('section_id', '=', $sectionId)->count();
+        $totalScore = Activity::where('section_id', '=', $sectionId)->sum('number_of_items');
+        $template = 'teacher.partials.teacher_student_list';
+        $returnHTML = view($template, compact('users', 'section', 'sectionId', 'totalScore', 'numberOfActivities'))->render();
+        return response()->json( array('success' => true, 'html'=> $returnHTML) );
+    }
+
+
     public function showArchivedSections(){
-        $sections = Section::all();
+        $sections = Section::whereHas('users', function($q){
+            $userId = auth()->user()->id;
+            $q->where('user_id', '=', $userId)->where('role', '=', 'teacher');
+        })->where('status', '=', 'archived')->get();
         Section::with('level', 'subject')->get();
 
         $teacher = User::where('role', '=', 'teacher')->get();
-
-        // dd($levels);
         return view('teacher.teacher_archived_sections', compact('sections', 'teacher'));
 
     }
 
 
-    //STUDENT LIST
-    public function showStudents(){
-        $students = User::where('role', '=', 'student')->get();
-        $teachers = User::where('role', '=', 'teacher')->get();
-        $sections = Section::all();
-        Section::with('level', 'subject')->get();
-
-        return view('teacher.teacher_students_list', compact('students', 'teachers', 'sections'));
-    }
+    //STUDENT LIST ---> TO BE INTEGRATED IN TEACHER_SECTIONS PAGE. I WANT THE PAGE TO OPEN ON A DIFFERENT TAB
+//    public function showStudents(){
+//
+//        //get the sections of the user
+//        $sections = Section::whereHas('users', function($q){
+//            $userId = auth()->user()->id;
+//            $q->where('user_id', '=', $userId)->where('role', '=', 'teacher');
+//        })->where('status', '=', 'active')->get();
+//        Section::with('level', 'subject')->get();
+//
+//        $students[] = "";
+//        foreach($sections as $section){
+//            $sectionId = $section->id;
+//            $students[] = User::whereHas('sections', function($q) use ($sectionId) {
+//                $q->where('section_id', '=', $sectionId);
+//            })->where('role', '=', 'student')->get();
+//
+//        }
+////        dd($students);
+//        $students = User::where('role', '=', 'student')->get();
+//        $teachers = User::where('role', '=', 'teacher')->get();
+//        $sections = Section::all();
+//        Section::with('level', 'subject')->get();
+//
+//        return view('teacher.teacher_students_list', compact('students', 'teachers', 'sections'));
+//    }
 
 
     public function reportError($chapterId, Request $request){
@@ -213,11 +259,10 @@ class TeacherController extends Controller
 
     //CLASS PROGRESS
     public function showProgress(){
-
         $sections = Section::whereHas('users', function($q){
             $userId = auth()->user()->id;
             $q->where('user_id', '=', $userId)->where('role', '=', 'teacher');
-        })->get();
+        })->where('status', '=', 'active')->get();
 
         $sections->load('subject', 'level', 'activities', 'activities.purpose', 'activities.chapter.topic', 'users');
 
@@ -228,7 +273,7 @@ class TeacherController extends Controller
         return view('teacher.teacher_section_progress', compact('sections', 'userId', 'topic'));
     }
 
-    //STUDENTS' PROGRESS
+    //STUDENTS' PROGRESS - DISPLAYS STUDENTS PROGRESS PER CLASS
     public function showStudentProgress($userId, Request $request){
         $subjectId = $request->get('subjectId');
 //        dd($subjecId);
@@ -244,6 +289,90 @@ class TeacherController extends Controller
         $template = 'teacher.partials.student_progress';
         $returnHTML = view($template, compact('sections', 'userId', 'topic', 'user', 'subjectId'))->render();
         return response()->json( array('success' => true, 'html'=> $returnHTML) );
+    }
+
+
+
+    //ANSWER HISTORY - DISPLAYS STUDENTS ANSWERS PER ACTIVITY
+    public function showAnswerHistory($userId, Request $request){
+        $subjectId = $request->get('subjectId');
+        $activityId = $request->get('activityId');
+        // dd($subjecId);
+
+        $sections = Section::whereHas('users', function($q) use ($userId){
+            $q->where('user_id', '=', $userId);
+        })->where('status', '=', 'active')->get();
+
+        $lastRecordedAttempt = Record::where('user_id', '=', $userId)->where('activity_id', '=', $activityId)->max('created_at'); // get results of last attempt
+
+        $sections->load('subject', 'level', 'activities', 'activities.purpose', 'activities.chapter.topic', 'activities.records');
+        $questions = Question::all();
+        $questions->load('choices');
+
+        $user = User::find($userId);
+//        $subjectName = Subject::find($subjectId);
+
+        $template = 'teacher.partials.student_answer_history';
+        $returnHTML = view($template, compact('sections', 'userId', 'topic', 'user', 'subjectId', 'records', 'questions', 'lastRecordedAttempt', 'activityId'))->render();
+        return response()->json( array('success' => true, 'html'=> $returnHTML) );
+    }
+
+
+
+    //STUDENT ITEM ANALYSIS PER SUBJECT - DISPLAYS STUDENTS ANSWERS PER SUBJECT
+    public function showStudentSubjectProgress($userId, Request $request){
+        $subjectId = $request->get('subjectId');
+        $activityId = $request->get('activityId');
+        $activity = Activity::find($activityId);
+        $secId = $activity->section_id;
+        $sections = Section::find($secId);
+        $sections->load('level');
+        $levelName = $sections->level->name;
+
+        $sections = Section::whereHas('users', function($q) use ($userId){
+            $q->where('user_id', '=', $userId);
+        })->where('status', '=', 'active')->get();
+
+        $records = Record::where('user_id', '=', $userId)->get();
+        $sections->load('subject', 'level', 'activities', 'activities.purpose', 'activities.chapter.topic', 'activities.records');
+        $questions = Question::all();
+        $questions->load('choices');
+
+
+        $user = User::find($userId);
+        $subject = Subject::find($subjectId);
+
+        $acts = Activity::all();
+
+        return view('teacher.partials.student_subject_progress', compact('levelName', 'sections', 'userId', 'acts', 'topic', 'user', 'subjectId', 'subject', 'records', 'questions', 'activityId'));
+    }
+
+
+
+    //STUDENT ITEM ANALYSIS PER SUBJECT - DISPLAYS STUDENTS ANSWERS PER SUBJECT -- FROM CLASS LIST PAGE
+    public function showStudentSubjectProgress2($userId, Request $request){
+        $subjectId = $request->get('subjectId');
+        $sectionId = $request->get('sectionId');
+        $sections = Section::find($sectionId);
+        $sections->load('level');
+        $levelName = $sections->level->name;
+
+        $sections = Section::whereHas('users', function($q) use ($userId){
+            $q->where('user_id', '=', $userId);
+        })->where('status', '=', 'active')->get();
+
+        $records = Record::where('user_id', '=', $userId)->get();
+        $sections->load('subject', 'level', 'activities', 'activities.purpose', 'activities.chapter.topic', 'activities.records');
+        $questions = Question::all();
+        $questions->load('choices');
+
+
+        $user = User::find($userId);
+        $subject = Subject::find($subjectId);
+
+        $acts = Activity::all();
+
+        return view('teacher.partials.subject_progress', compact('levelName', 'sections', 'userId', 'acts', 'topic', 'user', 'subjectId', 'subject', 'records', 'questions'));
     }
 
 

@@ -65,12 +65,9 @@
 
                 <div class="row">
                     <div class="col s12 m5">
-                        {{--CONTENT HERE--}}
+                        <a href="#student-modal" class="btn green modal-trigger">JOIN A CLASS</a>
                     </div>
                 </div>
-
-
-
 
             </div>
         </div>

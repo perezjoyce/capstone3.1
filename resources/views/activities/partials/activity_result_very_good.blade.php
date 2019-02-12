@@ -19,7 +19,7 @@
         <div class="row">
             <div class="input-field col s12">
 
-                <button class="waves-effect waves-light btn-large red lighten-1 btn-reload">
+                <button class="waves-effect waves-light btn-large red lighten-1 reload-btn">
                     {{ __('TRY AGAIN') }}
                 </button>
 

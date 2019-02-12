@@ -344,3 +344,109 @@
 				</form>
 			</div>
 
+
+			{{--CLASS LIST--}}
+			<div id="teacher-sections-modal" class="modal">
+				<div class="row">
+					<div class="modal-content">
+						<h4></h4>
+						<p></p>
+					</div>
+				</div>
+			</div>
+
+
+			{{--REMOVE STUDENT FOM CLASS--}}
+			<div id="remove-student-modal" class="modal modal-small">
+				<div class='right row'>
+					<a href="#!" class="modal-close waves-effect waves-light-blue btn-flat">&#9587</a>
+				</div>
+				<div class="modal-content">
+					<form method="POST" action="" id="remove-student-modal-form">
+						@csrf
+						@method('delete')
+
+						<div class="row">
+							<div class="col s12">
+								<h5 class="red-text">Remove A Student</h5>
+								<br>
+								<p id='remove-student-modal-question'></p>
+							</div>
+							<div class="col s12">
+								<input type="hidden" id="remove-from-section" name="remove-from-section">
+								<input type="hidden" id="remove-student" name="remove-student">
+								<input type="hidden" id="remove-from-level" name="remove-from-level">
+								<input type="hidden" id="remove-from-sectionName" name="remove-from-sectionName">
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s12">
+								<button type='submit' class="waves-effect waves-light btn grey" id="remove-student-modal-btn">
+									<i class="material-icons left">delete</i>
+									{{ __('Yes, Please') }}
+								</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+
+
+            {{--EDIT STUDENT SETTINGS MODAL--}}
+            <div id="edit-student-settings" class="modal modal-small">
+                <div class="row">
+                    <div class="modal-content">
+                        <h5 class="green-text bold">Edit A Student's Settings</h5>
+                        <br>
+                        <p class="light" id="edit-student-settings-question"></p>
+                        <br>
+
+                        <form action="" method="POST" id="edit-student-settings-form">
+                            @csrf
+                            @method('put')
+                            <div class="row">
+                                <div class="input-group">
+                                    <label for="edit-student-name" class="active light">Student's Correct Name</label>
+                                    <input type="text" name="edit-student-name" id="edit-student-name" required>
+                                    <input type="hidden" name="student-id" id="student-id">
+                                </div>
+                                <div class="input-group">
+                                    <label for="edit-student-password" class="active light">Student's New Password</label>
+                                    <input type="text" name="edit-student-password" id="edit-student-password">
+                                </div>
+                                <input type="hidden" name="edit-student-level" id="edit-student-level">
+                                <input type="hidden" name="edit-student-section" id="edit-student-section">
+                                <input type="hidden" name="edit-student-subject" id="edit-student-subject">
+                            </div>
+
+                            <button class="btn green lighten-2" style="margin-top:15px;" id="edit-student-settings-btn">
+                                <i class="material-icons left">edit</i>
+                                Apply Changes</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+			{{--STUDENT MODAL--}}
+            <div id="student-modal" class="modal modal-small">
+                <div class="row">
+                    <div class="modal-content">
+                        <h5 class="green-text bold">Join a class</h5>
+                        <p class="light">Type below the class code given by your teacher:</p>
+                        <form action="joinClass" method="POST">
+                            @csrf
+                            <input type="text" name="access_code" required>
+                            <button class="btn orange" style="margin-top:15px;">Join now</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+

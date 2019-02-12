@@ -25,4 +25,9 @@ class Question extends Model
     public function choices(){
     	return $this->hasMany('\App\Choice');
     }
+
+    //A question has many records
+    public function records(){
+        return $this->hasMany('\App\Record');
+    }
 }

@@ -17,10 +17,10 @@
     background-image: url("/images/background-vector-3.png");
     background-size:cover;
     background-repeat:no-repeat;
-    height: 50vh;
+    height:25em;
     position: relative;
     background-position-y: top;
-    background-position-x: center;
+    background-position-x: right;
 }
 
 #index-container,
@@ -71,14 +71,14 @@
 input:not([type]):focus:not([readonly]),
 input[type=text]:not(.browser-default):focus:not([readonly]),
 .input-field .prefix ~ textarea {
-	-webkit-box-shadow: 0 1px 0 0 #ff9800 !important;
-	box-shadow: 0 1px 0 0 #ff9800 !important;
-	border-bottom: 1px solid #ff9800 !important;
+	-webkit-box-shadow: 0 1px 0 0 gray !important;
+	box-shadow: 0 1px 0 0 gray !important;
+	border-bottom: 1px solid gray !important;
 }
 
 input[type=text]:not(.browser-default):focus:not([readonly]) + label,
 textarea.materialize-textarea:focus:not([readonly]) + label{
-	color: #ff9800 !important;
+	color: gray !important;
 }
 
 .tabs .tab a {
@@ -130,7 +130,8 @@ table table.inner tr:last-child {
 
 #login-modal,
 #register-modal,
-#level-modal {
+#level-modal,
+#add-class-modal {
   left: 0;
   right: 0;
   background-color: #fafafa;
@@ -362,7 +363,29 @@ table table.inner tr:last-child {
 
 @media only screen and (max-width:425px) {
 
-	.padding-0-sm{
+    #index-banner {
+        background-image: url("/images/background-vector-3.png");
+        background-size:cover;
+        background-repeat:no-repeat;
+        height: 15em;
+        position: relative;
+        background-position-y: top;
+        background-position-x: center;
+    }
+
+
+    #landing-page-image-2 {
+        background-image: url("/images/background-vector-4.png");
+        background-size:contain;
+        background-repeat:no-repeat;
+        height: 20em;
+        position: relative;
+        background-position-y: center;
+        background-position-x: center;
+    }
+
+
+    .padding-0-sm{
         padding:0!important;
     }
 

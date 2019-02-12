@@ -13,6 +13,7 @@ use App\Purpose;
 use App\Section;
 use App\User;
 use App\Presentation;
+use App\Record;
 use Session;
 use Redirect;
 
@@ -82,6 +83,7 @@ class ActivityController extends Controller
          */
         $deadline = Carbon::createFromFormat('M d, Y', $deadline);
 
+
         $rules = array(
             "name" => "required",
             "presentation" => "required|numeric",
@@ -100,7 +102,8 @@ class ActivityController extends Controller
         $activity->number_of_items = $number_of_items;
         $activity->deadline = $deadline->format("Y-m-d");
         $activity->save();
-        $section = $activity->section->name;
+        $section = Section::find($activity->section_id);
+        $section = $section->name;
         $topic = $topic->name;
 
         Session::flash("successmessage", $topic." has been successfully added as task to ".$section);
@@ -113,15 +116,38 @@ class ActivityController extends Controller
     public function checkAnswers($activityId, Request $request){
 
         $activity = Activity::find($activityId);
+        $user = auth()->user()->id;
+
 
         $numberOfItems = $request->numberOfItems; //NUMBER OF ITEMS/QUESTIONS WHEN TEACHER SAVED ACTIVITY
         $score = 0;
         for($i=0; $i<$numberOfItems; $i++) {
-            $answer = Choice::find($request->input('answer'.$i));
-            if($answer->is_correct) {
-                $score++;
-            }
 
+            $record = New Record;
+            $record->user_id = $user;
+            $record->activity_id = $activityId;
+            $answer = $request->input('answer'.$i);
+
+            if(strpos($answer, 'DONT_KNOW_') !== false) { //fetch set default value in case user leave an item blank //check if DONT_KNOW exists
+                $array = explode('DONT_KNOW_', $answer); //divide string into two and save into expl array
+                $questionId = end($array); //get end of array which is question id
+                $record->question_id = $questionId;
+                $record->is_correct = 0;
+            } else {
+                $answer = Choice::find($request->input('answer'.$i));
+
+                if($answer != null && $answer->is_correct) {
+                    $score++;
+                    $questionId = $answer->question_id;
+                    $record->question_id = $questionId;
+                    $record->is_correct = 1;
+                } else {
+                    $questionId = $answer->question_id;
+                    $record->question_id = $questionId;
+                    $record->is_correct = 0;
+                }
+            }
+            $record->save();
         }
 
         $average = ($score / $numberOfItems)*100;
@@ -140,11 +166,11 @@ class ActivityController extends Controller
             $template = 'activities.partials.activity_result_excellent';
         }
 
-        $user = auth()->user()->id;
-//        $user = User::find($user);
+
+        // save score
         $activity->users()->attach($user, ['score' => $score]);
 
-        $returnHTML = view($template, compact('activity', 'numberOfItems', 'score', 'average'))->render();
+        $returnHTML = view($template, compact('activity', 'numberOfItems', 'score', 'average', 'record'))->render();
         return response()->json( array('success' => true, 'html'=> $returnHTML) );
 
 

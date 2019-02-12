@@ -19,7 +19,10 @@ class LevelsTableSeeder extends Seeder
         	['name' => 'Grade 7', 'category_id' => 2, 'created_at' => NULL, 'updated_at' => NULL],
         	['name' => 'Grade 8', 'category_id' => 2, 'created_at' => NULL, 'updated_at' => NULL],
         	['name' => 'Grade 9', 'category_id' => 2, 'created_at' => NULL, 'updated_at' => NULL],
-        	['name' => 'Grade 10', 'category_id' => 2, 'created_at' => NULL, 'updated_at' => NULL]
+        	['name' => 'Grade 10', 'category_id' => 2, 'created_at' => NULL, 'updated_at' => NULL],
+            ['name' => 'Grade 11', 'category_id' => 3, 'created_at' => NULL, 'updated_at' => NULL],
+            ['name' => 'Grade 12', 'category_id' => 3, 'created_at' => NULL, 'updated_at' => NULL],
+
         ]);
     }
 }

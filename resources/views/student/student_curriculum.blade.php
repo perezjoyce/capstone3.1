@@ -62,9 +62,6 @@
                         @endif
                     </div>
                 </div>
-                <div>
-                    <p>this will the the teacher's view for tasks but limited to the subject that she is offering</p>
-                </div>
                 <div class="row">
                     <div class="col s12">
                         <table class='striped responsive-table grey-text text-darken-3'>
