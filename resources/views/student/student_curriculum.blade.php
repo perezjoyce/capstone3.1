@@ -64,23 +64,23 @@
                 </div>
                 <div class="row">
                     <div class="col s12">
-                        <table class='striped responsive-table grey-text text-darken-3'>
+                        <table class='striped centered responsive-table grey-text text-darken-3'>
                             <thead>
                                 <tr>
-                                    <th style='width:5%;'></th>
-                                    <th style='width:20%;' class="center-align">Subject</th>
-                                    <th style='width:20%;'class="center-align">Topic</th>
-                                    <th style='width:15%;' class="center-align">Purpose</th>
-                                    <th style='width:20%;' class="center-align">Deadline</th>
-                                    <th style='width:20%;' class="center-align"></th>
+                                    <th style='width:10%;'></th>
+                                    <th style='width:20%;'>Subject</th>
+                                    <th style='width:20%;'>Topic</th>
+                                    <th style='width:15%;'>Purpose</th>
+                                    <th style='width:20%;'>Deadline</th>
+                                    <th style='width:20%;'></th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="light">
                             @foreach($sections as $section)
                                 @foreach($section->activities as $activity)
 
                                     <tr>
-                                        <td class="right-align padding-50-large">
+                                        <td>
                                             @if($activity->users()->where('user_id', $userId)->where('activity_id',$activity->id)->exists())
                                                 <i class="material-icons grey-text">done</i>
                                             @else
@@ -101,18 +101,18 @@
                                                 @endif
                                             @endif
                                         </td>
-                                        <td class="center-align padding-50-large">
+                                        <td>
                                            {{ $section->subject->name }}
                                         </td>
-                                        <td class="center-align padding-50-large">{{ $activity->chapter->topic->name }}</td>
-                                        <td class="center-align padding-50-large">{{ $activity->purpose->name }}</td>
+                                        <td>{{ $activity->chapter->topic->name }}</td>
+                                        <td>{{ $activity->purpose->name }}</td>
 
-                                        <td class="center-align padding-50-large">
+                                        <td>
                                             <div class="check-if-due-asap">{{ $activity->deadline->diffForHumans() }}</div>
                                             <small class="grey-text">{{ $activity->deadline->format('M d, Y') }}</small>
                                         </td>
-                                        <td class="center-align padding-50-large">
-                                            <a href="student_lesson/{{ $activity->chapter->topic->id }}?activity={{$activity->id}}" target='_blank' class='btn orange open-activity' data-activityid="{{ $activity->id }}"><i class="material-icons right white-text">open_in_new</i>VIEW</a>
+                                        <td>
+                                            <a href="student_lesson/{{ $activity->chapter->topic->id }}?activity={{$activity->id}}" target='_blank' class='btn orange open-activity' data-activityid="{{ $activity->id }}"><i class="material-icons right white-text">open_in_new</i>OPEN</a>
                                         </td>
 
                                     </tr>

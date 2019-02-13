@@ -8,7 +8,7 @@ class Report extends Model
 {
 
     protected $fillable = [
-        'chapter_id', 'user_id', 'field', 'message',
+        'chapter_id', 'user_id', 'field', 'message', 'status',
     ];
 
 

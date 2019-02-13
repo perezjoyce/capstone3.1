@@ -6,13 +6,13 @@
         <div class="row no-margin-bottom">
             <div class="col s12">
                 <div class="col s12 hide-on-med-and-down">
-                    <h4 class='deep-purple-text text-darken-4 right custom-heading'>TASKS</h4>
+                    <h4 class='deep-purple-text text-darken-4 right custom-heading'>ACTIVE CLASSES</h4>
                 </div>
 
 
                 <div class="row hide-on-large-only deep-purple darken-4">
                     <div class="col s6">
-                        <h4 class='white-text custom-heading'>TASKS</h4>
+                        <h4 class='white-text custom-heading'>ACTIVE CLASSES</h4>
                     </div>
                     <div class="col s6 right">
                         <ul class="right hide-on-large-only">
@@ -62,32 +62,48 @@
                 </div>
             </div>
 
-
-            <div class="col s12 padding-0-sm">
-                <ul class="collapsible" data-collapsible="accordion">
-                    <li>
-                        <div class="collapsible-header border-bottom-none bold padding-0-sm">
-                            <div class="col s3">Subject</div>
-                            <div class='col s3'>Progress</div>
-                            <div class='col s1 hide-on-small-only'></div>
-                            <div class='col s2 tooltipped' data-position="top" data-tooltip="Average Score for Subject">
-                                Average
-                            </div>
-
-                            <i class="material-icons right white-text">more_vert</i>
+            <div class="row">
+                <div class="col s12 m5">
+                    <div class="no-margin-bottom">
+                        <div class="input-field col s12">
+                            <input type="text" class="search_classes" placeholder="Search by class name" name="teacher_search" id="teacher_search">
+                            <input type="hidden" name="field" value="level_class">
+                            {{--<label class="active"><i class="material-icons left">search</i>Search Class Name or Grade Level</label>--}}
+                            <button class="btn grey lighten-2 grey-text reload-btn">Clear</button>
+                            <button class="btn green btn-teacher-search">Search</button>
                         </div>
-                    </li>
-                </ul>
+                    </div>
+                </div>
             </div>
 
-            <div class="col s12 padding-0-sm" style='min-height:10em;'>
+            <div id="section-container">
+                <div class="col s12 padding-0-sm">
+                    <ul class="collapsible" data-collapsible="accordion">
+                        <li>
+                            <div class="collapsible-header border-bottom-none bold padding-0-sm">
+                                <div class="col s2">Subject</div>
+                                <div class="col s2">Teacher</div>
+                                <div class='col s2'>Progress</div>
+                                <div class='col s1 hide-on-small-only'></div>
+                                <div class='col s2 tooltipped' data-position="top" data-tooltip="Average Score for Subject">
+                                    Average
+                                </div>
+
+                                <i class="material-icons right white-text">timeline</i>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col s12 padding-0-sm" style='min-height:10em;'>
                 {{--TEACHER CAN VIEW TOPICS WITH LESSON/CHAPTER ONLY --}}
                 @foreach($sections as $section)
+                    @foreach($teachers as $teacher)
                     {{--@if($topic->chapters->count() == 1)--}}
                         <ul class="collapsible" data-collapsible="accordion">
                             <li>
                                 <div class="collapsible-header padding-0-sm">
-                                    <div class="col s3">
+                                    <div class="col s2">
                                         {{ $section->subject->name }}
                                     </div>
                                     {{--TRANSFER THIS TO STUDENT CONTROLLER: showProgress() --}}
@@ -146,12 +162,19 @@
                                         ?>
                                     {{--END --}}
 
-                                    <div class='col s3'>
+
+
+                                    <div class="col s2">
+                                        {{ $teacher->name }}
+                                    </div>
+
+
+                                    <div class='col s2'>
                                         <div class="row no-margin-bottom">
                                             <div class="col s12 right-align">
                                                 <small>
                                                     {{ $done }} of
-                                                    {{ $totalActivities }}
+                                                    {{ $totalActivities }} Tasks
                                                 </small>
                                             </div>
                                         </div>
@@ -161,10 +184,10 @@
                                     </div>
                                     <div class='col s1 hide-on-small-only'></div>
                                     <div class='col s2'>{{ $combinedAve }}%</div>
-                                    <i class="material-icons right grey-text">more_vert</i>
+                                    <i class="material-icons right grey-text">timeline</i>
                                 </div>
                                 <div class="collapsible-body custom-padding border-bottom-none">
-                                    <table class="striped responsive-table grey-text text-darken-1" style="font-size:.8rem;">
+                                    <table class="striped responsive-table grey-text text-darken-1 light" style="font-size:.95rem;">
                                         @if($progress)
                                         <thead>
                                             <tr>
@@ -262,7 +285,19 @@
                             </li>
                         </ul>
                     {{--@endif--}}
+                        @break;
+                    @endforeach
                 @endforeach
+            </div>
+            </div>
+
+            <div class="col s12 right">
+                <br>
+                <br>
+                <a href="student_archived_classes" class='btn grey'>
+                    <i class="material-icons left">chevron_left</i>
+                    Archived Classes
+                </a>
             </div>
         </div>
 

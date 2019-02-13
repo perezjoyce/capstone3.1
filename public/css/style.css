@@ -39,6 +39,38 @@
     background-position-x: center;
 }
 
+#teacher-dashboard-image{
+    background-image: url("/images/background-vector-1.1.png");
+    background-size:contain;
+    background-repeat:no-repeat;
+    height:75vh;
+    position: relative;
+    background-position-y: bottom;
+    background-position-x: right;
+}
+
+#student-dashboard-image{
+    background-image: url("/images/background-vector-5.png");
+    background-size:contain;
+    background-repeat:no-repeat;
+    height:75vh;
+    position: relative;
+    background-position-y: bottom;
+    background-position-x: right;
+}
+
+
+#admin-dashboard-image{
+    background-image: url("/images/background-vector-6.png");
+    background-size:contain;
+    background-repeat:no-repeat;
+    height:20em;
+    position: relative;
+    background-position-y: 200px;
+    background-position-x: right;
+}
+
+
 
 /*+++++++++++******************/
 
@@ -279,6 +311,11 @@ table table.inner tr:last-child {
 /*============================ DESKTOP ==========================*/
 
 @media only screen and (min-width: 961px) {
+
+    /*main {*/
+        /*padding-left: 200px!important;*/
+    /*}*/
+
 	#login-modal,
 	#register-modal,
 	#level-modal,
@@ -318,7 +355,24 @@ table table.inner tr:last-child {
 
 /*==============================TABLET ==============================*/
 
-@media only screen and (min-width:426px) and (max-width:960px) { 
+@media only screen and (min-width:426px) and (max-width:960px) {
+
+    #student-dashboard-image{
+        background-size:contain;
+        background-repeat:no-repeat;
+        position: relative;
+        background-position-y: bottom;
+        background-position-x: right;
+    }
+
+    #teacher-dashboard-image{
+        background-image: url("/images/background-vector-1.1.png");
+        background-size:contain;
+        background-repeat:no-repeat;
+        position: relative;
+        background-position-y: bottom;
+        background-position-x: right;
+    }
 
 	#login-modal,
 	#register-modal,
@@ -362,6 +416,11 @@ table table.inner tr:last-child {
 /*==============================MOBILE==============================*/
 
 @media only screen and (max-width:425px) {
+
+    #teacher-dashboard-image,
+    #student-dashboard-image{
+        display:none;
+    }
 
     #index-banner {
         background-image: url("/images/background-vector-3.png");

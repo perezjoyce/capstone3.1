@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Category;
 use App\Level;
@@ -30,12 +31,44 @@ class TeacherController extends Controller
         $tests = Level::with('category')->get();
         $subjects = Subject::all();
         $modules = Module::all();
-
         $modules->load('topics');
         $topics = Topic::all();
-
         $subjects->load('modules');
-        return view('teacher.teacher_dashboard', compact('categories', 'levels', 'subjects', 'modules', 'tests', 'topics'));
+        $activities = Activity::all();
+        $activities->load('chapter', 'purpose', 'section', 'section.subject' ,'users');
+
+        $owner = auth()->user();
+        $sections = Section::whereHas('users', function($q){
+            $userId = auth()->user()->id;
+            $q->where('user_id', '=', $userId)->where('role', '=', 'teacher');
+        })->where('status', '=', 'active')->get();
+
+//        dd($sections); // malakas masinop matino
+
+        $users = [];
+        foreach ($sections as $section) {
+            $users[] = $section->users()->where('section_id', $section->id)->where('role','=' ,'student')->get();
+        }
+
+        $users = collect($users)->collapse()->unique('id');
+
+//      dd($users); // joey jem johnray johnray
+//      $start = Carbon::setWeekStartsAt(Carbon::SUNDAY);
+//      Carbon::setWeekEndsAt(Carbon::SATURDAY);
+        $today = Carbon::today();
+        $recent_activities  =[];
+        foreach ($users as $user) {
+            $recent_activities[] = $user->activities()->wherePivot('created_at', '>=', $today)->get();
+        }
+        $recent_activities = collect($recent_activities)->collapse(); // returns 2, 1 and 5 instead of 3
+//        dd($recent_activities);
+
+        $owner_email = $owner->email;
+        preg_match('/^.\K[a-zA-Z\.0-9]+(?=.@)/',$owner_email,$matches);//here we are gathering this part bced
+        $replacement= implode("",array_fill(0,strlen($matches[0]),"*"));//creating no. of *'s
+        $owner_hiddenEmail = preg_replace('/^(.)'.preg_quote($matches[0])."/", '$1'.$replacement, $owner_email);
+
+        return view('teacher.teacher_dashboard', compact('owner','owner_hiddenEmail', 'sections', 'users', 'recent_activities', 'categories', 'levels', 'subjects', 'modules', 'tests', 'topics'));
     }
 
 	//CURRICULUM PAGE
@@ -250,6 +283,7 @@ class TeacherController extends Controller
         $report->field = $column;
         $report->message = $request->details;
         $report->user_id = $user;
+        $report->status = 'pending'; //
         $report->save();
 
         Session::flash("successmessage", "Your report has been successfully sent!");

@@ -38,46 +38,33 @@
 			</li>
 		</a>
 
-		<a href="admin_curriculum_content">
-			<li @if ($currentRoute == "admin_curriculum_content") class="active" @endif>
-				<div class="icon-block row no-margin-bottom">
-					<div class="col s12">
-						<i class="material-icons deep-purple-text text-lighten-5"><h5 class='no-margin-bottom'>timeline</h5></i>
-					</div>
-					<div class="col s12">
-						<small class='deep-purple-text text-lighten-5'>STATISTICS</small>
-					</div>
-				</div>
-			</li>
-		</a>
+		{{--<a href="{{ url('admin_sections') }}">--}}
+			{{--<li @if ($currentRoute == "admin_sections" || $currentRoute =="admin_archived_sections" ) class="active" @endif>--}}
+				{{--<div class="icon-block row no-margin-bottom">--}}
+					{{--<div class="col s12">--}}
+						{{--<i class="material-icons deep-purple-text text-lighten-5"><h5 class='no-margin-bottom'>list</h5></i>--}}
+					{{--</div>--}}
+					{{--<div class="col s12">--}}
+						{{--<small class='deep-purple-text text-lighten-5'>CLASS LIST</small>--}}
+					{{--</div>--}}
+				{{--</div>--}}
+			{{--</li>--}}
+		{{--</a>--}}
 
-		<a href="{{ url('admin_sections') }}">
-			<li @if ($currentRoute == "admin_sections" || $currentRoute =="admin_archived_sections" ) class="active" @endif>
-				<div class="icon-block row no-margin-bottom">
-					<div class="col s12">
-						<i class="material-icons deep-purple-text text-lighten-5"><h5 class='no-margin-bottom'>list</h5></i>
-					</div>
-					<div class="col s12">
-						<small class='deep-purple-text text-lighten-5'>CLASS LIST</small>
-					</div>
-				</div>
-			</li>
-		</a>
-
-		<a href="{{ url('admin_students_list') }}">
-			<li @if ($currentRoute == "admin_students_list" || $currentRoute == "admin_student_account") class="active" @endif>
+		<a href="{{ url('admin_users_list') }}">
+			<li @if ($currentRoute == "admin_users_list" || $currentRoute == "admin_student_account") class="active" @endif>
 				<div class="icon-block row no-margin-bottom">
 					<div class="col s12">
 						<i class="material-icons deep-purple-text text-lighten-5"><h5 class='no-margin-bottom'>people</h5></i>
 					</div>
 					<div class="col s12">
-						<small class='deep-purple-text text-lighten-5'>STUDENTS</small>
+						<small class='deep-purple-text text-lighten-5'>USERS</small>
 					</div>
 				</div>
 			</li>
 		</a>
 
-		<a href="#">
+		<a href="#" class="tooltipped "disabled data-position="bottom" data-tooltip="Messaging is not yet available.">
 			<li>
 				<div class="icon-block row no-margin-bottom">
 					<div class="col s12">

@@ -37,7 +37,7 @@ class User extends Authenticatable
 
     //A user has many reports
     public function reports(){
-        return $this->hasMany('\App\Report');
+        return $this->hasMany('\App\Report')->groupBy('chapter_id', 'field');
     }
 
     //A user has many records
@@ -47,14 +47,16 @@ class User extends Authenticatable
 
     //PIVOT TABLES
     public function activities(){
-        return $this->belongstoMany('\App\Activity');
+        return $this->belongstoMany('\App\Activity', 'activity_user')->withTimestamps();
     }
 
     public function sections(){
         return $this->belongsToMany('\App\Section', 'section_user')->withTimestamps();
     }
 
-
+    public function subjects() {
+        return $this->hasManyThrough('\App\Subject', '\App\Section', 'subject_id'); //test
+    }
 
 
 }

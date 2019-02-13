@@ -130,10 +130,20 @@ class SectionController extends Controller
 
     public function searchClass(Request $request) {
         $searchkey = $request->get('searchkey');
-        $sections = Section::whereHas('users', function($q){
-            $userId = auth()->user()->id;
-            $q->where('user_id', '=', $userId)->where('role', '=', 'teacher');
-        })->where('name', '=', $searchkey)->get();
+        $user = auth()->user();
+        if($user->role == "teacher"){
+            $sections = Section::whereHas('users', function($q){
+                $userId = auth()->user()->id;
+                $q->where('user_id', '=', $userId)->where('role', '=', 'teacher');
+            })->where('name', '=', $searchkey)->get();
+        } elseif($user->role == "student"){
+            $sections = Section::whereHas('users', function($q){
+                $userId = auth()->user()->id;
+                $q->where('user_id', '=', $userId)->where('role', '=', 'student');
+            })->where('name', '=', $searchkey)->get();
+        } else {
+            $sections = Section::all();
+        }
 
         $yearNow = date('Y');
         $x = $yearNow + 1;
@@ -144,11 +154,55 @@ class SectionController extends Controller
         return response()->json( array('success' => true, 'html'=> $returnHTML) );
     }
 
+
+    public function searchSubject(Request $request){
+        $searchkey = $request->get('searchkey');
+        $user = auth()->user();
+        if($user->role == "teacher"){
+            $sections = Section::whereHas('users', function($q){
+                $userId = auth()->user()->id;
+                $q->where('user_id', '=', $userId)->where('role', '=', 'teacher');
+            })->where('name', '=', $searchkey)->get();
+        } elseif($user->role == "student"){
+            $sections = Section::whereHas('users', function($q){
+                $userId = auth()->user()->id;
+                $q->where('user_id', '=', $userId)->where('role', '=', 'student');
+            })->whereHas('subject', function($q) use ($searchkey){
+                $q->where('name', 'like', '%'.$searchkey.'%');
+            })->get();
+        } else {
+            $sections = Section::all();
+        }
+
+//        dd($sections->isNotEmpty());
+
+        $yearNow = date('Y');
+        $x = $yearNow + 1;
+        $schoolYear = $yearNow .' - '. $x;
+
+        $teachers = [];
+        foreach ($sections as $section) {
+            $teachers[] = $section->users()->where('section_id', $section->id)->where('role', 'teacher')->get();
+        }
+
+        $teachers = collect($teachers)->collapse();
+
+
+        // TO CHECK IF USER ALREADY ANSWERED THE ACTIVITY
+        $userId = auth()->user()->id;
+
+        $template = 'classes.partials.filtered_subjects';
+        $returnHTML = view($template, compact('sections', 'levels', 'subjects', 'schoolYear', 'teachers', 'schoolYear', 'userId'))->render();
+        return response()->json( array('success' => true, 'html'=> $returnHTML) );
+
+    }
+
+
     public function joinClass(Request $request){
 
         $access_code = $request->get('access_code');
         $sections = Section::where('access_code', '=' ,$access_code)->where('status', '=', 'active')->limit(1)->get();
-        $sections->load('level');
+        $sections->load('level', 'subject');
 
 
         if($sections->isEmpty()){
@@ -159,8 +213,9 @@ class SectionController extends Controller
             foreach($sections as $section){
                 $name = $section->name;
                 $level = $section->level->name;
+                $subject = $section->subject->name;
                 $section->users()->attach($user);
-                Session::flash("successmessage", "Hooray! You're now a part of " .$level." - ".$name."! :)");
+                Session::flash("successmessage", "Hooray! You're now a part of " .$level." - ".$name."'s ".$subject." class ! :)");
             }
         }
 
@@ -218,6 +273,12 @@ class SectionController extends Controller
 
         $studentName = $request->get('edit-student-name');
         $password = Hash::make($request->get('edit-student-password'));
+
+        $rules = array(
+            'edit-student-name' => 'required|string|max:255',
+            'edit-student-password' => 'required|string|min:6',
+        );
+        $this->validate($request, $rules);
         $student = User::find($userId);
         if($password != null){
             $student->password = $password;
@@ -227,6 +288,67 @@ class SectionController extends Controller
         }
         $student->save();
         Session::flash("successmessage", $studentName."'s account has been successfully updated!");
+        return Redirect::back();
+    }
+
+    public function editProfile($userId, Request $request){
+        $user = User::find($userId);
+        $currentEmail = $user->email;
+        $newemail = $request->get('email');
+        $newusername = $request->get('username');
+        $newname = $request->get('name');
+
+        if($newemail == $currentEmail && $newname == $user->name && $newusername == $user->username) {
+            Session::flash("successmessage", "No changes have been made to your account details.");
+            return Redirect::back();
+        } else {
+
+            if ($currentEmail != $newemail) {
+                $rules = array(
+                    'name' => 'required|string|max:255',
+                    'username' => 'required|string|max:255',
+                    'email' => 'required|string|email|max:255|unique:users',
+                );
+
+                $this->validate($request, $rules);
+                $user->name = $request->name;
+                $user->username = $request->username;
+                $user->email = $request->email;
+
+                $user->save();
+                Session::flash("successmessage", "Your account has been successfully updated!");
+                return Redirect::back();
+
+            } else {
+                $rules = array(
+                    'name' => 'required|string|max:255',
+                    'username' => 'required|string|max:255',
+                );
+                $this->validate($request, $rules);
+                $user->name = $request->name;
+                $user->username = $request->username;
+
+                $user->save();
+                Session::flash("successmessage", "Your account has been successfully updated!");
+                return Redirect::back();
+
+            }
+        }
+    }
+
+    public function changePassword($userId, Request $request) {
+
+        $password = Hash::make($request->get('password'));
+
+        $rules = array(
+            'password' => 'required|string|min:6',
+        );
+        
+        $this->validate($request, $rules);
+        $user = User::find($userId);
+        $user->password =  $password;
+        $user->save();
+        Session::flash("successmessage", "Your password has been successfully changed!");
         return Redirect::back();
     }
 

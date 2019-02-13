@@ -41,7 +41,7 @@
     <div class="container">
         <div class="row">
             <div class="col s12 center" style="margin-top:4em;margin-bottom:4em;">
-                There are no classes that match your given search key.
+                None of your classes match your given search key.
             </div>
         </div>
     </div>

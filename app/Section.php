@@ -27,7 +27,7 @@ class Section extends Model
 //        return $this->hasMany('\App\Activity')->orderBy('deadline');
 //    }
     public function activities(){
-        return $this->hasMany('\App\Activity');
+        return $this->hasMany('\App\Activity')->orderBy('deadline');
     }
 
     //PIVOT TABLE

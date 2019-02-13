@@ -63,16 +63,16 @@
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col s12 m5">
-                        <div class="no-margin-bottom">
-                            <div class="input-field col s12">
-                                <input type="text" class="validate">
-                                <label><i class="material-icons left">search</i>Search Archived Classes</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                {{--<div class="row">--}}
+                    {{--<div class="col s12 m5">--}}
+                        {{--<div class="no-margin-bottom">--}}
+                            {{--<div class="input-field col s12">--}}
+                                {{--<input type="text" class="validate">--}}
+                                {{--<label><i class="material-icons left">search</i>Search Archived Classes</label>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
 
                 <div class="col s12">
                     <table class='striped highlight responsive-table'>

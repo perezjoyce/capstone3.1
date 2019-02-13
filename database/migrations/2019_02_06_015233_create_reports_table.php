@@ -18,6 +18,7 @@ class CreateReportsTable extends Migration
             $table->unsignedInteger('chapter_id');
             $table->string('field');
             $table->text('message');
+            $table->enum('status', ['pending', 'completed'])->default('pending')->nullable();
             $table->unsignedInteger('user_id');
             $table->timestamps();
 

@@ -433,16 +433,44 @@
                 <div class="row">
                     <div class="modal-content">
                         <h5 class="green-text bold">Join a class</h5>
-                        <p class="light">Type below the class code given by your teacher:</p>
+						<p class="light grey-text">Type the class code that your teacher gave.</p>
                         <form action="joinClass" method="POST">
                             @csrf
                             <input type="text" name="access_code" required>
-                            <button class="btn orange" style="margin-top:15px;">Join now</button>
+                            <button class="btn green" style="margin-top:15px;">Join now</button>
                         </form>
                     </div>
                 </div>
             </div>
 
+
+            {{--STUDENT MODAL--}}
+            {{--<div id="view-own-profile" class="modal modal-small">--}}
+                {{--<div class="row">--}}
+                    {{--<div class="modal-content">--}}
+                        {{--<h5 class="green-text bold">Account Details</h5>--}}
+                        {{--<form action="joinClass" method="POST">--}}
+                            {{--@csrf--}}
+                            {{--<input type="text" name="access_code" required>--}}
+                            {{--<button class="btn orange" style="margin-top:15px;">Save Changes</button>--}}
+                        {{--</form>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+            {{--</div>--}}
+
+
+			{{--ADMIN MODAL CONTAINER--}}
+			<div id="report-status-modal" class="modal modal-small">
+				<div class="row">
+					<div class="modal-content">
+						<p id="report-status-modal-question"></p>
+							<form action="" method="POST">
+							@csrf
+							<button class="btn orange" style="margin-top:15px;">Yes, Please.</button>
+							</form>
+						</div>
+				</div>
+			</div>
 
 
 

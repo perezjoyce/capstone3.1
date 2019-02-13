@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Category;
+use Carbon\Carbon;
 use App\Level;
 use App\Subject;
 use App\Module;
@@ -13,6 +14,8 @@ use App\Section;
 use App\User;
 use App\Question;
 use App\Choice;
+use App\Report;
+Use \DB;
 use Session;
 use Redirect;
 use Illuminate\Support\Facades\Input;
@@ -21,18 +24,55 @@ class AdminController extends Controller
 {
     //DASHBOARD
     public function showAdminDashboard(){
-        $categories = Category::all();
-        $categories->load('levels');
-        $levels = Level::all();
-        $tests = Level::with('category')->get();
-        $subjects = Subject::all();
-        $modules = Module::all();
+        $owner = auth()->user();
+        $sections = Section::whereHas('users', function ($q) {
+            $userId = auth()->user()->id;
+            $q->where('user_id', '=', $userId)->where('role', '=', 'student');
+        })->where('status', '=', 'active')->get();
 
-        $modules->load('topics');
-        $topics = Topic::all();
+//        dd($sections); // malakas masinop matino
 
-        $subjects->load('modules');
-        return view('admin.admin_dashboard', compact('categories', 'levels', 'subjects', 'modules', 'tests', 'topics'));
+        $activities = [];
+        $today = Carbon::today();
+        foreach ($sections as $section) {
+            $activities[] = $section->activities->where('created_at', '>', $today);
+        }
+
+        $activities = collect($activities)->collapse()->unique('id');
+
+//        dd($activities);
+
+        $owner_email = $owner->email;
+        preg_match('/^.\K[a-zA-Z\.0-9]+(?=.@)/', $owner_email, $matches);//here we are gathering this part bced
+        $replacement = implode("", array_fill(0, strlen($matches[0]), "*"));//creating no. of *'s
+        $owner_hiddenEmail = preg_replace('/^(.)' . preg_quote($matches[0]) . "/", '$1' . $replacement, $owner_email);
+
+
+
+
+
+        $pending_reports = Report::select('chapter_id', 'field')
+            ->groupBy('chapter_id', 'field')
+            ->where('status', '=', 'pending')
+            ->get();
+        $pending_reports->load('chapter', 'chapter.topic', 'chapter.topic.level', 'chapter.topic.module.subject', 'user');
+        $report_count = [];
+//        $reports = Report::all();
+        foreach($pending_reports as $pending_report){
+
+            $report_count[] = Report::select('chapter_id', 'field')
+                ->groupBy('chapter_id', 'field')
+                ->where('chapter_id', '=', $pending_report->chapter_id)
+                ->where('field', '=', $pending_report->field)
+                ->count();
+        }
+
+        $reports = Report::all();
+
+//        dd($report_count);
+
+        return view('admin.admin_dashboard', compact('owner', 'owner_hiddenEmail', 'activities', 'pending_reports', 'report_count', 'reports'));
+
     }
 
     //CURRICULUM

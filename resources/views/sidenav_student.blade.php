@@ -42,20 +42,7 @@
 		</a>
 
 		<a href="{{ url('student_progress') }}">
-			<li @if ($currentRoute == "student_progress") class="active" @endif>
-				<div class="icon-block row no-margin-bottom">
-					<div class="col s12">
-						<i class="material-icons deep-purple-text text-lighten-5"><h5 class='no-margin-bottom'>timeline</h5></i>
-					</div>
-					<div class="col s12">
-						<small class='deep-purple-text text-lighten-5'>PROGRESS</small>
-					</div>
-				</div>
-			</li>
-		</a>
-
-		<a href="{{ url('student_sections') }}">
-			<li @if ($currentRoute == "student_sections" || $currentRoute =="student_archived_sections" ) class="active" @endif>
+			<li @if ($currentRoute == "student_progress" || $currentRoute == "student_archived_classes") class="active" @endif>
 				<div class="icon-block row no-margin-bottom">
 					<div class="col s12">
 						<i class="material-icons deep-purple-text text-lighten-5"><h5 class='no-margin-bottom'>list</h5></i>
@@ -67,7 +54,20 @@
 			</li>
 		</a>
 
-		<a href="#">
+		{{--<a href="{{ url('student_active_classes') }}">--}}
+			{{--<li @if ($currentRoute == "student_active_classes" || $currentRoute =="student_archived_classes" ) class="active" @endif>--}}
+				{{--<div class="icon-block row no-margin-bottom">--}}
+					{{--<div class="col s12">--}}
+						{{--<i class="material-icons deep-purple-text text-lighten-5"><h5 class='no-margin-bottom'>list</h5></i>--}}
+					{{--</div>--}}
+					{{--<div class="col s12">--}}
+						{{--<small class='deep-purple-text text-lighten-5'>CLASSES</small>--}}
+					{{--</div>--}}
+				{{--</div>--}}
+			{{--</li>--}}
+		{{--</a>--}}
+
+		<a href="#" class="tooltipped "disabled data-position="bottom" data-tooltip="Messaging is not yet available.">
 			<li>
 				<div class="icon-block row no-margin-bottom">
 					<div class="col s12">
