@@ -464,7 +464,7 @@
 				<div class="row">
 					<div class="modal-content">
 						<p id="report-status-modal-question"></p>
-							<form action="" method="POST">
+							<form action="" method="POST" id="report-status-modal-form">
 							@csrf
 							<button class="btn orange" style="margin-top:15px;">Yes, Please.</button>
 							</form>

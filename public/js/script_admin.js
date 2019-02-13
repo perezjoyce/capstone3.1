@@ -457,6 +457,7 @@ $(document).ready(function(){
         M.AutoInit();
         $('#report-status-modal').modal('open');
         $('#report-status-modal-question').text(text);
+        $('#report-status-modal-form').attr('action', 'update_report_status');
 
 
 
