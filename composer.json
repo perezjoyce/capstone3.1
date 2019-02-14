@@ -15,7 +15,8 @@
         "orangehill/iseed": "dev-master",
         "staudenmeir/eloquent-has-many-deep": "^1.6",
         "unisharp/laravel-filemanager": "~1.8",
-        "ext-exif":"*"
+        "ext-exif":"*",
+        "ext-gd": "*"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
