@@ -89,9 +89,7 @@ Route::middleware('auth')->group(function(){
 
     //========== REPORT ==========//
     //TEACHER
-    Route::patch('report-error/{chapterId}', 'TeacherController@reportError')->middleware('teacher'); //CREATE FOR STUDENT
-    Route::patch('report-error/{chapterId}', 'TeacherController@reportError')->middleware('student'); //test
-
+    Route::patch('report-error/{chapterId}', 'TeacherController@reportError'); //CREATE FOR STUDENT
 
     //========== ACTIVITIES ==========//
     //TEACHER
