@@ -162,7 +162,7 @@ $(document).ready(function(){
 
         $.ajax({
             headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') },
-            url: '/chapter/edit/'+chapterId+'/'+questionId+'/'+ order,
+            url: 'teacher_chapter/edit/'+chapterId+'/'+questionId+'/'+ order,
             type: 'GET',
             cache: false,
             data: {
@@ -235,7 +235,7 @@ $(document).ready(function(){
                         var answer = confirm('Do you want to save changes you made to question # ' + response.order + '?');
 
                         if(answer ==  true) {
-                            $('#edit-question-form').attr('action', '/chapter/edit-question/'+ response.questionId);
+                            $('#edit-question-form').attr('action', '/teacher_chapter/edit-question/'+ response.questionId);
                         }
                     })
 
@@ -259,7 +259,7 @@ $(document).ready(function(){
 
         $.ajax({
             headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') },
-            url: '/chapter/add/'+chapterId+'/'+order,
+            url: '/teacher_chapter/add/'+chapterId+'/'+order,
             type: 'GET',
             cache: false,
             data: {
@@ -314,7 +314,7 @@ $(document).ready(function(){
                         var answer = confirm('Do you want to save changes you made to question #' + response.order + '?');
 
                         if(answer ==  true) {
-                            $('#add-question-form').attr('action', '/chapter/add-question/'+ response.chapterId);
+                            $('#add-question-form').attr('action', '/teacher_chapter/add-question/'+ response.chapterId);
                         }
                     })
 
@@ -560,6 +560,25 @@ $(document).ready(function(){
         $('#edit-student-settings-form').attr('action', '/editStudentSettings/' + userId);
 
     });
+
+
+    //DELETING CHAPTER CONTENT
+    $(document).on('click', '.delete-modal-btn', function(){
+        var column = $(this).data('column');
+        var id = $(this).data('id');
+        var text = "";
+
+        if(column == 'questions'){
+            var order = $(this).data('order');
+            text = 'Do you want to delete question # '+order+'?';
+            M.AutoInit();
+            $('#delete-modal').modal('open');
+            $('#delete-modal-question').text(text);
+            $('#delete-modal-form').attr('action', '/teacher_deleteQuestion/' + id);
+
+        }
+
+    })
 
 
 });

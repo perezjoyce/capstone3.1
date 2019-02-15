@@ -91,7 +91,7 @@
                                             <input type="hidden" name="userId" value="{{$user->id}}">
                                             <input type="hidden" name="subjectId" value="{{$section->subject->id}}">
                                             <input type="hidden" name="sectionId" value="{{$section->id}}">
-                                            <button type="submit" class="btn orange" data-id="{{ $user->id }}" data-subjectid="{{ $user->id }}" data-sectionid="{{ $section->id }}"><i class="material-icons">open_in_new</i></button>
+                                            <button type="submit" class="btn orange" data-id="{{ $user->id }}" data-subjectid="{{ $user->id }}" data-sectionid="{{ $section->id }}"><i class="material-icons">open_in_browser</i></button>
                                         </form>
                                     </td>
                                 </tr>

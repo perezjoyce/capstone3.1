@@ -339,7 +339,6 @@ class SectionController extends Controller
     public function changePassword($userId, Request $request) {
 
         $password = Hash::make($request->get('password'));
-
         $rules = array(
             'password' => 'required|string|min:6',
         );

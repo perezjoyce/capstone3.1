@@ -65,485 +65,278 @@
                 </div>
 
                 <div class="row">
-                    <div class="col s12 m5">
-                        <form action="/teacher_curriculum/showTopics" method="POST" id="topic-filter-form">
-                            @csrf
-
-                            <div class="no-margin-bottom">
-
-                                <div class="input-field col s12">
-                                    <select name="level">
-                                        <option value="" disabled selected>Select Grade Level</option>
-                                        @foreach($levels as $level)
-                                            <option value="{{ $level->id }}">{{ $level->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-
-
-                                <div class="input-field col s12">
-                                    <select name="subject" id="selected-subject">
-                                        <option value="" disabled selected>Select Subject</option>
-                                        @foreach($subjects as $subject)
-                                            <option value="{{ $subject->id }}">{{ $subject->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-
-
-
-                                <div class="input-field col s12" id="module-options">
-                                    <select name="module" id="selected-module">
-                                        <option value="" disabled selected>Select Module</option>
-                                        @foreach($modules as $module)
-                                            <option value="{{ $module->id }}">{{ $module->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-
-
-                            <div class="input-field col s12">
-                                <button class='btn right orange disabled' type="submit" id="showTopics-btn">
-                                    LOAD TOPICS
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-
-                <div class="row" id='topic_container'>
-
-
-                </div>
-
-
-
-
-
-                <!--  <div class="row">
                     <div class="col s12">
                         <br>
                         <ul class="tabs tabs-fixed-width tab-demo z-depth-0">
-                            <li class="tab"><a href="#grade_levels">Category & Grade Levels</a></li>
-                            <li class="tab"><a href="#subject_listing">Subjects</a></li>
-                            <li class="tab"><a href="#module_listing">Modules</a></li>
-                            <li class="tab"><a href="#topic_listing">Topics</a></li>
-                            <li class="tab"><a href="#chapter_content" class='active'>Chapters</a></li>
+                            <li class="tab"><a href="#grade_levels" id="tab-level" class="">Levels</a></li>
+                            <li class="tab"><a href="#subject_listing" id="tab-subject" class="">Subjects</a></li>
+                            <li class="tab"><a href="#module_listing" id="tab-module" class="">Modules</a></li>
+                            <li class="tab"><a href="#topic_listing" id="tab-topic" class="">Topics</a></li>
                         </ul>
                     </div>
-                 </div> -->
+                </div>
 
-
-            <!--  <div class="row" id='grade_levels'>
+                {{--GRADE LEVELS--}}
+                <div class="row" id='grade_levels'>
                     <div class="col s12">
-
-                        <table>
-                            <tbody>
+                        <div class="container">
+                            <table class="grey-text text-darken-3 striped">
+                                <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Level</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
                                 @foreach($levels as $level)
-                <tr>
-                    <td class='vertical-align-initial'>{{ $level->name }}</td>
-                                    <td>
-                                        <div>
-                                             <table class='inner'>
-                                                <tbody>
-                                                    @foreach($subjects as $subject)
-                    <tr>
-                        <td style='padding:0;' class='vertical-align-initial'>
-
-                            <ul class="collapsible" data-collapsible="accordion">
-                                <li>
-                                    <div class="collapsible-header vertical-align-initial" style='padding:0;'>
-{{ $subject->name }}
-                            </div>
-                            <div class="collapsible-body custom-padding border-bottom-none">
-                                <table>
-                                    <tbody>
-@foreach($subject->modules as $module)
-                        <tr>
-                            <td class='vertical-align-initial'>
-                                <ul class="collapsible" data-collapsible="accordion">
-                                    <li>
-                                        <div class="collapsible-header vertical-align-initial" style='padding:0;'>
-{{ $module->name }}
-                                </div>
-                                <div class="collapsible-body custom-padding border-bottom-none">
-                                    <table class='inner responsive-table'>
-                                        <tbody>
-
-@foreach($module->topics as $topic)
-                            @if($level->id == $topic->level_id)
-                                <tr class='border-bottom-none'>
-
-                                    <ul class="collapsible" data-collapsible="accordion">
-                                        <li>
-                                            <div class="collapsible-header vertical-align-initial" style='padding:0;'>
-                                                <span class='bold'>Topic:&nbsp;</span>
-                                                                                                                             {{ $topic->name }}
-                                        </div>
-                                        <div class="collapsible-body custom-padding">
-                                            <button class='btn orange'>Update</button>
-                                            <button class='btn orange lighten-3'>Delete</button>
-                                        </div>
-                                    </li>
-                                </ul>
-
-                            </tr>
-
-@endif
-                        @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </li>
-                </ul>
-            </td>
-        </tr>
-@endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </li>
-            </ul>
-        </td>
-    </tr>
-@endforeach
-                        </tbody>
-                    </table>
-
-                </div>
-            </td>
-
-            <td>
-
-            </td>
-
-        </tr>
-@endforeach
-                    </tbody>
-                </table>
-             </div>
-         </div>
-
-         <div class="container" id='subject_listing'>
-
-                         <div class="col s12">
-                             <ul class="collapsible" data-collapsible="accordion">
-
-@foreach($levels as $level)
-                <li class='active'>
-                    <div class="collapsible-header">
-                        <span class='bold'>Level:&nbsp;</span>
-                                                <span>{{ $level->name }}</span>
-                                            </div>
-                                            <div class="collapsible-body custom-padding">
-                                                <ul class="collapsible" data-collapsible="accordion">
-                                                    @foreach($subjects as $subject)
-                    <li class='active'>
-                        <div class="collapsible-header">
-                            <span class='bold'>Subject {{ $subject->id }}:&nbsp;</span>
-                                                            <span>{{ $subject->name }}</span>
-                                                        </div>
-                                                        <div class="collapsible-body custom-padding">
-                                                            <ul class="collapsible" data-collapsible="accordion">
-                                                                @foreach($subject->modules as $module)
-                        <li class='active'>
-                            <div class="collapsible-header">
-                                <span class='bold'>Module:&nbsp;</span>
-                                                                        <span>{{ $module->name }}</span>
-                                                                    </div>
-                                                                    <div class="collapsible-body border-bottom-none custom-padding">
-                                                                            <table class='inner responsive-table'>
-                                                                                <tbody>
-
-                                                                                    @foreach($module->topics as $topic)
-                            @if($level->id == $topic->level_id)
-                                <tr class='border-bottom-none'>
-
-                                    <ul class="collapsible" data-collapsible="accordion">
-                                        <li class='active'>
-                                            <div class="collapsible-header">
-                                                <span class='bold'>Topic:&nbsp;</span>
-                                                                                                     {{ $topic->name }}
-                                        </div>
-                                        <div class="collapsible-body custom-padding">
-                                            <button class='btn orange'>Update</button>
-                                            <button class='btn orange lighten-3'>Delete</button>
-                                        </div>
-                                    </li>
-                                </ul>
-
-                            </tr>
-
-@endif
-                        @endforeach
-                                </tbody>
-
-                            </table>
-
-
-
-                    </div>
-                </li>
-@endforeach
-                            </ul>
-                        </div>
-                    </li>
-@endforeach
-                        </ul>
-                    </div>
-
-                </li>
-@endforeach
-                    </ul>
-
-
-
-                </div>
-
-</div>
-
-<div class="container" id='module_listing'>
-   <div class="col s12">
-                    <ul class="collapsible" data-collapsible="accordion">
-
-@foreach($levels as $level)
-                <li class='active'>
-                    <div class="collapsible-header">
-                        <span class='bold'>Level:&nbsp;</span>
-                                                <span>{{ $level->name }}</span>
-                                            </div>
-                                            <div class="collapsible-body custom-padding">
-                                                <ul class="collapsible" data-collapsible="accordion">
-                                                    @foreach($subjects as $subject)
-                    <li class='active'>
-                        <div class="collapsible-header">
-                            <span class='bold'>Subject {{ $subject->id }}:&nbsp;</span>
-                                                            <span>{{ $subject->name }}</span>
-                                                        </div>
-                                                        <div class="collapsible-body custom-padding">
-                                                            <ul class="collapsible" data-collapsible="accordion">
-                                                                @foreach($subject->modules as $module)
-                        <li>
-                            <div class="collapsible-header">
-                                <span class='bold'>Module:&nbsp;</span>
-                                                                        <span>{{ $module->name }}</span>
-                                                                    </div>
-                                                                    <div class="collapsible-body border-bottom-none custom-padding">
-                                                                            <table class='inner responsive-table'>
-                                                                                <tbody>
-
-                                                                                    @foreach($module->topics as $topic)
-                            @if($level->id == $topic->level_id)
-                                <tr class='border-bottom-none'>
-
-                                    <ul class="collapsible" data-collapsible="accordion">
-                                        <li class='active'>
-                                            <div class="collapsible-header">
-                                                <span class='bold'>Topic:&nbsp;</span>
-                                                                                                     {{ $topic->name }}
-                                        </div>
-                                        <div class="collapsible-body custom-padding">
-                                            <button class='btn orange'>Update</button>
-                                            <button class='btn orange lighten-3'>Delete</button>
-                                        </div>
-                                    </li>
-                                </ul>
-
-                            </tr>
-
-@endif
-                        @endforeach
-                                </tbody>
-
-                            </table>
-
-
-
-                    </div>
-                </li>
-@endforeach
-                            </ul>
-                        </div>
-                    </li>
-@endforeach
-                        </ul>
-                    </div>
-
-                </li>
-@endforeach
-                    </ul>
-
-
-
-                </div>
-</div>
-
- <div class="row" id='topic_listing'>
-    <div class="col s4">
-
-        <div class="no-margin-bottom">
-            <div class="input-field col l12 m3 s12">
-                <select>
-                    <option value="" disabled selected>Select Grade Level</option>
-@foreach($levels as $level)
-                <option value="{{ $level->id }}">{{ $level->name }}</option>
-                                    @endforeach
-                    </select>
-                </div>
-
-
-                <div class="input-field col l12 m3 s12">
-                    <select>
-                        <option value="" disabled selected>Select Subject</option>
-@foreach($subjects as $subject)
-                <option value="{{ $subject->id }}">{{ $subject->name }}</option>
-                                    @endforeach
-                    </select>
-                </div>
-
-
-
-                <div class="input-field col l12 m6 s12">
-                    <select>
-                        <option value="" disabled selected>Select Module</option>
-@foreach($modules as $module)
-                <option value="{{ $subject->id }}">{{ $module->name }}</option>
-                                    @endforeach
-                    </select>
-                </div>
-
-
-
-                 <div class="input-field col l12 m6 s12">
-                    <select>
-                        <option value="" disabled selected>Select Topic</option>
-@foreach($topics as $topic)
-                <option value="{{ $subject->id }}">{{ $topic->name }}</option>
-                                    @endforeach
-                    </select>
-                </div>
-
-
-            </div>
-
-            <ul class="collapsible col l12 m4 s12">
-@foreach($modules as $module)
-                <li>
-
-                    <div class="collapsible-header" id='{{ $module->name }}'>
-                                    <i class="material-icons orange-text text-lighten-2 list_alt_custom">list_alt</i>
-
-                                    <span class='grey-text text-darken-3'> {{ $module->name }}</span>
-                                </div>
-
-
-
-                                @foreach($module->topics as $topic)
-                    <div class="collapsible-body">
-
-                          <label>
-                            <input type="checkbox" class='orange lighten-3 filled-in'/>
-                            <span onclick="{{ $topic->id }}">{{$topic->name}}xx</span>
-                                      </label>
-
-                                </div>
+                                    <tr>
+                                        <td></td>
+                                        <td>{{ $level->name }}</td>
+                                        <td class="right">
+                                            <button class="btn red lighten-2 btn_add_or_delete_curriculum"
+                                                    data-component="level"
+                                                    data-action="delete"
+                                                    data-id="{{ $level->id }}"
+                                                    data-name="{{ $level->name }}"
+                                                    data-color="red"
+                                                >
+                                                <i class="material-icons">delete</i>
+                                            </button>
+                                            <button class="btn orange lighten-1 btn-edit-curriculum"
+                                                    data-component="level"
+                                                    data-id="{{ $level->id }}"
+                                                    data-name="{{ $level->name }}"
+                                                    data-color="orange"
+                                                >
+                                                <i class="material-icons">edit</i>
+                                            </button>
+                                        </td>
+                                        <td></td>
+                                    </tr>
                                 @endforeach
-
-
-                        </li>
-@endforeach
-
-                    </ul>
-
-
-
-
-                </div>
-            </div> -->
-
-                <div class="row" id='chapter_content'>
-                    <div class="col s12">
-
-                        <div class="no-margin-bottom">
-                            <div class="input-field col l2 m3 s12">
-                                <select>
-                                    <option value="" disabled selected>Select Grade Level</option>
-                                    @foreach($levels as $level)
-                                        <option value="{{ $level->id }}" onclick='showSubjects()'>{{ $level->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-
-
-                            <div class="input-field col l2 m3 s12">
-                                <select>
-                                    <option value="" disabled selected>Select Subject</option>
-                                    @foreach($subjects as $subject)
-                                        <option value="{{ $subject->id }}">{{ $subject->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-
-
-
-                            <div class="input-field col l3 m6 s12">
-                                <select>
-                                    <option value="" disabled selected>Select Module</option>
-                                    @foreach($modules as $module)
-                                        <option value="{{ $subject->id }}">{{ $module->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-
-
-
-                            <div class="input-field col l5 m6 s12">
-                                <select>
-                                    <option value="" disabled selected>Select Topic</option>
-                                    @foreach($topics as $topic)
-                                        <option value="{{ $subject->id }}">{{ $topic->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-
-
+                                </tbody>
+                            </table>
                         </div>
+                        <br>
+                        <div class="container">
+                            <table>
+                                <thead>
+                                    <tr class="border-bottom-none">
+                                        <th></th>
+                                        <th></th>
+                                        <th>
+                                            <button class="btn green lighten-1 right btn_add_or_delete_curriculum"
+                                                    data-component="level"
+                                                    data-action="add"
+                                                    data-color="green"
+                                            >
+                                                <i class="material-icons">add</i>
+                                            </button>
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
 
-                        <ul class="collapsible col l3 m4 s12">
-                            @foreach($modules as $module)
-                                <li>
+                {{--SUBJECT LISTING--}}
+                <div class="row" id='subject_listing'>
+                    <div class="col s12">
+                        <div class="container">
+                            <table class="grey-text text-darken-3 striped">
+                                <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>#</th>
+                                    <th>Subject</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($subjects as $subject)
+                                    <tr>
+                                        <td></td>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $subject->name }}</td>
+                                        <td class="right">
+                                            <button class="btn red lighten-2 btn_add_or_delete_curriculum"
+                                                    data-component="subject"
+                                                    data-action="delete"
+                                                    data-id="{{ $level->id }}"
+                                                    data-name="{{ $level->name }}"
+                                                    data-color="red"
+                                            >
+                                                <i class="material-icons">delete</i>
+                                            </button>
+                                            <button class="btn orange lighten-1 btn-edit-curriculum"
+                                                    data-component="subject"
+                                                    data-id="{{ $subject->id }}"
+                                                    data-name="{{ $subject->name }}"
+                                                    data-color="orange"
+                                            >
+                                                <i class="material-icons">edit</i>
+                                            </button>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                        <br>
+                        <div class="container">
+                            <table>
+                                <thead>
+                                <tr class="border-bottom-none">
+                                    <th></th>
+                                    <th></th>
+                                    <th>
+                                        <button class="btn green lighten-1 right btn_add_or_delete_curriculum"
+                                                data-component="subject"
+                                                data-action="add"
+                                                data-color="green">
+                                            <i class="material-icons">add</i>
+                                        </button>
+                                    </th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
 
-                                    <div class="collapsible-header" id='{{ $module->name }}'>
-                                        <i class="material-icons orange-text text-lighten-2 list_alt_custom">list_alt</i>
+                {{--MODULE LISTING--}}
+                <div class="row" id='module_listing'>
+                   <div class="col s12">
+                        <div class="container">
+                            <table class="grey-text text-darken-3 striped">
+                                <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>#</th>
+                                    <th>Module</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($modules as $module)
+                                    <tr>
+                                        <td></td>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $module->name }}</td>
+                                        <td class="right">
+                                            <button class="btn red lighten-2 btn-delete-curriculum"
+                                                    data-component="module"
+                                                    data-id="{{ $module->id }}"
+                                                    data-name="{{ $module->name }}"
+                                                    data-color="red"
+                                            >
+                                                <i class="material-icons">delete</i>
+                                            </button>
+                                            <button class="btn orange lighten-1 btn-edit-curriculum"
+                                                    data-component="module"
+                                                    data-id="{{ $module->id }}"
+                                                    data-name="{{ $module->name }}"
+                                                    data-color="orange"
+                                            >
+                                                <i class="material-icons">edit</i>
+                                            </button>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                        <br>
+                        <div class="container">
+                            <table>
+                                <thead>
+                                <tr class="border-bottom-none">
+                                    <th></th>
+                                    <th>
 
-                                        <span class='grey-text text-darken-3'> {{ $module->name }}</span>
+                                        <a href="#admin_add_module_modal" class="btn green lighten-1 right btn-add-module modal-trigger"
+                                                data-component="module">
+                                            <i class="material-icons left">add</i>
+                                            Module
+                                        </a>
+                                        <a href="#admin_add_topic_modal" class="btn blue right btn-add-topic modal-trigger" style="margin-right:10px;"
+                                           data-component="topic">
+                                            <i class="material-icons left">add</i>
+                                            Topic
+                                        </a>
+                                    </th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+                {{--LESSON : WHERE YOU FILTER BY TOPICS --}}
+                <div class="row" id='topic_listing'>
+                    <div class="col s12">
+                        <div class="row">
+                            <div class="col s12 m5">
+                                <form action="/teacher_curriculum/showTopics" method="POST" id="topic-filter-form">
+                                    @csrf
+
+                                    <div class="no-margin-bottom">
+
+                                        <div class="input-field col s12">
+                                            <select name="level">
+                                                <option value="" disabled selected>Select Grade Level</option>
+                                                @foreach($levels as $level)
+                                                    <option value="{{ $level->id }}">{{ $level->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+
+                                        <div class="input-field col s12">
+                                            <select name="subject" id="selected-subject">
+                                                <option value="" disabled selected>Select Subject</option>
+                                                @foreach($subjects as $subject)
+                                                    <option value="{{ $subject->id }}">{{ $subject->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+
+
+                                        <div class="input-field col s12" id="module-options">
+                                            <select name="module" id="selected-module">
+                                                <option value="" disabled selected>Select Module</option>
+                                                @foreach($modules as $module)
+                                                    <option value="{{ $module->id }}">{{ $module->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                     </div>
 
 
-
-                                    @foreach($module->topics as $topic)
-                                        <div class="collapsible-body">
-                                            <label>
-                                                <input type="checkbox" class='orange lighten-3 filled-in'/>
-                                                <span onclick="{{ $topic->id }}">{{$topic->name}}xx</span>
-                                            </label>
-                                        </div>
-                                    @endforeach
-
-
-                                </li>
-                            @endforeach
-
-                        </ul>
-
-
-                        <div class="col l9 m8 s12">
-
-                            <textarea id='display' style="height:50vh;"></textarea>
-
+                                    <div class="input-field col s12">
+                                        <button class='btn right orange disabled' type="submit" id="showTopics-btn">
+                                            LOAD TOPICS
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
 
+                        <div class="row" id='topic_container'>
+                            {{--FILTERED TOPICS ARE LOADED HERE--}}
+                        </div>
                     </div>
                 </div>
 
@@ -552,6 +345,58 @@
         </div>
 
     </main>
+
+    {{--MODAL FOR ADDING MODULES --}}
+    <div id="admin_add_module_modal" class="modal modal-small">
+        <div class="row">
+            <div class="modal-content">
+                <p id="admin_add_module_question" class="light"></p>
+                <br>
+                <form method="POST" id="admin_add_module_form">
+                    @csrf
+                    <input id="admin_add_module_name" name="newModule" placeholder="Name of Module">
+                    <label>Select A Subject</label>
+                    <select class="browser-default" id="admin_add_module_subjectId" name="subjectId">
+                        @foreach($subjects as $subject)
+                        <option value="{{ $subject->id }}">{{ $subject->name }}</option>
+                        @endforeach
+                    </select>
+                    <br>
+                    <button class="btn green lighten-1" id="btn_admin_add_module">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {{--MODAL FOR ADDING TOPICS --}}
+    <div id="admin_add_topic_modal" class="modal modal-small">
+        <div class="row">
+            <div class="modal-content">
+                <p id="admin_add_topic_question" class="light"></p>
+                <br>
+                <form method="POST" id="admin_add_topic_form">
+                    @csrf
+                    <input id="admin_add_topic_name" name="newTopic" placeholder="Name of New Topic">
+                    <label>Select A Level</label>
+                    <select class="browser-default" id="admin_add_topic_levelId" name="levelId">
+                        @foreach($levels as $level)
+                            <option value="{{ $level->id }}">{{ $level->name }}</option>
+                        @endforeach
+                    </select>
+                    <br>
+                    <label>Select A Module</label>
+                    <select class="browser-default" id="admin_add_topic_moduleId" name="moduleId">
+                        @foreach($modules as $module)
+                            <option value="{{ $module->id }}">{{ $module->name }}</option>
+                        @endforeach
+                    </select>
+                    <br>
+                    <button class="btn green lighten-1" id="btn_admin_add_topic">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
 @endsection
 
 

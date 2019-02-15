@@ -187,7 +187,6 @@
                                     @else
                                         <p class="grey-text col s12 m5">Last Update: {{ date_create('now')->format('m-d-Y') }}</p>
                                     @endif
-                                    <a class="btn right orange edit-chapter-modal margin-top-18px-mobile" data-column="discussion" data-id="{{ $chapter->id }}">Edit</a>
                                     <a href="#" class="btn grey lighten-1 report-modal-btn margin-top-18px-mobile right margin-right-10px-large-medium margin-right-10px-mobile" data-column="discussion" data-id="{{ $chapter->id }}">
                                         <i class="material-icons left">report_problem</i>
                                         <span class="hide-on-small-only">Report</span> Error
@@ -214,7 +213,6 @@
                                     @else
                                         <p class="grey-text col s12 m5">Last Update: {{ date_create('now')->format('m-d-Y') }}</p>
                                     @endif
-                                    <a class="btn right orange edit-chapter-modal margin-top-18px-mobile" data-column="example" data-id="{{ $chapter->id }}">Edit</a>
                                     <a href="#" class="btn grey lighten-1 report-modal-btn margin-top-18px-mobile right margin-right-10px-large-medium margin-right-10px-mobile" data-column="example" data-id="{{ $chapter->id }}">
                                         <i class="material-icons left">report_problem</i>
                                         <span class="hide-on-small-only">Report</span> Error
@@ -241,7 +239,6 @@
                                     @else
                                         <p class="grey-text col s12 m5">Last Update: {{ date_create('now')->format('m-d-Y') }}</p>
                                     @endif
-                                    <a class="btn right orange edit-chapter-modal margin-top-18px-mobile" data-column="practice" data-id="{{ $chapter->id }}">Edit</a>
                                     <a href="#" class="btn grey lighten-1 report-modal-btn margin-top-18px-mobile right margin-right-10px-large-medium margin-right-10px-mobile" data-column="practice" data-id="{{ $chapter->id }}">
                                         <i class="material-icons left">report_problem</i>
                                         <span class="hide-on-small-only">Report</span> Error
@@ -268,7 +265,6 @@
                                     @else
                                         <p class="grey-text col s12 m5">Last Update: {{ date_create('now')->format('m-d-Y') }}</p>
                                     @endif
-                                    <a class="btn right orange edit-chapter-modal margin-top-18px-mobile" data-column="tips" data-id="{{ $chapter->id }}">Edit</a>
                                     <a href="#" class="btn grey lighten-1 report-modal-btn margin-top-18px-mobile right margin-right-10px-large-medium margin-right-10px-mobile" data-column="tips" data-id="{{ $chapter->id }}">
                                         <i class="material-icons left">report_problem</i>
                                         <span class="hide-on-small-only">Report</span> Error
@@ -295,7 +291,6 @@
                                     @else
                                         <p class="grey-text col s12 m5">Last Update: {{ date_create('now')->format('m-d-Y') }}</p>
                                     @endif
-                                    <a class="btn right orange edit-chapter-modal margin-top-18px-mobile" data-column="keypoints" data-id="{{ $chapter->id }}">Edit</a>
                                     <a href="#" class="btn grey lighten-1 report-modal-btn margin-top-18px-mobile right margin-right-10px-large-medium margin-right-10px-mobile" data-column="keypoints" data-id="{{ $chapter->id }}">
                                         <i class="material-icons left">report_problem</i>
                                         <span class="hide-on-small-only">Report</span> Error
@@ -619,77 +614,77 @@
 
 
 
-<!--MODAL TEMPLATE FOR ADDING AN ACTIVITY-->
-<div id="modal-add-activity" class="modal">
+    <!--MODAL TEMPLATE FOR ADDING AN ACTIVITY-->
+    <div id="modal-add-activity" class="modal">
 
-    <div class='right row'>
-        <a href="#!" class="modal-close waves-effect waves-light-blue btn-flat">&#9587</a>
+        <div class='right row'>
+            <a href="#!" class="modal-close waves-effect waves-light-blue btn-flat">&#9587</a>
+        </div>
+
+
+        <div class="modal-content">
+            <h4>Modal Header</h4>
+            <form method="POST" action="" id="add-activity-form">
+                @csrf
+
+                <div class="row">
+                    <div class="col s12">
+                        <h6 id='add-activity-modal-question'></h6>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="input-field col s12">
+                        <button type='submit' class="waves-effect waves-light btn orange">
+                            <i class="material-icons right"></i>
+                            {{ __('Add Task') }}
+                        </button>
+
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    {{--MODAL TEMPLATE FOR EDITING QUESTION--}}
+    <div id="modal-edit-question" class="modal">
+
+        <div class='right row'>
+            <a href="#!" class="modal-close waves-effect waves-light-blue btn-flat">&#9587</a>
+        </div>
+
+
+        <div class="modal-content">
+            <h4>Modal Header</h4>
+            <form method="POST" action="">
+                @csrf
+
+                <div class="row">
+                    <div class="col s12">
+                        <h4>{{ __('Edit Discussion Modal') }}</h4>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="input-field col s12">
+                        <button type='submit' class="waves-effect waves-light btn light-blue">
+                            <i class="material-icons right"></i>
+                            {{ __('Save Changes') }}
+                        </button>
+
+                    </div>
+                </div>
+
+            </form>
+        </div>
     </div>
 
 
-    <div class="modal-content">
-        <h4>Modal Header</h4>
-        <form method="POST" action="" id="add-activity-form">
-            @csrf
-
-            <div class="row">
-                <div class="col s12">
-                    <h6 id='add-activity-modal-question'></h6>
-                </div>
-            </div>
-
-
-            <div class="row">
-                <div class="input-field col s12">
-                    <button type='submit' class="waves-effect waves-light btn orange">
-                        <i class="material-icons right"></i>
-                        {{ __('Add Task') }}
-                    </button>
-
-                </div>
-            </div>
-
-        </form>
-    </div>
-</div>
-
-{{--MODAL TEMPLATE FOR EDITING QUESTION--}}
-<div id="modal-edit-question" class="modal">
-
-    <div class='right row'>
-        <a href="#!" class="modal-close waves-effect waves-light-blue btn-flat">&#9587</a>
-    </div>
-
-
-    <div class="modal-content">
-        <h4>Modal Header</h4>
-        <form method="POST" action="">
-            @csrf
-
-            <div class="row">
-                <div class="col s12">
-                    <h4>{{ __('Edit Discussion Modal') }}</h4>
-                </div>
-            </div>
-
-
-            <div class="row">
-                <div class="input-field col s12">
-                    <button type='submit' class="waves-effect waves-light btn light-blue">
-                        <i class="material-icons right"></i>
-                        {{ __('Save Changes') }}
-                    </button>
-
-                </div>
-            </div>
-
-        </form>
-    </div>
-</div>
-
-
-{{--MODAL TEMPLATE FOR ADDING QUESTION--}}
-<div id="modal-add-question" class="modal">
+    {{--MODAL TEMPLATE FOR ADDING QUESTION--}}
+    <div id="modal-add-question" class="modal">
 
     <div class='right row'>
         <a href="#!" class="modal-close waves-effect waves-light-blue btn-flat">&#9587</a>

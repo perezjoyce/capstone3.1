@@ -39,12 +39,23 @@ Route::middleware('auth')->group(function(){
         ->middleware('student')
         ->name('student_dashboard');
 
+    Route::put('editProfile/{userId}', 'SectionController@editProfile');
+    Route::put('changePassword/{userId}', 'SectionController@changePassword');
+
     //========== CURRICULUM ==========//
     //ADMIN
     Route::get('admin_curriculum', 'AdminController@showCurriculum')->middleware('admin');
     Route::get('/admin_curriculum/showModules', 'AdminController@showModules')->middleware('admin');
     Route::post('/admin_curriculum/showTopics', 'AdminController@showTopics')->middleware('admin');
     Route::get('admin_lesson/{topicId}', 'AdminController@showLesson')->middleware('admin');
+    Route::post('edit_curriculum_level/{levelId}', 'AdminController@editLevel')->middleware('admin');
+    Route::post('edit_curriculum_subject/{subjectId}', 'AdminController@editSubject')->middleware('admin');
+    Route::post('edit_curriculum_module/{moduleId}', 'AdminController@editModule')->middleware('admin');
+    Route::post('edit_curriculum_topic/{topicId}', 'AdminController@editTopic')->middleware('admin');
+    Route::post('add_curriculum_level', 'AdminController@addLevel')->middleware('admin');
+    Route::post('add_curriculum_subject', 'AdminController@addSubject')->middleware('admin');
+    Route::post('add_new_module', 'AdminController@addModule')->middleware('admin');
+    Route::post('add_new_topic', 'AdminController@addTopic')->middleware('admin');
 
     //TEACHER
     Route::get('teacher_curriculum', 'TeacherController@showCurriculum')->middleware('teacher');
@@ -76,20 +87,24 @@ Route::middleware('auth')->group(function(){
     Route::delete('deleteQuestion/{questionId}', 'ChapterController@deleteQuestion')->middleware('admin'); // ADD TEACHER MIDDLEWARE
 
     //TEACHER
-    Route::get('chapter/add/{chapterId}/{order}', 'ChapterController@getAddQuestionForm')->middleware('teacher'); // test
-    Route::get('chapter/edit/{chapterId}/{questionId}/{order}', 'ChapterController@getEditQuestionForm')->middleware('teacher'); // test
+    Route::get('teacher_chapter/add/{chapterId}/{order}', 'TeacherController@getAddQuestionForm')->middleware('teacher'); // test //
+    Route::get('teacher_chapter/edit/{chapterId}/{questionId}/{order}', 'TeacherController@getEditQuestionForm')->middleware('teacher'); // test //
 
-    Route::patch('chapter/edit-question/{questionId}', 'ChapterController@editQuestion')->middleware('teacher'); // test
+    Route::patch('teacher_chapter/edit-question/{questionId}', 'TeacherController@editQuestion')->middleware('teacher'); // test //
 
-    Route::post('chapter/add-question/{chapterId}', 'ChapterController@addQuestion')->middleware('teacher'); // test
+    Route::post('teacher_chapter/add-question/{chapterId}', 'TeacherController@addQuestion')->middleware('teacher'); // test //
 
-    Route::delete('deleteQuestion/{questionId}', 'ChapterController@deleteQuestion')->middleware('teacher'); // test
+    Route::delete('teacher_deleteQuestion/{questionId}', 'TeacherController@deleteQuestion')->middleware('teacher'); // test //
 
     //STUDENT
 
     //========== REPORT ==========//
     //TEACHER
-    Route::patch('report-error/{chapterId}', 'TeacherController@reportError'); //CREATE FOR STUDENT
+    Route::patch('report-error/{chapterId}', 'TeacherController@reportError');
+
+    //ADMIN
+    Route::get('changeReportStatus/', 'AdminController@changeReportStatus');
+    Route::get('view_completed_reports/', 'AdminController@view_completed_reports');
 
     //========== ACTIVITIES ==========//
     //TEACHER
@@ -142,13 +157,23 @@ Route::middleware('auth')->group(function(){
     Route::delete('removeStudent/{userId}', 'SectionController@removeStudent');
     Route::put('editStudentSettings/{userId}', 'SectionController@editStudentSettings');
 
-
     //STUDENT
     Route::post('joinClass', 'SectionController@joinClass')->middleware('student');
 
-    //========== DASHBOARD ==========//
-    Route::put('editProfile/{userId}', 'SectionController@editProfile');
-    Route::put('changePassword/{userId}', 'SectionController@changePassword');
+
+
+    //========== APPROVAL ==========//
+    Route::get('admin_questions_approval', 'AdminController@showApproval')->middleware('admin'); //show page
+    Route::get('view_submitted_question/{questionId}', 'AdminController@showSubmittedQuestion')->middleware('admin');
+    Route::post('approve_submitted_question/{questionId}', 'AdminController@approveQuestion')->middleware('admin');
+    Route::get('view_approved_questions', 'AdminController@showApprovedQuestions')->middleware('admin');
+    Route::post('undo_approval/{questionId}', 'AdminController@undoApproval')->middleware('admin');
+
+
+    //========== USERS ==========//
+    Route::get('admin_users_list', 'AdminController@showAllUsers')->middleware('admin'); //show page
+    Route::post('change_user_status/{userId}', 'AdminController@changeUserStatus')->middleware('admin');
+
 });
 
 

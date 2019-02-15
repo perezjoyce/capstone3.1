@@ -68,6 +68,7 @@
                         </blockquote>
                     </div>
                 </div>
+
                 </div>
                 <div class="row">
                     <div class="col s12 center-align">
@@ -131,8 +132,8 @@
                             @endfor
                             </tbody>
                         </table>
-
                     </div>
+
                     {{--<div class="col s12 m12 l4 center-align">--}}
                         {{--<div class="container z-depth-4 background-container-color">--}}
                             {{--<br>--}}
@@ -173,43 +174,52 @@
                         {{--</div>--}}
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col s12 align-left">
+                        {{--values are set to one because i don't use them at the moment--}}
+                        <button class="btn green lighten-1" id="btn-view-completed-reports"
+                                data-chapterid="1"
+                                data-field="1">
+                            view completed
+                        </button>
+                    </div>
+                </div>
 
             <a href="#view-own-profile" class="btn-floating btn-large waves-effect waves-light orange modal-trigger right" style="position:fixed;bottom:30px;right:30px;"><i class="material-icons">edit</i></a>
             </div>
         </div>
     </main>
-@endsection
 
-{{--VIEW AND EDIT ACCOUNT MODAL--}}
-<div id="view-own-profile" class="modal modal-small">
-    <div class="row">
-        <div class="modal-content">
-            <h5 class="orange-text bold">Your Account Details</h5>
-            <br>
-            <form action="editProfile/{{$owner->id}}" method="POST">
-                @csrf
-                @method('put')
-                <div class="input-field">
-                    <label for="owner_name" class="active">Name</label>
-                    <input type="text" value="{{ $owner->name }}" id="owner_name" name="name" required>
-                </div>
-                <div class="input-field">
-                    <label for="owner_username" class="active">Username</label>
-                    <input type="text" value="{{ $owner->username }}" id="owner_username" name="username" required>
-                </div>
-                <div class="input-field">
-                    <label for="owner_email" class="active">Email</label>
-                    <input type="email" value="{{ $owner->email }}" id="owner_email" name="email" required>
-                </div>
-                <a href="#edit-own-password" class="btn orange lighten-3 modal-trigger" style="margin-top:15px;">Change Password</a>
-                <button class="btn orange" style="margin-top:15px;">Save Changes</button>
-            </form>
+    {{--VIEW AND EDIT ACCOUNT MODAL--}}
+    <div id="view-own-profile" class="modal modal-small">
+        <div class="row">
+            <div class="modal-content">
+                <h5 class="orange-text bold">Your Account Details</h5>
+                <br>
+                <form action="editProfile/{{$owner->id}}" method="POST">
+                    @csrf
+                    @method('put')
+                    <div class="input-field">
+                        <label for="owner_name" class="active">Name</label>
+                        <input type="text" value="{{ $owner->name }}" id="owner_name" name="name" required>
+                    </div>
+                    <div class="input-field">
+                        <label for="owner_username" class="active">Username</label>
+                        <input type="text" value="{{ $owner->username }}" id="owner_username" name="username" required>
+                    </div>
+                    <div class="input-field">
+                        <label for="owner_email" class="active">Email</label>
+                        <input type="email" value="{{ $owner->email }}" id="owner_email" name="email" required>
+                    </div>
+                    <a href="#edit-own-password" class="btn orange lighten-3 modal-trigger" style="margin-top:15px;">Change Password</a>
+                    <button class="btn orange" style="margin-top:15px;">Save Changes</button>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 
-{{--VIEW AND EDIT PASSWORD MODAL--}}
-<div id="edit-own-password" class="modal modal-small">
+    {{--VIEW AND EDIT PASSWORD MODAL--}}
+    <div id="edit-own-password" class="modal modal-small">
     <div class="row">
         <div class="modal-content">
             <h5 class="red-text bold text-lighten-2">Change Password</h5>
@@ -225,6 +235,8 @@
         </div>
     </div>
 </div>
+
+@endsection
 
 
 

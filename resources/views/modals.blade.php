@@ -10,7 +10,7 @@
 				
 			    	<div class="row">
 				        <div class="col s12">
-			     			<h4>{{ __('Login') }}</h4>
+			     			<h4 class="deep-purple-text text-darken-4">{{ __('Log In') }}</h4>
 			     		</div>
 			     	</div>
 
@@ -52,16 +52,16 @@
 
 			      	<div class="row">
 			      		<div class="input-field col s12">
-							<button type='submit' class="waves-effect waves-light btn light-blue">
-								<i class="material-icons right">cloud</i> {{ __('Login') }}</button>
+							<button type='submit' class="waves-effect waves-light btn-large orange">
+								<i class="material-icons right">chevron_right</i> {{ __('Log In') }}</button>
 						
-					      	@if (Route::has('password.request'))
-					  
-				                <a class='waves-effect waves-light btn orange' href="{{ route('password.request') }}">
-				                    {{ __('Forgot Password?') }}
-				                </a>
-				        
-				            @endif
+					      	{{--@if (Route::has('password.request'))--}}
+					  {{----}}
+				                {{--<a class='waves-effect waves-light btn orange' href="{{ route('password.request') }}">--}}
+				                    {{--{{ __('Forgot Password?') }}--}}
+				                {{--</a>--}}
+				        {{----}}
+				            {{--@endif--}}
 				        </div>
 			      	</div>
 
@@ -72,7 +72,7 @@
 			<!-- REGISTER MODAL --> 
 			<div id="register-modal" class="modal">
 
-				<div class='right row'>
+				<div class='right row no-margin-bottom'>
 					<a href="#!" class="modal-close waves-effect waves-light-blue btn-flat">&#9587</a>
 				</div>
 
@@ -82,7 +82,7 @@
 				
 			    	<div class="row">
 				        <div class="col s12">
-			     			<h4>{{ __('Register') }}</h4>
+			     			<h4 class="deep-purple-text text-darken-4">{{ __('Register') }}</h4>
 			     		</div>
 			     	</div>
 
@@ -159,9 +159,9 @@
 			      	</div>
 
 
-			      	<div class="row">
+			      	<div class="row no-margin-bottom">
 			      		<div class="input-field col s12">
-							<button type='submit' class="waves-effect waves-light btn light-blue">
+							<button type='submit' class="aves-effect waves-light btn-large orange">
 								<i class="material-icons right"></i>
 								{{ __('Register') }}
 							</button>
@@ -464,11 +464,50 @@
 				<div class="row">
 					<div class="modal-content">
 						<p id="report-status-modal-question"></p>
-							<form action="" method="POST" id="report-status-modal-form">
-							@csrf
-							<button class="btn orange" style="margin-top:15px;">Yes, Please.</button>
+							<form action="" method="GET" id="report-status-modal-form">
+							    @csrf
+                                {{--@method('put')--}}
+								<input type="hidden" id="report-status-modal-chapter" name="chapter">
+								<input type="hidden" id="report-status-modal-field" name="field">
+							<button class="btn orange" style="margin-top:15px;" id="report-status-modal-form-btn">Yes, Please.</button>
 							</form>
 						</div>
+				</div>
+			</div>
+
+			{{--ADMIN MODAL CONTAINER--}}
+			<div id="admin-modal-container" class="modal">
+				<div class="row">
+					<div class="modal-content">
+						<p id="admin-modal-container-question"class="light"></p>
+					</div>
+				</div>
+			</div>
+
+
+			{{--ADMIN MODAL CONTAINER SMALL--}}
+			<div id="admin-modal-container-small" class="modal modal-small">
+				<div class="row">
+					<div class="modal-content">
+						<p id="admin-modal-container-small-question"class="light"></p>
+						<br>
+						{{--@csrf--}}
+						<input type="text" id="admin-modal-container-small-input" name="">
+						<button class="btn" id="btn-admin-modal-container-small">Save</button>
+					</div>
+				</div>
+			</div>
+
+			{{--ADMIN ADD OR DELETE LEVEL OR SUBJECT --}}
+			<div id="admin_addOrDeleteLevelOrSubject_modal" class="modal modal-small">
+				<div class="row">
+					<div class="modal-content">
+						<p id="admin_addOrDeleteLevelOrSubject_question" class="light"></p>
+						<br>
+						{{--@csrf--}}
+						<input id="admin_addOrDeleteLevelOrSubject_input" name="">
+						<button class="btn" id="btn_admin_addOrDeleteLevelOrSubject">Submit</button>
+					</div>
 				</div>
 			</div>
 

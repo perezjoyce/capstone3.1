@@ -301,10 +301,6 @@
             </div>
         </div>
 
-
-
-
-
     </main>
 @endsection
 

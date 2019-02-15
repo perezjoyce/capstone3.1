@@ -38,19 +38,6 @@
 			</li>
 		</a>
 
-		{{--<a href="{{ url('admin_sections') }}">--}}
-			{{--<li @if ($currentRoute == "admin_sections" || $currentRoute =="admin_archived_sections" ) class="active" @endif>--}}
-				{{--<div class="icon-block row no-margin-bottom">--}}
-					{{--<div class="col s12">--}}
-						{{--<i class="material-icons deep-purple-text text-lighten-5"><h5 class='no-margin-bottom'>list</h5></i>--}}
-					{{--</div>--}}
-					{{--<div class="col s12">--}}
-						{{--<small class='deep-purple-text text-lighten-5'>CLASS LIST</small>--}}
-					{{--</div>--}}
-				{{--</div>--}}
-			{{--</li>--}}
-		{{--</a>--}}
-
 		<a href="{{ url('admin_users_list') }}">
 			<li @if ($currentRoute == "admin_users_list" || $currentRoute == "admin_student_account") class="active" @endif>
 				<div class="icon-block row no-margin-bottom">
@@ -59,6 +46,19 @@
 					</div>
 					<div class="col s12">
 						<small class='deep-purple-text text-lighten-5'>USERS</small>
+					</div>
+				</div>
+			</li>
+		</a>
+
+		<a href="{{ url('admin_questions_approval') }}">
+			<li @if ($currentRoute == "admin_questions_approval") class="active" @endif>
+				<div class="icon-block row no-margin-bottom">
+					<div class="col s12">
+						<i class="material-icons deep-purple-text text-lighten-5"><h5 class='no-margin-bottom'>assignment_turned_in</h5></i>
+					</div>
+					<div class="col s12">
+						<small class='deep-purple-text text-lighten-5'>APPROVALS</small>
 					</div>
 				</div>
 			</li>

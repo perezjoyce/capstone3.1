@@ -7,6 +7,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use \Staudenmeir\EloquentHasManyDeep\HasRelationships;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
@@ -57,6 +58,9 @@ class User extends Authenticatable
     public function subjects() {
         return $this->hasManyThrough('\App\Subject', '\App\Section', 'subject_id'); //test
     }
+
+    use SoftDeletes;
+    protected $dates = ['deleted_at'];
 
 
 }

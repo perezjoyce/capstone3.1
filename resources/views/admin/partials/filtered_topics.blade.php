@@ -26,10 +26,23 @@
                     <i class="material-icons right grey-text">more_vert</i>
                 </div>
                 <div class="collapsible-body custom-padding border-bottom-none">
-                    <form action="">
-                        <button class='btn orange lighten-3'><i class="material-icons left white-text">delete</i>Delete</button>
-                        <a href="admin_lesson/{{ $topic->id }}" target='_blank' class='btn orange'><i class="material-icons left white-text">edit</i>Update</a>
-                    </form>
+                    <button class="btn red lighten-2 btn-delete-curriculum"
+                            data-component="topic"
+                            data-id="{{ $topic->id }}"
+                            data-name="{{ $topic->name }}"
+                            data-color="red"
+                    >
+                        <i class="material-icons">delete</i>
+                    </button>
+                    <button class="btn orange lighten-1 btn-edit-curriculum"
+                            data-component="topic"
+                            data-id="{{ $topic->id }}"
+                            data-name="{{ $topic->name }}"
+                            data-color="orange"
+                    >
+                        <i class="material-icons">edit</i>
+                    </button>
+                        <a href="admin_lesson/{{ $topic->id }}" target='_blank' class='btn green'><i class="material-icons left white-text">open_in_new</i>LESSON</a>
                 </div>
             </li>
 

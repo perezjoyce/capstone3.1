@@ -11,7 +11,7 @@
 						</a>
 
 						@guest
-							@if (Route::has('register'))
+							@if(Route::has('register'))
 
 								<ul class="right hide-on-small-only show-on-medium-and-up">
 									<li><a class='modal-trigger' href="#login-modal">Log In</a></li>
@@ -26,20 +26,48 @@
 
 							@endif
 						@else
-							<a class="dropdown-trigger right" href="#!" data-target="logout">{{ Auth::user()->name }}<i class="material-icons right">arrow_drop_down</i></a>
-							<ul id="logout" class="dropdown-content">
-								<li>
-									<a href="{{ route('logout') }}"  onclick="event.preventDefault();
-			                    document.getElementById('logout-form').submit();">{{ __('Logout') }}
-									</a>
-								</li>
-								<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-									@csrf
-								</form>
-								<li><a href="#!">two</a></li>
-								<li class="divider"></li>
-								<li><a href="#!">three</a></li>
+
+							<ul class="right hide-on-small-only show-on-medium-and-up">
+								@if(Auth::user()->admin == 1)
+									<li><a class='modal-trigger' href="{{ url('admin_dashboard') }}">Dashboard</a></li>
+								@elseif(Auth::user()->role == 'teacher')
+									<li><a class='modal-trigger' href="{{ url('teacher_dashboard') }}">Dashboard</a></li>
+								@elseif(Auth::user()->role == 'student')
+									<li><a class='modal-trigger' href="{{ url('student_dashboard') }}">Dashboard</a></li>
+								@endif
+									<li>
+										<a class="btn deep-purple lighten-2" href="{{ route('logout') }}"  onclick="event.preventDefault();
+									document.getElementById('logout-form').submit();">{{ __('Logout') }}
+										</a>
+									</li>
 							</ul>
+
+							<a class='dropdown-trigger right show-on-small hide-on-med-and-up' href='#' data-target='navlinks'><i class="material-icons">menu</i></a>
+							<ul id='navlinks' class='dropdown-content'>
+								@if(Auth::user()->admin == 1)
+									<li><a class='modal-trigger' href="{{ url('admin_dashboard') }}">Dashboard</a></li>
+								@elseif(Auth::user()->role == 'teacher')
+									<li><a class='modal-trigger' href="{{ url('teacher_dashboard') }}">Dashboard</a></li>
+								@elseif(Auth::user()->role == 'student')
+									<li><a class='modal-trigger' href="{{ url('student_dashboard') }}">Dashboard</a></li>
+								@endif
+									<li>
+										<a href="{{ route('logout') }}"  onclick="event.preventDefault();
+			                    document.getElementById('logout-form').submit();">{{ __('Logout') }}
+										</a>
+									</li>
+							</ul>
+
+
+							{{--<a class="dropdown-trigger right" href="#!" data-target="logout">{{ Auth::user()->name }}<i class="material-icons right">arrow_drop_down</i></a>--}}
+							{{--<ul id="logout" class="dropdown-content">--}}
+								{{--<button>--}}
+									{{--<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">--}}
+										{{--@csrf--}}
+									{{--</form>--}}
+
+								{{--</button>--}}
+							{{--</ul>--}}
 						@endguest
 					</div>
 				</nav>

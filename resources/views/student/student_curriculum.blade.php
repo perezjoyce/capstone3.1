@@ -6,11 +6,9 @@
         <div class="row no-margin-bottom">
             <div class="col s12">
 
-
                 <div class="col s12 hide-on-med-and-down">
                     <h4 class='deep-purple-text text-darken-4 right custom-heading'>TASKS</h4>
                 </div>
-
 
                 <div class="row hide-on-large-only deep-purple darken-4">
                     <div class="col s6">
@@ -124,29 +122,8 @@
                     </div>
                 </div>
 
-
-
-
-                {{--<div class="col s12 right">--}}
-                    {{--<br>--}}
-                    {{--<br>--}}
-                    {{--<a href="teacher_archived_sections" class='btn grey'>--}}
-                        {{--<i class="material-icons left">archive</i>--}}
-                        {{--Archived Classes--}}
-                    {{--</a>--}}
-                    {{--<a href="#login-modal" class='btn grey modal-trigger'>--}}
-                        {{--<i class="material-icons left">add</i>--}}
-                        {{--New Class--}}
-                    {{--</a>--}}
-                {{--</div>--}}
-
-
             </div>
         </div>
-
-
-
-
     </main>
 @endsection
 

@@ -187,18 +187,17 @@
             </div>
         </div>
     </main>
-@endsection
 
-
-{{--STUDENT'S PROGRESS--}}
-<div id="progress-modal" class="modal">
-    <div class="row">
-        <div class="modal-content">
-            <h4></h4>
-            <p></p>
+    {{--STUDENT'S PROGRESS--}}
+    <div id="progress-modal" class="modal">
+        <div class="row">
+            <div class="modal-content">
+                <h4></h4>
+                <p></p>
+            </div>
         </div>
     </div>
-</div>
+@endsection
 
 
 

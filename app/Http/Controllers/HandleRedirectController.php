@@ -14,21 +14,21 @@ class HandleRedirectController extends Controller
 
         if(\Auth::check() && \Auth::user()->admin == 1) {
             $user = \Auth::user()->username;
-            $user = ucfirst(strtolower($user));
+            $user = ucwords(strtolower($user));
             Session::flash("successmessage", "Welcome back Admin, ".$user."!");
             return Redirect('admin_dashboard');
         }
 
         if(\Auth::check() && \Auth::user()->role == 'teacher') {
             $user = \Auth::user()->username;
-            $user = ucfirst(strtolower($user));
+            $user = ucwords(strtolower($user));
             Session::flash("successmessage", "Hello, Teacher ".$user."!");
             return Redirect('teacher_dashboard');
         }
 
         if(\Auth::check() && \Auth::user()->role == 'student') {
             $user = \Auth::user()->username;
-            $user = ucfirst(strtolower($user));
+            $user = ucwords(strtolower($user));
             Session::flash("successmessage", "Hi there, ".$user."!");
             return Redirect('student_dashboard');
         }

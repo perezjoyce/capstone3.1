@@ -30,7 +30,6 @@ $(document).ready(function(){
                         // $('#modal-show-activity-result').openModal({dismissible:false});
                         $('#modal-show-activity-result').modal('open');
 
-
                     } else {
                         alert('Please try again.');
                     }

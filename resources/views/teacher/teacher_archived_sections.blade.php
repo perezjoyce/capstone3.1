@@ -3,7 +3,6 @@
 @section('main')
     <main>
         @include('sidenav_teacher')
-
         <div class="row no-margin-bottom">
             <div class="col s12">
 
@@ -143,45 +142,46 @@
             </div>
         </div>
     </main>
-@endsection
 
-{{--CLASS LIST--}}
-<div id="class-list-modal" class="modal">
-    <div class="row">
-        <div class="modal-content">
-            <h4></h4>
-            <p></p>
+
+    {{--CLASS LIST--}}
+    <div id="class-list-modal" class="modal">
+        <div class="row">
+            <div class="modal-content">
+                <h4></h4>
+                <p></p>
+            </div>
         </div>
     </div>
-</div>
 
-{{--MODAL TEMPLATE FOR DELETING STUFF--}}
-<div id="delete-class-modal" class="modal modal-small">
-    <div class='right row'>
-        <a href="#!" class="modal-close waves-effect waves-light-blue btn-flat">&#9587</a>
-    </div>
-    <div class="modal-content">
-        <form method="POST" id="delete-class-modal-form">
-            @csrf
-            @method('delete')
+    {{--MODAL TEMPLATE FOR DELETING STUFF--}}
+    <div id="delete-class-modal" class="modal modal-small">
+        <div class='right row'>
+            <a href="#!" class="modal-close waves-effect waves-light-blue btn-flat">&#9587</a>
+        </div>
+        <div class="modal-content">
+            <form method="POST" id="delete-class-modal-form">
+                @csrf
+                @method('delete')
 
-            <div class="row">
-                <div class="col s12">
-                    <h5 class="red-text">Delete A Class</h5>
-                    <br>
-                    <p id='delete-class-modal-question'></p>
+                <div class="row">
+                    <div class="col s12">
+                        <h5 class="red-text">Delete A Class</h5>
+                        <br>
+                        <p id='delete-class-modal-question'></p>
+                    </div>
                 </div>
-            </div>
 
-            <div class="row">
-                <div class="input-field col s12">
-                    <button type='submit' class="waves-effect waves-light btn grey" id="delete-class-modal-btn">
-                        <i class="material-icons left">delete</i>
-                        {{ __('Delete Class') }}
-                    </button>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <button type='submit' class="waves-effect waves-light btn grey" id="delete-class-modal-btn">
+                            <i class="material-icons left">delete</i>
+                            {{ __('Delete Class') }}
+                        </button>
+                    </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
-</div>
+@endsection
 

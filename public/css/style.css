@@ -13,6 +13,10 @@
 
 /*+++++++++++ IMAGES ******************/
 
+table table.inner tr:last-child {
+    border-bottom: none;
+}
+
 #index-banner {
     background-image: url("/images/background-vector-3.png");
     background-size:cover;

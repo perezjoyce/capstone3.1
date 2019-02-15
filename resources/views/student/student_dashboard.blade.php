@@ -111,54 +111,54 @@
             </div>
         </div>
     </main>
+
+
+    {{--VIEW AND EDIT ACCOUNT MODAL--}}
+    <div id="view-own-profile" class="modal modal-small">
+        <div class="row">
+            <div class="modal-content">
+                <h5 class="orange-text bold">Your Account Details</h5>
+                <br>
+                <form action="editProfile/{{$owner->id}}" method="POST">
+                    @csrf
+                    @method('put')
+                    <div class="input-field">
+                        <label for="owner_name" class="active">Name</label>
+                        <input type="text" value="{{ $owner->name }}" id="owner_name" name="name" required>
+                    </div>
+                    <div class="input-field">
+                        <label for="owner_username" class="active">Username</label>
+                        <input type="text" value="{{ $owner->username }}" id="owner_username" name="username" required>
+                    </div>
+                    <div class="input-field">
+                        <label for="owner_email" class="active">Email</label>
+                        <input type="email" value="{{ $owner->email }}" id="owner_email" name="email" required>
+                    </div>
+                    <a href="#edit-own-password" class="btn orange lighten-3 modal-trigger" style="margin-top:15px;">Change Password</a>
+                    <button class="btn orange" style="margin-top:15px;">Save Changes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {{--VIEW AND EDIT PASSWORD MODAL--}}
+    <div id="edit-own-password" class="modal modal-small">
+        <div class="row">
+            <div class="modal-content">
+                <h5 class="red-text bold text-lighten-2">Change Password</h5>
+                <br>
+                <form action="changePassword/{{$owner->id}}" method="POST">
+                    @csrf
+                    @method('put')
+                    <div class="input-field">
+                        <input type="text" id="owner_password" name="password" placeholder="" required>
+                    </div>
+                    <button class="btn red lighten-2" style="margin-top:15px;">Save New Password</button>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection
-
-{{--VIEW AND EDIT ACCOUNT MODAL--}}
-<div id="view-own-profile" class="modal modal-small">
-    <div class="row">
-        <div class="modal-content">
-            <h5 class="orange-text bold">Your Account Details</h5>
-            <br>
-            <form action="editProfile/{{$owner->id}}" method="POST">
-                @csrf
-                @method('put')
-                <div class="input-field">
-                    <label for="owner_name" class="active">Name</label>
-                    <input type="text" value="{{ $owner->name }}" id="owner_name" name="name" required>
-                </div>
-                <div class="input-field">
-                    <label for="owner_username" class="active">Username</label>
-                    <input type="text" value="{{ $owner->username }}" id="owner_username" name="username" required>
-                </div>
-                <div class="input-field">
-                    <label for="owner_email" class="active">Email</label>
-                    <input type="email" value="{{ $owner->email }}" id="owner_email" name="email" required>
-                </div>
-                <a href="#edit-own-password" class="btn orange lighten-3 modal-trigger" style="margin-top:15px;">Change Password</a>
-                <button class="btn orange" style="margin-top:15px;">Save Changes</button>
-            </form>
-        </div>
-    </div>
-</div>
-
-{{--VIEW AND EDIT PASSWORD MODAL--}}
-<div id="edit-own-password" class="modal modal-small">
-    <div class="row">
-        <div class="modal-content">
-            <h5 class="red-text bold text-lighten-2">Change Password</h5>
-            <br>
-            <form action="changePassword/{{$owner->id}}" method="POST">
-                @csrf
-                @method('put')
-                <div class="input-field">
-                    <input type="text" id="owner_password" name="password" placeholder="" required>
-                </div>
-                <button class="btn red lighten-2" style="margin-top:15px;">Save New Password</button>
-            </form>
-        </div>
-    </div>
-</div>
-
 
 
 

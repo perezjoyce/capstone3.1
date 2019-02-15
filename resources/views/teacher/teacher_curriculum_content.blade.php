@@ -401,7 +401,7 @@
         </div>
    
 </main>
-@endsection
+
 
 <!-- <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=yteahm9v51k11igyavl4mvnrdpgt89b78qma0whsx6gp6z12"></script>
 <script>
@@ -409,42 +409,43 @@
         selector:'textarea' 
     });
 </script> -->
-<style>
-    table table.inner tr:last-child {
-        border-bottom: none;
-    }
-</style>
+{{--<style>--}}
+    {{--table table.inner tr:last-child {--}}
+        {{--border-bottom: none;--}}
+    {{--}--}}
+{{--</style>--}}
 
-<script>
-    function showQuestionsByGradeLevels(gradeLevelId) {
-        $_token = "{{ csrf_token() }}";
-        $.ajax({
-            headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') },
-            url: "{{ url('/questions/1') }}",
-            type: 'GET',
-            cache: false,
-            data: { 'grade_level': gradeLevelId, '_token': $_token },
-            datatype: 'json',
-            beforeSend: function() {
-                //something before send
-            },
-            success: function(response) {
-                
-                //success
-                //var data = $.parseJSON(data);
-                if(response.success == true) {
-                  //user_jobs div defined on page
-                  $('#display_output').html(response.html);
-                } else {
-                  $('#display_output').html(response.html);
-                }
-            },
-            error: function(xhr,textStatus,thrownError) {
-                alert(xhr + "\n" + textStatus + "\n" + thrownError);
-            }
-        });
-    }
-</script>
+{{--<script>--}}
+    {{--function showQuestionsByGradeLevels(gradeLevelId) {--}}
+        {{--$_token = "{{ csrf_token() }}";--}}
+        {{--$.ajax({--}}
+            {{--headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') },--}}
+            {{--url: "{{ url('/questions/1') }}",--}}
+            {{--type: 'GET',--}}
+            {{--cache: false,--}}
+            {{--data: { 'grade_level': gradeLevelId, '_token': $_token },--}}
+            {{--datatype: 'json',--}}
+            {{--beforeSend: function() {--}}
+                {{--//something before send--}}
+            {{--},--}}
+            {{--success: function(response) {--}}
+                {{----}}
+                {{--//success--}}
+                {{--//var data = $.parseJSON(data);--}}
+                {{--if(response.success == true) {--}}
+                  {{--//user_jobs div defined on page--}}
+                  {{--$('#display_output').html(response.html);--}}
+                {{--} else {--}}
+                  {{--$('#display_output').html(response.html);--}}
+                {{--}--}}
+            {{--},--}}
+            {{--error: function(xhr,textStatus,thrownError) {--}}
+                {{--alert(xhr + "\n" + textStatus + "\n" + thrownError);--}}
+            {{--}--}}
+        {{--});--}}
+    {{--}--}}
+{{--</script>--}}
+@endsection
 
 
 

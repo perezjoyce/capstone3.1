@@ -165,8 +165,8 @@ class ChapterController extends Controller
         $choice3->save();
         $choice4->save();
 
+        Session::flash("successmessage", "Your new question has been successfully edited!");
         return Redirect::back();
-
     }
 
     public function getAddQuestionForm($chapterId, $order){
